@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
@@ -18,18 +21,28 @@ public class Spawner : MonoBehaviour
     public static int whichcube;
     public GameObject objectcheck;
     public static bool portalisdown;
-    
+    public TextMeshProUGUI health;
+    public TextMeshProUGUI scoret;
+    int lives = 3;
+    int score = 0;
     // Start is called before the first frame update
     
     void Start()
     {
         Spawn();
-        
+        health.text = "Lives : " + lives;
+        scoret.text = "Score : " + score;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (lives <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+        
         if (!cubeisspawned)
         {
             Spawn();
@@ -56,14 +69,19 @@ public class Spawner : MonoBehaviour
             ColorOf.iscubegone = true;
             ColorOfGround.iscubegoneground = true;
             Spawn();
+            lives--;
+            health.text = "Lives : " + lives;
+            
         }
-        if(TriggerCheck.disty <1.2 && TriggerCheck.distx == 0)
+        else if(TriggerCheck.disty <1.2 && TriggerCheck.distx == 0)
             //burayý deðiþtir portalýn þekli deðiþirse
         {
             Destroy(cube);
             ColorOf.iscubegone = true;
             ColorOfGround.iscubegoneground = true;
             Spawn();
+            score++;
+            scoret.text = "Score : " + score;
         }
             if (Input.GetKeyDown("l"))
         {

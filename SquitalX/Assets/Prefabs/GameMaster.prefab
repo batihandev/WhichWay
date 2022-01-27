@@ -54,3 +54,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   objectcheck: {fileID: 0}
+  health: {fileID: 0}
+  scoret: {fileID: 0}
