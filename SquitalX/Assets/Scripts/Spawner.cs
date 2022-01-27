@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         Spawn();
-        
+        //testc;
     }
 
     // Update is called once per frame
