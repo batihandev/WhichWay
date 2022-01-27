@@ -8,9 +8,26 @@ public class ColorOf : MonoBehaviour
     Material whichmats;
     int random;
     int whichmatcount;
-   
+    public static bool iscubegone = false;
+    public GameObject objectcheck;
+
     // Start is called before the first frame update
     void Awake()
+    {
+        ColorChanger();
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (iscubegone)
+        {
+            ColorChanger();
+
+        }
+    }
+    void ColorChanger()
     {
         switch (Spawner.whichcube)
         {
@@ -19,7 +36,7 @@ public class ColorOf : MonoBehaviour
                 random = Random.Range(0, list0.Length);
                 whichmatcount = list0[random];
                 whichmats = materials[whichmatcount];
-                gameObject.GetComponent < MeshRenderer >().material= whichmats;
+                gameObject.GetComponent<MeshRenderer>().material = whichmats;
                 break;
             case 1:
                 int[] list1 = { 0, 2, 3 };
@@ -29,7 +46,7 @@ public class ColorOf : MonoBehaviour
                 gameObject.GetComponent<MeshRenderer>().material = whichmats;
                 break;
             case 2:
-                int[] list2 = { 0, 1,  3 };
+                int[] list2 = { 0, 1, 3 };
                 random = Random.Range(0, list2.Length);
                 whichmatcount = list2[random];
                 whichmats = materials[whichmatcount];
@@ -44,12 +61,7 @@ public class ColorOf : MonoBehaviour
                 break;
 
         }
-        Debug.Log("Hangiküb" + Spawner.whichcube + "Hangimat" + whichmats+"portalnumber"+ChosePortal.portalnumber);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-      
+        iscubegone = false;
+        Debug.Log("PortalColorÇalýþtý"+"Hangiküb" + Spawner.whichcube + "Hangimat" + whichmats + "portalnumber" + ChosePortal.portalnumber);
     }
 }

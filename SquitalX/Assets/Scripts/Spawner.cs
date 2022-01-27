@@ -16,6 +16,8 @@ public class Spawner : MonoBehaviour
     Vector2 dir;
     int xne;
     public static int whichcube;
+    public GameObject objectcheck;
+    
     // Start is called before the first frame update
     
     void Start()
@@ -47,17 +49,17 @@ public class Spawner : MonoBehaviour
                 moveCubeSol();
                 break;
         }
-        
-        
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Portal")
+        if (Input.GetKeyDown("l"))
         {
             Destroy(cube);
-
+            ColorOf.iscubegone = true;
+            ColorOfGround.iscubegoneground = true;
+            Spawn();
         }
+        objectcheck.transform.position = cube.transform.position;
+        
     }
+
 
     public void Spawn()
     {
@@ -80,6 +82,7 @@ public class Spawner : MonoBehaviour
         Debug.Log("spawnküb" + whichcube);
 
         cubeisspawned = true;
+        
     }
     public void moveCube()
     {
