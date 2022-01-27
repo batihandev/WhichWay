@@ -10,13 +10,14 @@ public class Spawner : MonoBehaviour
     int rondomSpawn;
     public static bool cubeisspawned = false;
     GameObject cube;
-    int speed = 5;
-    int thisway;
+    
+    public static int thisway;
     Transform cubeT;
     Vector2 dir;
     int xne;
     public static int whichcube;
     public GameObject objectcheck;
+    public static bool portalisdown;
     
     // Start is called before the first frame update
     
@@ -78,6 +79,7 @@ public class Spawner : MonoBehaviour
 
     public void Spawn()
     {
+        ChosePortal.portalisgone = true;
         rondomSpawn = Random.Range(0, spawnPoints.Length);
         rondomCube = Random.Range(0, cubes.Length);
         whichcube = rondomCube;
@@ -85,14 +87,16 @@ public class Spawner : MonoBehaviour
         
         
         cubeT = cube.transform;
-        if (ChosePortal.portalisdown)
-        {
-            thisway = speed;
-        }
-        else
-        {
-            thisway = -speed;
-        }
+        //if (!portalisdown)
+        //{
+        //    thisway = speed;
+        //    Debug.Log(thisway + "bozidiz");
+        //}
+        //if(portalisdown)
+        //{
+        //    thisway = -speed;
+        //    Debug.Log(thisway + "negadiz    ");
+        //}
        
         Debug.Log("spawnküb" + whichcube);
 

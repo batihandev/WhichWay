@@ -8,9 +8,10 @@ public class ChosePortal : MonoBehaviour
     Transform[] portals;
     public GameObject portal;
     int choseportal;
-    public static bool portalisdown;
+    int speed = 5;
     public static int portalnumber;
     public Transform portalcheck;
+    public static bool portalisgone=false;
     private void Awake()
     {
         portals = new Transform[transform.childCount];
@@ -28,11 +29,11 @@ public class ChosePortal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Spawner.cubeisspawned)
+        if (portalisgone)
         {
             Destroy(portal);
             portalspawner();
-
+            portalisgone = false;
         }
     }
     void portalspawner()
@@ -40,16 +41,18 @@ public class ChosePortal : MonoBehaviour
         choseportal = Random.Range(0, portals.Length);
         if (choseportal >= 3)
         {
-            portalisdown = true;
-            
+            Spawner.portalisdown=false;
+            Spawner.thisway = speed;
         }
         else
         {
-            portalisdown = false;
+            Spawner.portalisdown = true;
+            Spawner.thisway = -speed;
         }
         portal = Instantiate(portal, portals[choseportal]);
         portalnumber = Spawner.whichcube;
         portalcheck.position = portals[choseportal].position;
+        Debug.Log("portalyönüaþaðý" + Spawner.portalisdown);
     }
 }
 
