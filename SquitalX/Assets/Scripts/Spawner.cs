@@ -49,7 +49,22 @@ public class Spawner : MonoBehaviour
                 moveCubeSol();
                 break;
         }
-        if (Input.GetKeyDown("l"))
+        if (TriggerCheck.disty < 0.5)
+        {
+            Destroy(cube);
+            ColorOf.iscubegone = true;
+            ColorOfGround.iscubegoneground = true;
+            Spawn();
+        }
+        if(TriggerCheck.disty <1.2 && TriggerCheck.distx == 0)
+            //burayý deðiþtir portalýn þekli deðiþirse
+        {
+            Destroy(cube);
+            ColorOf.iscubegone = true;
+            ColorOfGround.iscubegoneground = true;
+            Spawn();
+        }
+            if (Input.GetKeyDown("l"))
         {
             Destroy(cube);
             ColorOf.iscubegone = true;

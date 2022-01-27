@@ -10,6 +10,7 @@ public class ChosePortal : MonoBehaviour
     int choseportal;
     public static bool portalisdown;
     public static int portalnumber;
+    public Transform portalcheck;
     private void Awake()
     {
         portals = new Transform[transform.childCount];
@@ -48,6 +49,7 @@ public class ChosePortal : MonoBehaviour
         }
         portal = Instantiate(portal, portals[choseportal]);
         portalnumber = Spawner.whichcube;
+        portalcheck.position = portals[choseportal].position;
     }
 }
 
