@@ -19,7 +19,7 @@ public class TriggerCheck : MonoBehaviour
         distx = Mathf.Abs(portal.position.x- objectivecheck.position.x);
         disty = Mathf.Abs(portal.position.y - objectivecheck.position.y);
         
-
+        //deli
     }
 }
 
