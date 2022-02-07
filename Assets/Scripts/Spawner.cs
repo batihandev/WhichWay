@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour
     int rondomSpawn;
     public static bool cubeisspawned = false;
     GameObject cube;
-    
+
     public static int thisway;
     Transform cubeT;
     Vector2 dir;
@@ -25,8 +25,12 @@ public class Spawner : MonoBehaviour
     public TextMeshProUGUI scoret;
     int lives = 3;
     int score = 0;
+    bool rightclick = false;
+    bool leftclick = false;
+    bool touchedonce = false;
+
     // Start is called before the first frame update
-    
+
     void Start()
     {
         Spawn();
@@ -42,12 +46,12 @@ public class Spawner : MonoBehaviour
         {
             SceneManager.LoadScene("GameOver");
         }
-        
+
         if (!cubeisspawned)
         {
             Spawn();
         }
-       
+
         switch (whichcube)
         {
             case 0:
@@ -63,6 +67,7 @@ public class Spawner : MonoBehaviour
                 moveCubeSol();
                 break;
         }
+        
         if (TriggerCheck.disty < 0.5)
         {
             Destroy(cube);
@@ -71,10 +76,10 @@ public class Spawner : MonoBehaviour
             Spawn();
             lives--;
             health.text = "Lives : " + lives;
-            
+
         }
-        else if(TriggerCheck.disty <1.2 && TriggerCheck.distx == 0)
-            //burayý deðiþtir portalýn þekli deðiþirse
+        else if (TriggerCheck.disty < 1.2 && TriggerCheck.distx == 0)
+        //burayý deðiþtir portalýn þekli deðiþirse
         {
             Destroy(cube);
             ColorOf.iscubegone = true;
@@ -83,18 +88,43 @@ public class Spawner : MonoBehaviour
             score++;
             scoret.text = "Score : " + score;
         }
-            if (Input.GetKeyDown("l"))
+        if (Input.GetKeyDown("l"))
         {
             Destroy(cube);
             ColorOf.iscubegone = true;
             ColorOfGround.iscubegoneground = true;
             Spawn();
         }
+        cubeT.position += new Vector3(0, thisway * Time.deltaTime, 0);
+
         objectcheck.transform.position = cube.transform.position;
-        
+
     }
 
+    public void checktouch()
+    {
+        if (Input.touchCount > 0)
+        {
+            var touch = Input.GetTouch(0);
+            if (touch.position.x < Screen.width / 2)
+            {
+                leftclick = true;
+                rightclick = false;
+            }
+            else if (touch.position.x > Screen.width / 2)
+            {
+                rightclick = true;
+                leftclick = false;
+            }
+        }
+        else
+        {
+            rightclick = false;
+            leftclick = false;
+            touchedonce = false;
+        }
 
+    }
     public void Spawn()
     {
         ChosePortal.portalisgone = true;
@@ -102,8 +132,8 @@ public class Spawner : MonoBehaviour
         rondomCube = Random.Range(0, cubes.Length);
         whichcube = rondomCube;
         cube = Instantiate(cubes[rondomCube], spawnPoints[rondomSpawn]);
-        
-        
+
+
         cubeT = cube.transform;
         //if (!portalisdown)
         //{
@@ -115,238 +145,267 @@ public class Spawner : MonoBehaviour
         //    thisway = -speed;
         //    Debug.Log(thisway + "negadiz    ");
         //}
-       
+
         Debug.Log("spawnküb" + whichcube);
 
+
         cubeisspawned = true;
-        
+
     }
     public void moveCube()
     {
-
-        cubeT.position += new Vector3(0,thisway*Time.deltaTime,0);
-        //Debug.Log(thisway+"x position "+ cubeT.position.x+"hangiküp"+whichcube);
-        if (Input.GetKeyDown("a")) { 
-         if (cubeT.position.x == 2.4f )
-         {
-                xne = 1;
-            // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-        }
-        if (cubeT.position.x == 0)
-         {
-                xne = 2;
-            // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-        }
-        if (cubeT.position.x == -2.4f )
-         {
-                xne = 3;
-            // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-         }
-            //(2.4f, cubeT.position.y, cubeT.position.z);
-            switch (xne)
-            {
-                case 1:
-                    cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 2:
-                    cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 3:
-                    cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-
-            }
-        }
-        if (Input.GetKeyDown("d"))
+        checktouch();
+        if (Input.touchCount > 0 && !touchedonce)
         {
-            if (cubeT.position.x == 2.4f)
+            touchedonce = true;
+            
+            //cubeT.position += new Vector3(0,thisway*Time.deltaTime,0);
+            //Debug.Log(thisway+"x position "+ cubeT.position.x+"hangiküp"+whichcube);
+            if (Input.GetKeyDown("a") || leftclick)
             {
-                xne = 1;
-                // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-            }
-            if (cubeT.position.x == 0)
-            {
-                xne = 2;
-                // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-            }
-            if (cubeT.position.x == -2.4f)
-            {
-                xne = 3;
-                // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-            }
-            //(2.4f, cubeT.position.y, cubeT.position.z);
-            switch (xne)
-            {
-                case 1:
-                    cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 2:
-                    cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 3:
-                    cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-                    break;
+                if (cubeT.position.x == 2.4f)
+                {
+                    xne = 1;
+                    // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == 0)
+                {
+                    xne = 2;
+                    // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == -2.4f)
+                {
+                    xne = 3;
+                    // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                //(2.4f, cubeT.position.y, cubeT.position.z);
+                switch (xne)
+                {
+                    case 1:
+                        cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 2:
+                        cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 3:
+                        cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
 
+                }
             }
+            if (Input.GetKeyDown("d") || rightclick)
+            {
+                if (cubeT.position.x == 2.4f)
+                {
+                    xne = 1;
+                    // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == 0)
+                {
+                    xne = 2;
+                    // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == -2.4f)
+                {
+                    xne = 3;
+                    // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                //(2.4f, cubeT.position.y, cubeT.position.z);
+                switch (xne)
+                {
+                    case 1:
+                        cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 2:
+                        cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 3:
+                        cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                        break;
+
+                }
+            }
+            //leftclick = false;
+            //rightclick = false;
+            
+
         }
-
-
-
     }
     public void moveCubeReverse()
     {
-
-        cubeT.position += new Vector3(0, thisway * Time.deltaTime, 0);
-        //Debug.Log(thisway + "x position " + cubeT.position.x);
-        if (Input.GetKeyDown("a"))
+        checktouch();
+        if (Input.touchCount > 0 && !touchedonce)
         {
-            if (cubeT.position.x == 2.4f)
+            touchedonce = true;
+         
+            //cubeT.position += new Vector3(0, thisway * Time.deltaTime, 0);
+            //Debug.Log(thisway + "x position " + cubeT.position.x);
+            if (Input.GetKeyDown("a") || leftclick)
             {
-                xne = 1;
-                // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-            }
-            if (cubeT.position.x == 0)
-            {
-                xne = 2;
-                // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-            }
-            if (cubeT.position.x == -2.4f)
-            {
-                xne = 3;
-                // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-            }
-            //(2.4f, cubeT.position.y, cubeT.position.z);
-            switch (xne)
-            {
-                case 1:
-                    cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 2:
-                    cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 3:
-                    cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-                    break;
+                if (cubeT.position.x == 2.4f)
+                {
+                    xne = 1;
+                    // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == 0)
+                {
+                    xne = 2;
+                    // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == -2.4f)
+                {
+                    xne = 3;
+                    // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                //(2.4f, cubeT.position.y, cubeT.position.z);
+                switch (xne)
+                {
+                    case 1:
+                        cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 2:
+                        cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 3:
+                        cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                        break;
+
+                }
 
             }
+            if (Input.GetKeyDown("d") || rightclick)
+            {
+                if (cubeT.position.x == 2.4f)
+                {
+                    xne = 1;
+                    // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == 0)
+                {
+                    xne = 2;
+                    // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == -2.4f)
+                {
+                    xne = 3;
+                    // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                //(2.4f, cubeT.position.y, cubeT.position.z);
+                switch (xne)
+                {
+                    case 1:
+                        cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 2:
+                        cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 3:
+                        cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
+
+                }
+            }
+            //leftclick = false;
+            //rightclick = false;
+            
+
+
         }
-        if (Input.GetKeyDown("d"))
-        {
-            if (cubeT.position.x == 2.4f)
-            {
-                xne = 1;
-                // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-            }
-            if (cubeT.position.x == 0)
-            {
-                xne = 2;
-                // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-            }
-            if (cubeT.position.x == -2.4f)
-            {
-                xne = 3;
-                // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-            }
-            //(2.4f, cubeT.position.y, cubeT.position.z);
-            switch (xne)
-            {
-                case 1:
-                    cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 2:
-                    cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 3:
-                    cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-
-            }
-        }
-
-
-
     }
     public void moveCubeSaG()
     {
-
-        cubeT.position += new Vector3(0, thisway * Time.deltaTime, 0);
-        //Debug.Log(thisway + "x position " + cubeT.position.x);
-        if (Input.GetKeyDown("a") || Input.GetKeyDown("d"))
+        checktouch();
+        if (Input.touchCount > 0 && !touchedonce)
         {
-            if (cubeT.position.x == 2.4f)
+            touchedonce = true;
+            
+            //cubeT.position += new Vector3(0, thisway * Time.deltaTime, 0);
+            //Debug.Log(thisway + "x position " + cubeT.position.x);
+            if (Input.GetKeyDown("a") || Input.GetKeyDown("d") || leftclick || rightclick)
             {
-                xne = 1;
-                // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-            }
-            if (cubeT.position.x == 0)
-            {
-                xne = 2;
-                // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-            }
-            if (cubeT.position.x == -2.4f)
-            {
-                xne = 3;
-                // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-            }
-            //(2.4f, cubeT.position.y, cubeT.position.z);
-            switch (xne)
-            {
-                case 1:
-                    cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 2:
-                    cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 3:
-                    cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-                    break;
+                if (cubeT.position.x == 2.4f)
+                {
+                    xne = 1;
+                    // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == 0)
+                {
+                    xne = 2;
+                    // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == -2.4f)
+                {
+                    xne = 3;
+                    // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                //(2.4f, cubeT.position.y, cubeT.position.z);
+                switch (xne)
+                {
+                    case 1:
+                        cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 2:
+                        cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 3:
+                        cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                        break;
 
+                }
             }
+            //leftclick = false;
+            //rightclick = false;
+            
+
+
         }
-      
-
-
     }
     public void moveCubeSol()
     {
-
-        cubeT.position += new Vector3(0, thisway * Time.deltaTime, 0);
-        //Debug.Log(thisway + "x position " + cubeT.position.x);
-        if (Input.GetKeyDown("a")|| Input.GetKeyDown("d"))
+        checktouch();
+        if (Input.touchCount > 0 && !touchedonce)
         {
-            if (cubeT.position.x == 2.4f)
+            touchedonce = true;
+            
+            //cubeT.position += new Vector3(0, thisway * Time.deltaTime, 0);
+            //Debug.Log(thisway + "x position " + cubeT.position.x);
+            if (Input.GetKeyDown("a") || Input.GetKeyDown("d") || leftclick || rightclick)
             {
-                xne = 1;
-                // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-            }
-            if (cubeT.position.x == 0)
-            {
-                xne = 2;
-                // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-            }
-            if (cubeT.position.x == -2.4f)
-            {
-                xne = 3;
-                // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-            }
-            //(2.4f, cubeT.position.y, cubeT.position.z);
-            switch (xne)
-            {
-                case 1:
-                    cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 2:
-                    cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
-                case 3:
-                    cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
-                    break;
+                if (cubeT.position.x == 2.4f)
+                {
+                    xne = 1;
+                    // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == 0)
+                {
+                    xne = 2;
+                    // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                if (cubeT.position.x == -2.4f)
+                {
+                    xne = 3;
+                    // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                }
+                //(2.4f, cubeT.position.y, cubeT.position.z);
+                switch (xne)
+                {
+                    case 1:
+                        cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 2:
+                        cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
+                    case 3:
+                        cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                        break;
 
+                }
             }
+            //leftclick = false;
+            //rightclick = false;
+            
+
         }
-      
-
-
     }
 }
 
