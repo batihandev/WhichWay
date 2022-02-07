@@ -9,6 +9,7 @@ public class EndGameMenu : MonoBehaviour
     public void playgame()
     {
        
+        //testgl
 
         SceneManager.LoadScene("GamePlay");
     }
