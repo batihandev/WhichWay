@@ -56,3 +56,6 @@ MonoBehaviour:
   objectcheck: {fileID: 0}
   health: {fileID: 0}
   scoret: {fileID: 0}
+  objectivecheck: {fileID: 0}
+  portal: {fileID: 0}
+  spawndist: {fileID: 0}

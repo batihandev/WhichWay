@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class ColorOfGround : MonoBehaviour
@@ -66,6 +65,6 @@ public class ColorOfGround : MonoBehaviour
 
         }
         iscubegoneground = false;
-        Debug.Log("GroundColorÇALIÞTI"+"Hangiküb" + Spawner.whichcube + "Hangimat" + whichmats + "portalnumber" + ChosePortal.portalnumber);
+        //Debug.Log("GroundColorÇALIÞTI"+"Hangiküb" + Spawner.whichcube + "Hangimat" + whichmats + "portalnumber" + ChosePortal.portalnumber);
     }
 }

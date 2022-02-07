@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class ChosePortal : MonoBehaviour
@@ -55,7 +54,7 @@ public class ChosePortal : MonoBehaviour
         portal = Instantiate(portal, portals[choseportal]);
         portalnumber = Spawner.whichcube;
         portalcheck.position = portals[choseportal].position;
-        Debug.Log("portalyönüaþaðý" + Spawner.portalisdown);
+       // Debug.Log("portalyönüaþaðý" + Spawner.portalisdown);
     }
 }
 

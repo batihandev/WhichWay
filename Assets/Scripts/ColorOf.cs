@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class ColorOf : MonoBehaviour
@@ -62,6 +61,6 @@ public class ColorOf : MonoBehaviour
 
         }
         iscubegone = false;
-        Debug.Log("PortalColorÇalýþtý"+"Hangiküb" + Spawner.whichcube + "Hangimat" + whichmats + "portalnumber" + ChosePortal.portalnumber);
+        //Debug.Log("PortalColorÇalýþtý"+"Hangiküb" + Spawner.whichcube + "Hangimat" + whichmats + "portalnumber" + ChosePortal.portalnumber);
     }
 }

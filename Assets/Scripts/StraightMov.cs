@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class StraightMov : MonoBehaviour
@@ -41,6 +40,7 @@ public class StraightMov : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position += new Vector3(0, Spawner.thisway * Time.deltaTime, 0);
         checktouch();
         if (Input.touchCount > 0 && !touchedonce)
         {

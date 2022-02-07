@@ -165,13 +165,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3846458090573565062}
     - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
+      propertyPath: portal
+      value: 
+      objectReference: {fileID: 1481203043}
+    - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
       propertyPath: scoret
       value: 
       objectReference: {fileID: 3846458090573565063}
     - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
+      propertyPath: spawndist
+      value: 
+      objectReference: {fileID: 1890482039}
+    - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
       propertyPath: objectcheck
       value: 
       objectReference: {fileID: 1450399381}
+    - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
+      propertyPath: objectivecheck
+      value: 
+      objectReference: {fileID: 1450399382}
     - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
       propertyPath: spawnPoints.Array.data[0]
       value: 
@@ -592,14 +604,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 15416258, guid: 91ba6b1b5eb3dab46991edeb5544a2ae, type: 3}
-      propertyPath: portal
-      value: 
-      objectReference: {fileID: 1481203043}
-    - target: {fileID: 15416258, guid: 91ba6b1b5eb3dab46991edeb5544a2ae, type: 3}
-      propertyPath: objectivecheck
-      value: 
-      objectReference: {fileID: 1450399382}
     - target: {fileID: 179871016507322003, guid: 91ba6b1b5eb3dab46991edeb5544a2ae, type: 3}
       propertyPath: m_RootOrder
       value: 3
