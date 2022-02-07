@@ -14,14 +14,18 @@ public class ColorOfGround : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        ColorChanger();
-
+       // ColorChanger();
+        int[] list0 = { 1, 2, 3 };
+        random = Random.Range(0, list0.Length);
+        whichmatcount = list0[random];
+        whichmats = materials[whichmatcount];
+        gameObject.GetComponent<MeshRenderer>().material = whichmats;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (iscubegoneground)
+        if (iscubegoneground )
         {
             ColorChanger();
 

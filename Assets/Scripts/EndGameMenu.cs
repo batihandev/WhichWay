@@ -8,10 +8,11 @@ public class EndGameMenu : MonoBehaviour
 
     public void playgame()
     {
-       
-        //testgl
 
+        //testgl
+        Time.timeScale = 1;
         SceneManager.LoadScene("GamePlay");
+        
     }
     
 }

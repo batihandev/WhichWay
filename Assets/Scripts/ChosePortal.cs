@@ -23,7 +23,10 @@ public class ChosePortal : MonoBehaviour
     void Start()
 
     {
-        portalspawner();
+        choseportal = Random.Range(1, 3);
+        portal = Instantiate(portal, portals[choseportal]);
+        portalcheck.position = portal.transform.position;
+        Spawner.thisway = -speed;
     }
 
     // Update is called once per frame
@@ -39,7 +42,7 @@ public class ChosePortal : MonoBehaviour
     void portalspawner()
     {
         choseportal = Random.Range(0, portals.Length);
-        if (choseportal >= 3)
+        if (choseportal >= 3 )
         {
             Spawner.portalisdown=false;
             Spawner.thisway = speed;
