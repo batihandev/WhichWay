@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class ChosePortal : MonoBehaviour
@@ -7,10 +6,13 @@ public class ChosePortal : MonoBehaviour
     Transform[] portals;
     public GameObject portal;
     int choseportal;
-    int speed = 5;
+    float speed = 3;
+    
     public static int portalNumber;
     public Transform portalCheck;
-    public static bool portalIsGone=false;
+    public static bool changePortalCheck=false;
+    bool Up = false;
+    float random;
     private void Awake()
     {
         portals = new Transform[transform.childCount];
@@ -31,12 +33,34 @@ public class ChosePortal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (portalIsGone)
+        if (Spawner.score > 9)
         {
-            Destroy(portal);
-            portalspawner();
-            portalIsGone = false;
+            speed = 3 + (Mathf.Log(Spawner.score -8)) / 3;
+            if (Up)
+            {
+                Spawner.thisWay = speed;
+            }
+            else
+            {
+                Spawner.thisWay = -speed;
+            }
         }
+        
+        if (changePortalCheck)
+        {
+            random = Random.Range(Spawner.score, 200);
+            if (random > 125)
+            {
+                Destroy(portal);
+                portalspawner();
+                changePortalCheck = false;
+                
+            }
+
+            
+            changePortalCheck = false;
+        }
+        Debug.Log(speed+"speed"+Mathf.Log(100));
     }
     void portalspawner()
     {
@@ -44,12 +68,14 @@ public class ChosePortal : MonoBehaviour
         if (choseportal >= 3 )
         {
             Spawner.portalIsDown=false;
-            Spawner.thisWay = speed;
+            Spawner.thisWay= speed ;
+            Up = true;
         }
         else
         {
             Spawner.portalIsDown = true;
             Spawner.thisWay = -speed;
+            Up = false;
         }
         portal = Instantiate(portal, portals[choseportal]);
         portalNumber = Spawner.whichCube;

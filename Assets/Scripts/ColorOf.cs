@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorOf : MonoBehaviour
@@ -6,6 +7,7 @@ public class ColorOf : MonoBehaviour
     public Material[] materials;
     Material whichmats;
     int random;
+    
     int whichmatcount;
     public static bool isCubeGone = false;
     public GameObject objectcheck;

@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
     public static bool cubeIsSpawned = false;
     GameObject cube;
    
-    public static int thisWay;
+    public static float thisWay;
    
     List<GameObject> cubeT = new List<GameObject>();
     
@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour
     public TextMeshProUGUI health;
     public TextMeshProUGUI scoret;
     int lives = 3;
-    int score = 0;
+    public static int score = 0;
     int index;
  
     public Transform objectiveCheck;
@@ -45,10 +45,10 @@ public class Spawner : MonoBehaviour
     void Awake()
     {
         lives = 3;
-       
+        score = 0;
         cube = Instantiate(cubes[0], spawnPoints[0]);
         cubeT.Add(cube);
-        
+        thisWay = 0;
         whichCube = 0;
         
         cubeIsSpawned = true;
@@ -63,9 +63,11 @@ public class Spawner : MonoBehaviour
    
     void Update()
     {
-        
-        
-      
+
+
+
+
+        ScoreKeeper();
         for (int i = 0; i < cubeT.Count; i++)
         {
             distForSpawn.Add(Mathf.Abs(cubeT[i].transform.position.y - spawnDist.position.y));
@@ -84,16 +86,19 @@ public class Spawner : MonoBehaviour
             }
             
         }
-
-       
-       
-        if (cubeT.Count<5 && canspawn)
+        
+        if (cubeT.Count < 5 && canspawn)
         {
             Spawn();
         }
+        
 
-        ScoreKeeper();
-    
+
+
+
+
+
+
 
         if (Input.touchCount==2)
         {
@@ -106,57 +111,55 @@ public class Spawner : MonoBehaviour
         }
       
 
-       
-            
-               
-           
-            
-        
-       
-       
-
     }
     public void ScoreKeeper()
     {
         
         
-            bool isEmpty = !destroyDisty.Any();
-            if (isEmpty) {
+            //bool isEmpty = !destroyDisty.Any();
+            //if (isEmpty) {
                 
-            destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
-            destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
-            destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
-            destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
-            destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
+            //destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
+            //destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
+            //destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
+            //destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
+            //destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
 
 
 
-            }
-            else if(!isEmpty)
-            {
+            //}
+            //else if(!isEmpty)
+            //{
+            destroyDisty.Clear();
+            destroyDistx.Clear();
             for (int i = 0; i < cubeT.Count; i++)
             {
-                destroyDisty[i]= Mathf.Abs(cubeT[i].transform.position.y - portal.position.y);
+                destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
+            destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
+            destroyDisty[i]= Mathf.Abs(cubeT[i].transform.position.y - portal.position.y);
+            destroyDistx[i] = Mathf.Abs(cubeT[i].transform.position.x - portal.position.x);
             }
-            }
-            bool isEmptyx = !destroyDistx.Any();
+           // }
+           // bool isEmptyx = !destroyDistx.Any();
             
-            if (isEmptyx)
-            {
-            destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
-            destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
-            destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
-            destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
-            destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
+           // if (isEmptyx)
+           // {
+           // destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
+           // destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
+           // destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
+           // destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
+           // destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
           
-            }
-            else if (!isEmpty)
-           {
-            for (int a = 0; a < cubeT.Count; a++)
-            {
-               destroyDistx[a] = Mathf.Abs(cubeT[a].transform.position.x - portal.position.x);
-            }
-            }
+           // }
+           // else if (!isEmpty)
+           //{
+            
+           // for (int a = 0; a < cubeT.Count; a++)
+           // {
+           //     destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
+           //     destroyDistx[a] = Mathf.Abs(cubeT[a].transform.position.x - portal.position.x);
+           // }
+            
             
 
         
@@ -166,22 +169,23 @@ public class Spawner : MonoBehaviour
               
 
               index = destroyDisty.IndexOf(minValy);
-        
 
+        //if(cubeT[index])
         minValx = Mathf.Abs (cubeT[index].transform.position.x - portal.position.x);
         minValyI = Mathf.Abs (cubeT[index].transform.position.y - portal.position.y);
-        if (minValyI < 1.2f && minValx <= 0.1f)
+        if (minValyI < 2f && minValx <= 0.1f)
             //burayý deðiþtir portalýn þekli deðiþirse
             {
                 
 
                 ColorOf.isCubeGone = true;
                 ColorOfGround.ýsCubeGoneGround = true;
-                ChosePortal.portalIsGone = true;
+                ChosePortal.changePortalCheck = true;
                 score++;
                 scoret.text = "Score : " + score;
                 Destroy(cubeT[index]);
                 cubeT.RemoveAt(index);
+            
             Debug.Log(index + "index" + destroyIndex + "destroyindex"+"score");
 
 
@@ -189,26 +193,23 @@ public class Spawner : MonoBehaviour
         }
         else if (minValyI < 0.5f)
             {
-                if (lives == 1)
+                if (lives == 0)
                 {
 
                     
-                    if (lives == 1)
-                    {
-                        lives--;
-                    }
+                    
                     Time.timeScale = 0;
                     health.text = "Lives : " + lives;
                     SceneManager.LoadScene("GameOver");
 
                 }
-                else if (lives > 1)
+                else if (lives > 0)
                 {
 
 
                     ColorOf.isCubeGone = true;
                     ColorOfGround.ýsCubeGoneGround = true;
-                ChosePortal.portalIsGone = true;
+                ChosePortal.changePortalCheck = true;
                 lives--;
                     health.text = "Lives : " + lives;
                     Destroy(cubeT[index]);
@@ -220,9 +221,9 @@ public class Spawner : MonoBehaviour
             }
 
             }
+        
 
 
-       
     }
  
     public void Spawn()
