@@ -7,7 +7,7 @@ public class ColorOf : MonoBehaviour
     Material whichmats;
     int random;
     int whichmatcount;
-    public static bool iscubegone = false;
+    public static bool isCubeGone = false;
     public GameObject objectcheck;
 
     // Start is called before the first frame update
@@ -20,7 +20,7 @@ public class ColorOf : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (iscubegone)
+        if (isCubeGone)
         {
             ColorChanger();
 
@@ -28,7 +28,7 @@ public class ColorOf : MonoBehaviour
     }
     void ColorChanger()
     {
-        switch (Spawner.whichcube)
+        switch (Spawner.whichCube)
         {
             case 0:
                 int[] list0 = { 1, 2, 3 };
@@ -60,7 +60,7 @@ public class ColorOf : MonoBehaviour
                 break;
 
         }
-        iscubegone = false;
+        isCubeGone = false;
         //Debug.Log("PortalColorÇalýþtý"+"Hangiküb" + Spawner.whichcube + "Hangimat" + whichmats + "portalnumber" + ChosePortal.portalnumber);
     }
 }

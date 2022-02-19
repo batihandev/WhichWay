@@ -173,13 +173,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3846458090573565063}
     - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
+      propertyPath: spawnDist
+      value: 
+      objectReference: {fileID: 1450399382}
+    - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
       propertyPath: spawndist
       value: 
       objectReference: {fileID: 1890482039}
     - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
+      propertyPath: objectCheck
+      value: 
+      objectReference: {fileID: 1450399381}
+    - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
       propertyPath: objectcheck
       value: 
       objectReference: {fileID: 1450399381}
+    - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
+      propertyPath: objectiveCheck
+      value: 
+      objectReference: {fileID: 1450399382}
     - target: {fileID: 1518190421376342472, guid: f70b9940bd409e547931fb18c2c96dba, type: 3}
       propertyPath: objectivecheck
       value: 
@@ -648,6 +660,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7385761634839865478, guid: 91ba6b1b5eb3dab46991edeb5544a2ae, type: 3}
+      propertyPath: portalCheck
+      value: 
+      objectReference: {fileID: 1481203043}
     - target: {fileID: 7385761634839865478, guid: 91ba6b1b5eb3dab46991edeb5544a2ae, type: 3}
       propertyPath: portalcheck
       value: 

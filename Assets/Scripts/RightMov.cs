@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class RightMov : MonoBehaviour
 {
-    bool leftclick;
-    bool rightclick;
-    bool touchedonce;
+    bool leftClick;
+    bool rightClick;
+    bool touchedOnce;
     int xne;
     // Start is called before the first frame update
     void Start()
@@ -19,20 +19,20 @@ public class RightMov : MonoBehaviour
             var touch = Input.GetTouch(0);
             if (touch.position.x < Screen.width / 2)
             {
-                leftclick = true;
-                rightclick = false;
+                leftClick = true;
+                rightClick = false;
             }
             else if (touch.position.x > Screen.width / 2)
             {
-                rightclick = true;
-                leftclick = false;
+                rightClick = true;
+                leftClick = false;
             }
         }
         else
         {
-            rightclick = false;
-            leftclick = false;
-            touchedonce = false;
+            rightClick = false;
+            leftClick = false;
+            touchedOnce = false;
         }
 
     }
@@ -40,32 +40,30 @@ public class RightMov : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(0, Spawner.thisway * Time.deltaTime, 0);
+        transform.position += new Vector3(0, Spawner.thisWay * Time.deltaTime, 0);
         checktouch();
-        if (Input.touchCount > 0 && !touchedonce)
+        if (Input.touchCount > 0 && !touchedOnce)
         {
-            touchedonce = true;
+            touchedOnce = true;
 
-            //cubeT.position += new Vector3(0, thisway * Time.deltaTime, 0);
-            //Debug.Log(thisway + "x position " + cubeT.position.x);
-            if (Input.GetKeyDown("a") || Input.GetKeyDown("d") || leftclick || rightclick)
+            if (Input.GetKeyDown("a") || Input.GetKeyDown("d") || leftClick || rightClick)
             {
                 if (transform.position.x == 2.4f)
                 {
                     xne = 1;
-                    // cubeT.position = new Vector3(0, cubeT.position.y, cubeT.position.z);
+                   
                 }
-                if (transform.position.x == 0)
+                else if (transform.position.x == 0)
                 {
                     xne = 2;
-                    // cubeT.position = new Vector3(-2.4f, cubeT.position.y, cubeT.position.z);
+                    
                 }
-                if (transform.position.x == -2.4f)
+                else if (transform.position.x == -2.4f)
                 {
                     xne = 3;
-                    // cubeT.position = new Vector3(2.4f, cubeT.position.y, cubeT.position.z);
+                    
                 }
-                //(2.4f, cubeT.position.y, cubeT.position.z);
+              
                 switch (xne)
                 {
                     case 1:
@@ -80,8 +78,7 @@ public class RightMov : MonoBehaviour
 
                 }
             }
-            //leftclick = false;
-            //rightclick = false;
+        
 
 
 

@@ -4,11 +4,11 @@ using UnityEngine;
 public class ColorOfGround : MonoBehaviour
 {
     public Material[] materials;
-    Material whichmats;
+    Material whichMats;
     int random;
-    int whichmatcount;
-    public static bool iscubegoneground = false;
-    public GameObject objectcheck;
+    int whichMatCount;
+    public static bool ýsCubeGoneGround = false;
+    public GameObject objectCheck;
 
     // Start is called before the first frame update
     void Awake()
@@ -16,15 +16,15 @@ public class ColorOfGround : MonoBehaviour
        // ColorChanger();
         int[] list0 = { 1, 2, 3 };
         random = Random.Range(0, list0.Length);
-        whichmatcount = list0[random];
-        whichmats = materials[whichmatcount];
-        gameObject.GetComponent<MeshRenderer>().material = whichmats;
+        whichMatCount = list0[random];
+        whichMats = materials[whichMatCount];
+        gameObject.GetComponent<MeshRenderer>().material = whichMats;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (iscubegoneground )
+        if (ýsCubeGoneGround )
         {
             ColorChanger();
 
@@ -32,39 +32,39 @@ public class ColorOfGround : MonoBehaviour
     }
     void ColorChanger()
     {
-        switch (Spawner.whichcube)
+        switch (Spawner.whichCube)
         {
             case 0:
                 int[] list0 = { 1, 2, 3 };
                 random = Random.Range(0, list0.Length);
-                whichmatcount = list0[random];
-                whichmats = materials[whichmatcount];
-                gameObject.GetComponent<MeshRenderer>().material = whichmats;
+                whichMatCount = list0[random];
+                whichMats = materials[whichMatCount];
+                gameObject.GetComponent<MeshRenderer>().material = whichMats;
                 break;
             case 1:
                 int[] list1 = { 0, 2, 3 };
                 random = Random.Range(0, list1.Length);
-                whichmatcount = list1[random];
-                whichmats = materials[whichmatcount];
-                gameObject.GetComponent<MeshRenderer>().material = whichmats;
+                whichMatCount = list1[random];
+                whichMats = materials[whichMatCount];
+                gameObject.GetComponent<MeshRenderer>().material = whichMats;
                 break;
             case 2:
                 int[] list2 = { 0, 1, 3 };
                 random = Random.Range(0, list2.Length);
-                whichmatcount = list2[random];
-                whichmats = materials[whichmatcount];
-                gameObject.GetComponent<MeshRenderer>().material = whichmats;
+                whichMatCount = list2[random];
+                whichMats = materials[whichMatCount];
+                gameObject.GetComponent<MeshRenderer>().material = whichMats;
                 break;
             case 3:
                 int[] list3 = { 0, 1, 2 };
                 random = Random.Range(0, list3.Length);
-                whichmatcount = list3[random];
-                whichmats = materials[whichmatcount];
-                gameObject.GetComponent<MeshRenderer>().material = whichmats;
+                whichMatCount = list3[random];
+                whichMats = materials[whichMatCount];
+                gameObject.GetComponent<MeshRenderer>().material = whichMats;
                 break;
 
         }
-        iscubegoneground = false;
+        ýsCubeGoneGround = false;
         //Debug.Log("GroundColorÇALIÞTI"+"Hangiküb" + Spawner.whichcube + "Hangimat" + whichmats + "portalnumber" + ChosePortal.portalnumber);
     }
 }
