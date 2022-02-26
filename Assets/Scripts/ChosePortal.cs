@@ -60,7 +60,7 @@ public class ChosePortal : MonoBehaviour
             
             changePortalCheck = false;
         }
-        Debug.Log(speed+"speed"+Mathf.Log(100));
+       // Debug.Log(speed+"speed"+Mathf.Log(100));
     }
     void portalspawner()
     {
