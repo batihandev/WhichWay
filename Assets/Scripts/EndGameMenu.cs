@@ -13,5 +13,10 @@ public class EndGameMenu : MonoBehaviour
         SceneManager.LoadScene("GamePlay");
         
     }
+    public void startMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("StartScreen");
+    }
     
 }
