@@ -104,15 +104,6 @@ public class Spawner : MonoBehaviour
 
 
 
-        if (Input.touchCount==2)
-        {
-            Time.timeScale = 0;
-          
-        }
-        if (Input.touchCount>=3)
-        {
-            Time.timeScale = 1;
-        }
       
 
     }
@@ -187,38 +178,27 @@ public class Spawner : MonoBehaviour
                 ChosePortal.changePortalCheck = true;
                 score++;
                 scoret.text = "Score : " + score;
-            switch (whichCube)
+
+            if (score % 2 == 0)
             {
-                case 1:                                       
-                    reverseCube.Stop();
-                    leftCube.Stop();
-                    rightCube.Stop();
-                    forwardCube.Play();
-                    break;
-                case 2:
-                    
-                    leftCube.Stop();
-                    rightCube.Stop();
-                    forwardCube.Stop();
-                    reverseCube.Play();
-                    break;
-                case 3:
-                    
-                    rightCube.Stop();
-                    forwardCube.Stop();
-                    reverseCube.Play();
-                    leftCube.Stop();
-                    break;
-                case 4:
-                    leftCube.Stop();
-                    
-                    forwardCube.Play();
-                    reverseCube.Stop();
-                    rightCube.Stop();
-                    break;
-
-
+                //rightCube.Stop();
+               // forwardCube.Stop();
+                reverseCube.Play();
+               // leftCube.Stop();
             }
+            else
+            {
+                //leftCube.Stop();
+
+                forwardCube.Play();
+                //reverseCube.Stop();
+                //rightCube.Stop();
+            }
+                    
+                  
+                  
+                    
+               
             Debug.Log(whichCube+"hangiküb");
                 
                 Destroy(cubeT[index]);
@@ -239,8 +219,12 @@ public class Spawner : MonoBehaviour
                     Time.timeScale = 0;
                     health.text = "Lives : " + lives;
                     SceneManager.LoadScene("GameOver");
+                reverseCube.Stop();
+                leftCube.Stop();
+                forwardCube.Stop();
+                rightCube.Play();
 
-                }
+            }
                 else if (lives > 0)
                 {
 
@@ -250,38 +234,11 @@ public class Spawner : MonoBehaviour
                 ChosePortal.changePortalCheck = true;
                 lives--;
                     health.text = "Lives : " + lives;
-                switch (whichCube)
-                {
-                    case 1:
-                        reverseCube.Stop();
-                        leftCube.Stop();
-                        rightCube.Play();
-                        forwardCube.Stop();
-                        break;
-                    case 2:
-
-                        leftCube.Play();
-                        rightCube.Stop();
-                        forwardCube.Stop();
-                        reverseCube.Stop();
-                        break;
-                    case 3:
-
-                        rightCube.Stop();
-                        forwardCube.Stop();
-                        reverseCube.Stop();
-                        leftCube.Play();
-                        break;
-                    case 4:
-                        leftCube.Stop();
-
-                        forwardCube.Stop();
-                        reverseCube.Stop();
-                        rightCube.Play();
-                        break;
-
-
-                }
+               
+                //rightCube.Stop();
+                //forwardCube.Stop();
+                //reverseCube.Stop();
+                leftCube.Play();
                 Debug.Log(whichCube + "hangiküb");
                 Destroy(cubeT[index]);
                     cubeT.RemoveAt(index);
