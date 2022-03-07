@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
+    //Made By Batýhan Özdemir
     public GameObject[] cubes;
     public Transform[] spawnPoints;
     int rondomCube;
@@ -168,7 +169,7 @@ public class Spawner : MonoBehaviour
         //if(cubeT[index])
         minValx = Mathf.Abs (cubeT[index].transform.position.x - portal.position.x);
         minValyI = Mathf.Abs (cubeT[index].transform.position.y - portal.position.y);
-        if (minValyI < 2f && minValx <= 0.1f)
+        if (minValyI < 0.5f && minValx <= 0.1f)
             //burayý deðiþtir portalýn þekli deðiþirse
             {
                 
@@ -209,7 +210,7 @@ public class Spawner : MonoBehaviour
 
 
         }
-        else if (minValyI < 0.5f)
+        else if (minValyI < 0.2f)
             {
                 if (lives == 0)
                 {

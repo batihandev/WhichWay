@@ -18,7 +18,10 @@ public class StartScreen : MonoBehaviour
         SceneManager.LoadScene("GamePlay");
 
     }
-
+    public void Exit()
+    {
+        Application.Quit();
+    }
     // Update is called once per frame
     void Update()
     {
