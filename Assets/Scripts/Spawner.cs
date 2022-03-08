@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour
     public static bool portalIsDown;
     public TextMeshProUGUI health;
     public TextMeshProUGUI scoret;
-    int lives = 999;
+    int lives = 3;
     public static int score = 0;
     int index;
 
@@ -57,7 +57,7 @@ public class Spawner : MonoBehaviour
 
     void Awake()
     {
-        lives = 999;
+        lives = 3;
         score = 0;
         cube = Instantiate(cubes[0], spawnPoints[0]);
         cubeT.Add(cube);
