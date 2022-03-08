@@ -45,17 +45,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubes:
-  - {fileID: 378049049628197638, guid: d7391cf49ae91684981d4c42514bd3e1, type: 3}
-  - {fileID: 3015402591733947412, guid: 4dbbe4268dc4c134394e628ca4c772e4, type: 3}
-  - {fileID: 2152322196117404199, guid: 42813dc5e54a4244c96944f3ede14e3e, type: 3}
-  - {fileID: 2006136163987918270, guid: b63c69558cf26e54babf265930031077, type: 3}
+  - {fileID: 70958115177543210, guid: ace8e2925d493b848a7c0850860a3a1e, type: 3}
+  - {fileID: 8266196668520076183, guid: 297f3aaec02facb49836dea6821090cd, type: 3}
+  - {fileID: 7894852284115100823, guid: 4eba3adf3f47efd4281e302ab9d4ee54, type: 3}
+  - {fileID: 1183127653289697289, guid: 570a9d55cc5b082439e85cc17722c482, type: 3}
   spawnPoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  objectcheck: {fileID: 0}
+  objectCheck: {fileID: 0}
   health: {fileID: 0}
   scoret: {fileID: 0}
-  objectivecheck: {fileID: 0}
+  objectiveCheck: {fileID: 0}
   portal: {fileID: 0}
-  spawndist: {fileID: 0}
+  spawnDist: {fileID: 0}
+  forwardCube: {fileID: 0}
+  reverseCube: {fileID: 0}
+  leftCube: {fileID: 0}
+  rightCube: {fileID: 0}

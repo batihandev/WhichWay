@@ -36,6 +36,8 @@ public class Spawner : MonoBehaviour
     List<float> destroyDisty=new List<float>();
     List<float> destroyDistx = new List<float>();
     List<float> distForSpawn = new List<float>();
+    string healthS;
+    string scoresS;
     
     float minValy;
     float minValyI;
@@ -57,8 +59,13 @@ public class Spawner : MonoBehaviour
         whichCube = 0;
         
         cubeIsSpawned = true;
-        health.text = "Lives : " + lives;
-        scoret.text = "Score : " + score;
+        
+        healthS = "Lives "+ lives;
+        health.text = healthS;
+        
+        scoresS = "Score " + score;
+        scoret.text = scoresS;
+
     }
     private void Start()
     {
@@ -92,7 +99,7 @@ public class Spawner : MonoBehaviour
             
         }
         
-        if (cubeT.Count < 5 && canspawn)
+        if (cubeT.Count < 6 && canspawn)
         {
             Spawn();
         }
@@ -178,7 +185,9 @@ public class Spawner : MonoBehaviour
                 ColorOfGround.ýsCubeGoneGround = true;
                 ChosePortal.changePortalCheck = true;
                 score++;
-                scoret.text = "Score : " + score;
+            scoresS = "Score "+ score;
+            scoret.text = scoresS;
+
 
             if (score % 2 == 0)
             {
@@ -218,8 +227,9 @@ public class Spawner : MonoBehaviour
                     
                     
                     Time.timeScale = 0;
-                    health.text = "Lives : " + lives;
-                    SceneManager.LoadScene("GameOver");
+                healthS = "Lives "+ lives;
+                health.text = healthS;
+                SceneManager.LoadScene("GameOver");
                 reverseCube.Stop();
                 leftCube.Stop();
                 forwardCube.Stop();
@@ -234,8 +244,9 @@ public class Spawner : MonoBehaviour
                     ColorOfGround.ýsCubeGoneGround = true;
                 ChosePortal.changePortalCheck = true;
                 lives--;
-                    health.text = "Lives : " + lives;
-               
+                healthS = "Lives " + "  " + lives;
+                health.text = healthS;
+
                 //rightCube.Stop();
                 //forwardCube.Stop();
                 //reverseCube.Stop();
