@@ -6,7 +6,7 @@ public class ChosePortal : MonoBehaviour
     Transform[] portals;
     public GameObject portal;
     int choseportal;
-    float speed = 3;
+    float speed = 2.5f;
     Animator portalAnim;
     public static int portalNumber;
     public static float portalSpawnSpeed=1;
@@ -41,7 +41,7 @@ public class ChosePortal : MonoBehaviour
        // Debug.Log(portalAnim.GetCurrentAnimatorStateInfo(0).IsName("portal"));
         if (Spawner.score > 9)
         {
-            speed = 3 + (Mathf.Log(Spawner.score -8)) / 3;
+            speed = 2.5f + (Mathf.Log(Spawner.score -8)) / 3;
             portalSpawnSpeed = 1 - ((Mathf.Log(Spawner.score - 7)) / 5);
             if (Up)
             {
