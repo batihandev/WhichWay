@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 981159827732557510}
   - component: {fileID: 9110731291887485223}
+  - component: {fileID: 2254595639896718200}
   m_Layer: 0
   m_Name: ReverseRot
   m_TagString: Untagged
@@ -45,6 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62ed3f3c36ed8f42819e7a9bbd0da55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &2254595639896718200
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8266196668520076183}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 1.6
+  m_Direction: 0
+  m_Center: {x: 0, y: -0.03, z: 0}
 --- !u!1001 &30793463905121825
 PrefabInstance:
   m_ObjectHideFlags: 0

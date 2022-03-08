@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2122813866985411023}
   - component: {fileID: 7907833955770940457}
+  - component: {fileID: 3112017431307209308}
   m_Layer: 0
   m_Name: LeftRot
   m_TagString: Untagged
@@ -45,6 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6172bd20c36796469772cd5c9a60dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &3112017431307209308
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7894852284115100823}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 1.6
+  m_Direction: 0
+  m_Center: {x: 0, y: -0.03, z: 0}
 --- !u!1001 &2804881186118067426
 PrefabInstance:
   m_ObjectHideFlags: 0

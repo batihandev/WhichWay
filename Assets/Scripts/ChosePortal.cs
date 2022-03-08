@@ -1,13 +1,19 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class ChosePortal : MonoBehaviour
 {
     // Start is called before the first frame update
-    Transform[] portals;
+    Transform[] portalWaypoints;
     public GameObject portal;
+    List<GameObject> portalS = new List<GameObject>();
     int choseportal;
     float speed = 2.5f;
     Animator portalAnim;
+    //int chosenNumber;
+    int savePortalNumber=0;
+    List<int> portalSpawnCount = new List<int> { 1, 2, 3, 4, 5 };
     public static int portalNumber;
     public static float portalSpawnSpeed=1;
     public Transform portalCheck;
@@ -19,17 +25,20 @@ public class ChosePortal : MonoBehaviour
     private void Awake()
     {
         portalSpawnSpeed = 1;
-        portals = new Transform[transform.childCount];
-        for (int i = 0; i < portals.Length; i++)
+        portalWaypoints = new Transform[transform.childCount];
+        for (int i = 0; i < portalWaypoints.Length; i++)
         {
-            portals[i] = transform.GetChild(i);
+            portalWaypoints[i] = transform.GetChild(i);
         }
     }
     void Start()
 
     {
-        choseportal = Random.Range(1, 3);
-        portal = Instantiate(portal, portals[choseportal]);
+        choseportal = 0;
+        portal = Instantiate(portal, portalWaypoints[choseportal]);
+        portalS.Add(portal);
+        
+        
         portalAnim = portal.GetComponent(typeof(Animator)) as Animator;
         portalCheck.position = portal.transform.position;
         Spawner.thisWay = -speed;
@@ -41,8 +50,16 @@ public class ChosePortal : MonoBehaviour
        // Debug.Log(portalAnim.GetCurrentAnimatorStateInfo(0).IsName("portal"));
         if (Spawner.score > 9)
         {
-            speed = 2.5f + (Mathf.Log(Spawner.score -8)) / 3;
-            portalSpawnSpeed = 1 - ((Mathf.Log(Spawner.score - 7)) / 5);
+            if (Spawner.score > 50)
+            {
+                speed = 2.5f + (Mathf.Log(Spawner.score - 8)) / 2;
+            }
+            else
+            {
+                speed = 2.5f + (Mathf.Log(Spawner.score - 8)) / 3;
+            }
+            
+            portalSpawnSpeed = 1 - ((Mathf.Log(Spawner.score - 7)) /50);
             if (Up)
             {
                 Spawner.thisWay = speed;
@@ -67,7 +84,8 @@ public class ChosePortal : MonoBehaviour
                 portalAnim.enabled = true;
                 animatiyonplayingReverse = true;
                 Invoke("animationReverse", portalSpawnSpeed);
-                Invoke("portalspawner", portalSpawnSpeed);
+                //Invoke("portalspawner", portalSpawnSpeed);
+                portalspawner();
                 
                 
                 //portalspawner();
@@ -83,16 +101,34 @@ public class ChosePortal : MonoBehaviour
     void animationReverse()
     {
         animatiyonplayingReverse = false;
+        //portalS.RemoveAt(0);
     }
     void animation()
     {
         animationplaying = false;
+        
+        //Invoke("ListClear", portalSpawnSpeed);
+        
+       // portalS.Insert(1, portal);
     }
+    
     void portalspawner()
     {
-        Destroy(portal);
+
+
+        Destroy(portalS[0],portalSpawnSpeed); 
+        portalS.RemoveAt(0);
+
+        //choseportal = Random.Range(0, portalWaypoints.Length);
+        int portalRandom = Random.Range(0, portalSpawnCount.Count);
+        choseportal = portalSpawnCount[portalRandom];
+        portalSpawnCount.Add(savePortalNumber);
+        portalSpawnCount.Remove(choseportal);
         
-        choseportal = Random.Range(0, portals.Length);
+        savePortalNumber = choseportal;
+        //chosenNumber = portalSpawnCount[portalRandom];
+        
+
         if (choseportal >= 3 )
         {
             Spawner.portalIsDown=false;
@@ -106,14 +142,18 @@ public class ChosePortal : MonoBehaviour
             Up = false;
         }
         
-        portal = Instantiate(portal, portals[choseportal]);
+        portal = Instantiate(portal, portalWaypoints[choseportal]);
+        portalS.Add(portal);
+
+        
+        
         portalNumber = Spawner.whichCube;
-        portalCheck.position = portals[choseportal].position;
+        portalCheck.position = portalWaypoints[choseportal].position;
         // portalAnim.SetFloat("Direction", -1);
         portalAnim = portal.GetComponent(typeof(Animator)) as Animator;
         portalAnim.SetFloat("Direction", 1);
         portalAnim.Play("portal", 0);
-        portalAnim.enabled = true;
+        portalAnim.enabled = true; 
        
         animationplaying = true;
         Invoke("animation", portalSpawnSpeed);
