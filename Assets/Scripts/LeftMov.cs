@@ -42,9 +42,9 @@ public class LeftMov : MonoBehaviour
     {
         transform.position += new Vector3(0, Spawner.thisWay * Time.deltaTime, 0);
         checktouch();
-        if (Input.touchCount > 0 && !touchedOnce)
+        if (Input.touchCount > 0 && !touchedOnce && !PauseMenu.gameIsPaused)
         {
-            touchedOnce = true;
+           
 
             
             if (Input.GetKeyDown("a") || Input.GetKeyDown("d") || leftClick || rightClick)
@@ -79,8 +79,8 @@ public class LeftMov : MonoBehaviour
 
                 }
             }
-            
 
+            touchedOnce = true;
 
         }
     }

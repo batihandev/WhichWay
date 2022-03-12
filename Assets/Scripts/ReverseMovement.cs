@@ -14,7 +14,7 @@ public class ReverseMovement : MonoBehaviour
     }
     public void checktouch()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Input.touchCount<2)
         {
             var touch = Input.GetTouch(0);
             if (touch.position.x < Screen.width / 2)
@@ -42,9 +42,9 @@ public class ReverseMovement : MonoBehaviour
     {
         transform.position += new Vector3(0, Spawner.thisWay * Time.deltaTime, 0);
         checktouch();
-        if (Input.touchCount > 0 && !touchedOnce)
+        if (Input.touchCount > 0 && !touchedOnce && !PauseMenu.gameIsPaused)
         {
-            touchedOnce = true;
+            
 
             if (Input.GetKeyDown("d") || rightClick)
             {
@@ -110,9 +110,9 @@ public class ReverseMovement : MonoBehaviour
 
                 }
             }
-            
 
 
+            touchedOnce = true;
         }
     }
 }
