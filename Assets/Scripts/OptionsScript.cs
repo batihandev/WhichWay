@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
+
+public class OptionsScript : MonoBehaviour
+{
+    public AudioMixer audioMixer;
+    public Slider volSlider;
+    public TMPro.TMP_Dropdown qualityD;
+    float volume;
+    int indexQ;
+    private void Start()
+    {
+        volume = PlayerPrefs.GetFloat("Volume");
+        indexQ = PlayerPrefs.GetInt("indexQ");
+        qualityD.value = indexQ;
+        Debug.Log(indexQ+"indexq");
+        volSlider.value = volume;
+        QualitySettings.SetQualityLevel(indexQ);
+        audioMixer.SetFloat("Volume", Mathf.Log10(volume)*20);
+    }
+
+    public void SetVolume(float volume)
+    {
+
+        audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
+        Debug.Log(Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("Volume", volume);
+        PlayerPrefs.Save();
+        
+
+    }
+
+    public void SetQuality(int indexQ)
+    {
+        QualitySettings.SetQualityLevel(indexQ);
+        Debug.Log(indexQ + "indexq");
+        PlayerPrefs.SetInt("indexQ", indexQ);
+        PlayerPrefs.Save();
+    }
+
+}
