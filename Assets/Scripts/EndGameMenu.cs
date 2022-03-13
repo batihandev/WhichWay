@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class EndGameMenu : MonoBehaviour
 {
-    public AudioSource whicheverObjectThisIsAttachedTo;
+    
     private void Start()
     {
         Time.timeScale = 1;
@@ -16,7 +16,9 @@ public class EndGameMenu : MonoBehaviour
 
         //testgl
         Time.timeScale = 1;
-        whicheverObjectThisIsAttachedTo.Play(); 
+        PauseMenu.swiped = false;
+        PauseMenu.gameIsPaused = false;
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         StartCoroutine(toWait());
         //SceneManager.LoadScene("GamePlay");
        
@@ -41,7 +43,7 @@ public class EndGameMenu : MonoBehaviour
     public void startMenu()
     {
         Time.timeScale = 1;
-        whicheverObjectThisIsAttachedTo.Play();
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         StartCoroutine(toWait2());
         
         

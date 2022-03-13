@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class StartScreen : MonoBehaviour
 {
+    
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         
     }
@@ -14,12 +15,17 @@ public class StartScreen : MonoBehaviour
     {
 
         //testgl
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+        
         Time.timeScale = 1;
+        PauseMenu.swiped = false;
+        PauseMenu.gameIsPaused = false;
         SceneManager.LoadScene("GamePlay");
-
+       
     }
     public void Exit()
     {
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         Application.Quit();
     }
     // Update is called once per frame

@@ -11,8 +11,10 @@ public class OptionsScript : MonoBehaviour
     public TMPro.TMP_Dropdown qualityD;
     float volume;
     int indexQ;
+    
     private void Start()
     {
+        
         volume = PlayerPrefs.GetFloat("Volume");
         indexQ = PlayerPrefs.GetInt("indexQ");
         qualityD.value = indexQ;
@@ -40,5 +42,8 @@ public class OptionsScript : MonoBehaviour
         PlayerPrefs.SetInt("indexQ", indexQ);
         PlayerPrefs.Save();
     }
-
+    public void soundE()
+    {
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+    }
 }
