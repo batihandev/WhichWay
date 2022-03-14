@@ -57,7 +57,7 @@ public class Spawner : MonoBehaviour
 
     void Awake()
     {
-        lives = 3;
+        lives = 50;
         score = 0;
         cube = Instantiate(cubes[0], spawnPoints[0]);
         cubeT.Add(cube);

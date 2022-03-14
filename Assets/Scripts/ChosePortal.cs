@@ -83,9 +83,9 @@ public class ChosePortal : MonoBehaviour
                 portalAnim.Play("Reverse");
                 portalAnim.enabled = true;
                 animatiyonplayingReverse = true;
-                Invoke("animationReverse", portalSpawnSpeed);
+                Invoke("AnimationReverse", portalSpawnSpeed);
                 //Invoke("portalspawner", portalSpawnSpeed);
-                portalspawner();
+                Portalspawner();
                 
                 
                 //portalspawner();
@@ -98,12 +98,12 @@ public class ChosePortal : MonoBehaviour
         }
        // Debug.Log(speed+"speed"+Mathf.Log(100));
     }
-    void animationReverse()
+    void AnimationReverse()
     {
         animatiyonplayingReverse = false;
         //portalS.RemoveAt(0);
     }
-    void animation()
+    void Animationz()
     {
         animationplaying = false;
         
@@ -112,7 +112,7 @@ public class ChosePortal : MonoBehaviour
        // portalS.Insert(1, portal);
     }
     
-    void portalspawner()
+    void Portalspawner()
     {
 
 
@@ -156,7 +156,7 @@ public class ChosePortal : MonoBehaviour
         portalAnim.enabled = true; 
        
         animationplaying = true;
-        Invoke("animation", portalSpawnSpeed);
+        Invoke("Animationz", portalSpawnSpeed);
 
         // Debug.Log("portalyönüaþaðý" + Spawner.portalisdown);
     }

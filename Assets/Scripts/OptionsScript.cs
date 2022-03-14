@@ -18,7 +18,7 @@ public class OptionsScript : MonoBehaviour
         volume = PlayerPrefs.GetFloat("Volume");
         indexQ = PlayerPrefs.GetInt("indexQ");
         qualityD.value = indexQ;
-        Debug.Log(indexQ+"indexq");
+        //Debug.Log(indexQ+"indexq");
         volSlider.value = volume;
         QualitySettings.SetQualityLevel(indexQ);
         audioMixer.SetFloat("Volume", Mathf.Log10(volume)*20);
@@ -28,7 +28,7 @@ public class OptionsScript : MonoBehaviour
     {
 
         audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
-        Debug.Log(Mathf.Log10(volume) * 20);
+        //Debug.Log(Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("Volume", volume);
         PlayerPrefs.Save();
         
@@ -38,7 +38,7 @@ public class OptionsScript : MonoBehaviour
     public void SetQuality(int indexQ)
     {
         QualitySettings.SetQualityLevel(indexQ);
-        Debug.Log(indexQ + "indexq");
+        //Debug.Log(indexQ + "indexq");
         PlayerPrefs.SetInt("indexQ", indexQ);
         PlayerPrefs.Save();
     }

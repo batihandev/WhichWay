@@ -21,7 +21,7 @@ public class ScoreCatcher : MonoBehaviour
     //}
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collide");
+        //Debug.Log("collide");
         scoreCatch = true;
     }
 }

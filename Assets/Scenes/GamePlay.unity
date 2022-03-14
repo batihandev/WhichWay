@@ -393,6 +393,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &135908519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8123126859753561115, guid: 91ba6b1b5eb3dab46991edeb5544a2ae, type: 3}
+  m_PrefabInstance: {fileID: 7385761634839865476}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &135908522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135908519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c886d2758e3c240aeb24bb0190363e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 2858705565380640151, guid: 27be7702a9b418f40a7d03866dd31337, type: 3}
 --- !u!1 &263783794
 GameObject:
   m_ObjectHideFlags: 0
@@ -4647,7 +4665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6157521428301442972, guid: 74756564c4950a24090a893f6d1271b5, type: 3}
       propertyPath: orthographic size
-      value: 7.5000005
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6157521428301442972, guid: 74756564c4950a24090a893f6d1271b5, type: 3}
       propertyPath: m_BackGroundColor.a
