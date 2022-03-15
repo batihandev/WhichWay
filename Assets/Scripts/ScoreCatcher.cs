@@ -21,7 +21,11 @@ public class ScoreCatcher : MonoBehaviour
     //}
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collide");
-        scoreCatch = true;
+        if (!ChosePortal.starClickedPortal)
+        {
+            Debug.Log("collide");
+            scoreCatch = true;
+        }
+        
     }
 }

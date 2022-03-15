@@ -31,8 +31,10 @@ public class ChosePortal : MonoBehaviour
     float counter;
     bool startcounter=false;
     bool starportalsDestroyed = true;
+    float portalspawnCounter = 0;
     private void Awake()
     {
+        starClickedPortal = false;
         portalSpawnSpeed = 1;
         portalWaypoints = new Transform[transform.childCount];
         for (int i = 0; i < portalWaypoints.Length; i++)
@@ -45,7 +47,8 @@ public class ChosePortal : MonoBehaviour
     {
 
         choseportal = 0;
-        portalS[0] = Instantiate(portal, portalWaypoints[choseportal]);
+        GameObject gameObject1 = Instantiate(portal,portalWaypoints[choseportal]);
+        portalS[0] = gameObject1;
         
         
         
@@ -60,17 +63,19 @@ public class ChosePortal : MonoBehaviour
     {
         if (startcounter) { counter += Time.deltaTime; }
         
-        if (counter > 5 &&startcounter) 
+        if (counter > 3 &&startcounter) 
         {
             StarPortalsDestroy();
             startcounter = false;
             counter = 0;
         }
-        if (starClickedPortal)
+        if (starClickedPortal&& starportalsDestroyed)
         {
             StarPortals();
 
         }
+        
+
        // Debug.Log(portalAnim.GetCurrentAnimatorStateInfo(0).IsName("portal"));
         if (Spawner.score > 9)
         {
@@ -93,8 +98,8 @@ public class ChosePortal : MonoBehaviour
             //    Spawner.thisWay = -speed;
             //}
         }
-        
-        if (changePortalCheck && !animationplaying && !animatiyonplayingReverse &&!startcounter &&starportalsDestroyed)
+        portalspawnCounter += Time.deltaTime;
+        if (changePortalCheck && !animationplaying && !animatiyonplayingReverse &&!startcounter &&starportalsDestroyed &&portalspawnCounter>1.2f)
         {
             random = Random.Range(Spawner.score, 200);
             if (random > 125)
@@ -121,6 +126,7 @@ public class ChosePortal : MonoBehaviour
                 Invoke("AnimationReverse", portalSpawnSpeed);
                 //Invoke("portalspawner", portalSpawnSpeed);
                 Portalspawner();
+                portalspawnCounter = 0;
                 
                 
                 //portalspawner();
@@ -150,7 +156,7 @@ public class ChosePortal : MonoBehaviour
     void Portalspawner()
     {
 
-
+        portalspawnCounter = 0;
         if (portalS[0] == null)
         {
             Destroy(portalS[1], portalSpawnSpeed);
@@ -178,7 +184,7 @@ public class ChosePortal : MonoBehaviour
                 Up = false;
             }
 
-            portalS[0] = Instantiate(portal, portalWaypoints[choseportal]);
+            portalS[0] = Instantiate(portal,portalWaypoints[choseportal]);
 
 
 
@@ -226,7 +232,8 @@ public class ChosePortal : MonoBehaviour
                 Up = false;
             }
 
-            portalS[1] = Instantiate(portal, portalWaypoints[choseportal]);
+            GameObject gameObject1 = Instantiate(portal,portalWaypoints[choseportal]);
+            portalS[1] = gameObject1;
             
 
 
@@ -286,7 +293,7 @@ public class ChosePortal : MonoBehaviour
 
         //alt taraf asýl
         //ScoreCatcher.scoreCatch = false;
-        starClickedPortal = false;
+        
         startcounter = true;
         starportalsDestroyed = false;
         Invoke("StarPortalWait", portalSpawnSpeed);
@@ -301,7 +308,7 @@ public class ChosePortal : MonoBehaviour
 
         for (int i = 0; i < 6; i++)
         {
-            portalStar_[i] = Instantiate(portalForStar, portalWaypoints[i]);
+            portalStar_[i] = Instantiate(portalForStar,portalWaypoints[i]);
             //portalStar.Add(portalStar_);
             portalStarAnim[i] = portalStar_[i].GetComponent(typeof(Animator)) as Animator;
             portalStarAnim[i].enabled = true;
@@ -316,7 +323,7 @@ public class ChosePortal : MonoBehaviour
         
         for (int i = 0; i < 6; i++)
         {
-            Destroy(portalStar_[i], portalSpawnSpeed);
+            Destroy(portalStar_[i],portalSpawnSpeed);
             //portalStar.Add(portalStar_);
             //portalStarAnim[i] = portalStar_[i].GetComponent(typeof(Animator)) as Animator;
             //portalStarAnim[i].enabled = true;
@@ -324,7 +331,7 @@ public class ChosePortal : MonoBehaviour
             portalStarAnim[i].Play("Reverse");
            
         }
-       
+        starClickedPortal = false;
         //chosenNumber = portalSpawnCount[portalRandom];
 
 
@@ -341,7 +348,7 @@ public class ChosePortal : MonoBehaviour
             Spawner.thisWay = speed;
             choseportal = Random.Range(3, 6);
         }            
-        Invoke("SpawnFirstOne", portalSpawnSpeed);
+        Invoke("SpawnFirstOne",portalSpawnSpeed);
        
 
 
@@ -357,7 +364,7 @@ public class ChosePortal : MonoBehaviour
         
         if (portalS[0] == null)
         {
-            portalS[0] = Instantiate(portal, portalWaypoints[choseportal]);
+            portalS[0] = Instantiate(portal,portalWaypoints[choseportal]);
             
 
 
@@ -397,6 +404,7 @@ public class ChosePortal : MonoBehaviour
             Invoke("Animationz", portalSpawnSpeed);
             starportalsDestroyed = true;
             starClickedPortal = false;
+            portalspawnCounter = 0;
         }
 
     }

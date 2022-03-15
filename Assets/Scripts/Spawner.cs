@@ -152,7 +152,41 @@ public class Spawner : MonoBehaviour
     }
     public void ScoreCounter()
     {
-        if (ScoreCatcher.scoreCatch == true)
+        destroyDisty.Clear();
+
+        //destroyDistx.Clear();
+
+        if (ChosePortal.Up)
+        {
+
+            for (int i = 0; i < cubeT.Count; i++)
+            {
+                destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - 7));
+
+
+                destroyDisty[i] = Mathf.Abs(cubeT[i].transform.position.y - 7);
+
+            }
+
+        }
+        else if (!ChosePortal.Up)
+        {
+
+            for (int i = 0; i < cubeT.Count; i++)
+            {
+                destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - (-7)));
+
+                destroyDisty[i] = Mathf.Abs(cubeT[i].transform.position.y - (-7));
+
+            }
+
+        }
+        minValy = destroyDisty.Min();
+        index = destroyDisty.IndexOf(minValy);
+        minValyI = Mathf.Abs(cubeT[index].transform.position.y - 7);
+        minValyIDown = Mathf.Abs(cubeT[index].transform.position.y - (-7));
+
+        if (ScoreCatcher.scoreCatch == true || (ChosePortal.starClickedPortal && (minValyI < 0.3f || minValyIDown < 0.3f)))
         //burayý deðiþtir portalýn þekli deðiþirse
         {
             ScoreCatcher.scoreCatch = false;
