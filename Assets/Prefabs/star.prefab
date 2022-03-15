@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3235828894846265133}
   - component: {fileID: 7627304110241675220}
   - component: {fileID: 3175184258043067723}
+  - component: {fileID: 8907675445755145876}
+  - component: {fileID: 5353369564125715682}
   m_Layer: 6
   m_Name: star
   m_TagString: Untagged
@@ -69,6 +71,31 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &8907675445755145876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2858705565380640151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c51f4cd659a92a4eb3cf8faa6c03bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &5353369564125715682
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2858705565380640151}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.7
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7201959768865349142
 GameObject:
   m_ObjectHideFlags: 0

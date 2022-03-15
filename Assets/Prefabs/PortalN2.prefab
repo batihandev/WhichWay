@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 6712046993723504679}
   - component: {fileID: 5906841177632287547}
   m_Layer: 0
-  m_Name: PortalN
+  m_Name: PortalN2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,7 +283,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4853510968990791379}
   m_Father: {fileID: 0}
@@ -299,7 +299,7 @@ Animator:
   m_GameObject: {fileID: 4232797080720642270}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6875ec8feb1ff074ba33d567ab7fde17, type: 2}
+  m_Controller: {fileID: 9100000, guid: 282ddc2eb85517b4f9ebd9ad0e2d8522, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

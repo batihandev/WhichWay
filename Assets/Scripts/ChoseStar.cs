@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChoseStar : MonoBehaviour
 {
@@ -9,11 +10,13 @@ public class ChoseStar : MonoBehaviour
     public GameObject star;
     GameObject starSpawn;
     Animator starAnim;
+    
     int random;
     float randomSx;
     float randomSy;
     int randomDir;
     bool secondspassed;
+    
     float count;
     bool thereIsAStar=false;
     float x;
@@ -32,9 +35,10 @@ public class ChoseStar : MonoBehaviour
         {
             portalWaypoints[i] = transform.GetChild(i);
         }
-       
-        
-        
+
+
+
+
     }
 
     // Update is called once per frame
@@ -59,7 +63,7 @@ public class ChoseStar : MonoBehaviour
             //Debug.Log(count);
         }
         
-        if (count > 15)
+        if (count > 3)
         {
             secondspassed = true;
 
@@ -70,12 +74,14 @@ public class ChoseStar : MonoBehaviour
             random = Random.Range(0, portalWaypoints.Length);
             starSpawn = Instantiate(star, portalWaypoints[random]);
             starAnim = starSpawn.GetComponent<Animator>();
+           // starSpawn.GetComponent<Button>().onClick.AddListener(delegate { StarEffect(random); });
+
             thereIsAStar = true;
             secondspassed = false;
             deadManWalk = false;
             count = 0;
         }
-        if (thereIsAStar)
+        if (thereIsAStar )
         {
             MoveStar(random);
             
@@ -356,14 +362,28 @@ public class ChoseStar : MonoBehaviour
                 //üst sol
                 break;
         }
-        void DeadManWalking()
-        {
-            starAnim.SetBool("StarIsDying", true);
-            deadManWalk = true;
-            bouncedOnce = false;
-            deadCount = 0;
-            Destroy(starSpawn, 1f);
-            thereIsAStar = false;
-        }
+        
     }
+    void DeadManWalking()
+    {
+        starAnim.SetBool("StarIsDying", true);
+        deadManWalk = true;
+        bouncedOnce = false;
+        deadCount = 0;
+        Destroy(starSpawn, 1f);
+        thereIsAStar = false;
+    }
+    public void StarEffect()
+    {
+        Debug.Log("button works");
+       // Spawner.starSameCubeSpawn = true;
+        ChosePortal.starClickedPortal = true;
+        
+        DeadManWalking();
+        
+
+
+    }
+
 }
+

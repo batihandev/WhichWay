@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour
     int lives = 3;
     public static int score = 0;
     int index;
-
+    
     public Transform objectiveCheck;
     public Transform portal;
     public Transform spawnDist;
@@ -43,6 +43,7 @@ public class Spawner : MonoBehaviour
 
     float minValy;
     float minValyI;
+        float minValyIDown;
     float minValx;
     float minValy2;
     float minValyI2;
@@ -53,6 +54,10 @@ public class Spawner : MonoBehaviour
     public AudioSource reverseCube;
     public AudioSource leftCube;
     public AudioSource rightCube;
+    public static bool starSameCubeSpawn= false;
+    int sameCubeCounter = 5;
+    public static bool addsWatchedForCube = false;
+    int samecube;
 
 
     void Awake()
@@ -82,10 +87,15 @@ public class Spawner : MonoBehaviour
     void Update()
     {
 
+        if (addsWatchedForCube)
+        {
+            sameCubeCounter = 10;
+            addsWatchedForCube = false;
+        }
 
-
-
+        ScoreCounter();
         ScoreKeeper();
+        
         for (int i = 0; i < cubeT.Count; i++)
         {
             distForSpawn.Add(Mathf.Abs(cubeT[i].transform.position.y - spawnDist.position.y));
@@ -94,11 +104,13 @@ public class Spawner : MonoBehaviour
                 if (distForSpawn[z] > 2f)
                 {
                     canspawn = true;
+                    cubeIsSpawned = false;
                 }
                 else
                 {
                     distForSpawn.Clear();
                     canspawn = false;
+                    cubeIsSpawned = true;
                     return;
                 }
             }
@@ -107,7 +119,24 @@ public class Spawner : MonoBehaviour
 
         if (cubeT.Count < 6 && canspawn)
         {
-            Spawn();
+            if (!starSameCubeSpawn && !cubeIsSpawned)
+            {
+                Spawn();
+            }
+            if (starSameCubeSpawn && !cubeIsSpawned)
+            {
+
+               
+                SameCubeSpawn();
+                if (sameCubeCounter == 0)
+                {
+                    starSameCubeSpawn = false;
+                    sameCubeCounter = 5;
+                    
+                }
+            }
+            
+            
         }
 
 
@@ -121,70 +150,98 @@ public class Spawner : MonoBehaviour
 
 
     }
+    public void ScoreCounter()
+    {
+        if (ScoreCatcher.scoreCatch == true)
+        //burayý deðiþtir portalýn þekli deðiþirse
+        {
+            ScoreCatcher.scoreCatch = false;
+
+            //Debug.Log((ChosePortal.portalS[0] == null) + "0" + (ChosePortal.portalS[1] == null) + "1" + minValyI2 + "yý2" + minValyI + "yý");
+            ColorOf.isCubeGone = true;
+            ColorOfGround.ýsCubeGoneGround = true;
+            ChosePortal.changePortalCheck = true;
+            score++;
+            scoresS = "Score " + score;
+            scoret.text = scoresS;
+
+
+            if (score % 2 == 0)
+            {
+                //rightCube.Stop();
+                // forwardCube.Stop();
+                reverseCube.Play();
+                // leftCube.Stop();
+            }
+            else
+            {
+                //leftCube.Stop();
+
+                forwardCube.Play();
+                //reverseCube.Stop();
+                //rightCube.Stop();
+            }
+
+
+
+
+
+            //Debug.Log(whichCube + "hangiküb");
+
+            Destroy(cubeT[index]);
+            cubeT.RemoveAt(index);
+            
+
+            //Debug.Log(index + "index" + destroyIndex + "destroyindex"+"score");
+
+
+
+        }
+    }
     public void ScoreKeeper()
     {
 
 
-        
+
         destroyDisty.Clear();
-        destroyDistx.Clear();
-       
+
+        //destroyDistx.Clear();
+
+        if (ChosePortal.Up)
+        {
+            
             for (int i = 0; i < cubeT.Count; i++)
             {
-                destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - portal.position.y));
-                destroyDistx.Add(Mathf.Abs(cubeT[0].transform.position.x - portal.position.x));
-                destroyDisty[i] = Mathf.Abs(cubeT[i].transform.position.y - portal.position.y);
-                destroyDistx[i] = Mathf.Abs(cubeT[i].transform.position.x - portal.position.x);
+                destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - 7));
+
+
+                destroyDisty[i] = Mathf.Abs(cubeT[i].transform.position.y - 7);
+
             }
-            minValy = destroyDisty.Min();
-            index = destroyDisty.IndexOf(minValy);
-            minValx = Mathf.Abs(cubeT[index].transform.position.x - portal.position.x);
-            minValyI = Mathf.Abs(cubeT[index].transform.position.y - portal.position.y);
-            if (ScoreCatcher.scoreCatch==true)
-            //burayý deðiþtir portalýn þekli deðiþirse
+            
+        }
+        else if (!ChosePortal.Up)
+        {
+            
+            for (int i = 0; i < cubeT.Count; i++)
             {
+                destroyDisty.Add(Mathf.Abs(cubeT[0].transform.position.y - (-7)));
 
-                //Debug.Log((ChosePortal.portalS[0] == null) + "0" + (ChosePortal.portalS[1] == null) + "1" + minValyI2 + "yý2" + minValyI + "yý");
-                ColorOf.isCubeGone = true;
-                ColorOfGround.ýsCubeGoneGround = true;
-                ChosePortal.changePortalCheck = true;
-                score++;
-                scoresS = "Score " + score;
-                scoret.text = scoresS;
-
-
-                if (score % 2 == 0)
-                {
-                    //rightCube.Stop();
-                    // forwardCube.Stop();
-                    reverseCube.Play();
-                    // leftCube.Stop();
-                }
-                else
-                {
-                    //leftCube.Stop();
-
-                    forwardCube.Play();
-                    //reverseCube.Stop();
-                    //rightCube.Stop();
-                }
-
-
-
-
-
-                //Debug.Log(whichCube + "hangiküb");
-
-                Destroy(cubeT[index]);
-                cubeT.RemoveAt(index);
-            ScoreCatcher.scoreCatch = false;
-
-                //Debug.Log(index + "index" + destroyIndex + "destroyindex"+"score");
-
-
+                destroyDisty[i] = Mathf.Abs(cubeT[i].transform.position.y - (-7));
 
             }
-            else if (minValyI < 0.2f)
+            
+        }
+        minValy = destroyDisty.Min();
+        index = destroyDisty.IndexOf(minValy);
+        minValyI = Mathf.Abs(cubeT[index].transform.position.y - 7);
+        minValyIDown = Mathf.Abs(cubeT[index].transform.position.y - (-7));
+
+        // minValx = Mathf.Abs(cubeT[index].transform.position.x - portal.position.x);
+
+        //Debug.Log(minValyIDown + "minvalyýdown");
+       
+        if (minValyI < 0.1f ||minValyIDown<0.1f)
             {
                 if (lives == 0)
                 {
@@ -250,6 +307,30 @@ public class Spawner : MonoBehaviour
         cubeT.Add(cube);
 
 
+
+        cubeIsSpawned = true;
+
+    }
+    public void SameCubeSpawn()
+    {
+        if(sameCubeCounter==5 && !addsWatchedForCube)
+        {
+            samecube= Random.Range(0, cubes.Length);
+
+        }
+        if (sameCubeCounter == 10 && addsWatchedForCube)
+        {
+            samecube = Random.Range(0, cubes.Length);
+
+        }
+        sameCubeCounter--;
+        rondomSpawn = Random.Range(0, spawnPoints.Length);
+        
+        whichCube = rondomCube;
+        cube = Instantiate(cubes[samecube], spawnPoints[rondomSpawn]);
+
+
+        cubeT.Add(cube);
 
         cubeIsSpawned = true;
 

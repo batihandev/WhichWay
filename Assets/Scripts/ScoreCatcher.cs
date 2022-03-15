@@ -5,9 +5,9 @@ using UnityEngine;
 public class ScoreCatcher : MonoBehaviour
 {
     public static bool scoreCatch = false;
-    void Start()
+    void Awake()
     {
-        
+        scoreCatch = false;
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class ScoreCatcher : MonoBehaviour
     //}
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("collide");
+        Debug.Log("collide");
         scoreCatch = true;
     }
 }

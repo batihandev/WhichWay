@@ -14,26 +14,28 @@ public class LeftMov : MonoBehaviour
     }
     public void checktouch()
     {
-        if (Input.touchCount > 0)
-        {
-            var touch = Input.GetTouch(0);
-            if (touch.position.x < Screen.width / 2)
+        
+            if (Input.touchCount > 0)
             {
-                leftClick = true;
+                var touch = Input.GetTouch(0);
+                if (touch.position.x < Screen.width / 2)
+                {
+                    leftClick = true;
+                    rightClick = false;
+                }
+                else if (touch.position.x > Screen.width / 2)
+                {
+                    rightClick = true;
+                    leftClick = false;
+                }
+            }
+            else
+            {
                 rightClick = false;
-            }
-            else if (touch.position.x > Screen.width / 2)
-            {
-                rightClick = true;
                 leftClick = false;
+                touchedOnce = false;
             }
-        }
-        else
-        {
-            rightClick = false;
-            leftClick = false;
-            touchedOnce = false;
-        }
+        
 
     }
 
