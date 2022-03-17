@@ -31,15 +31,20 @@ public class ChosePortal : MonoBehaviour
     float counter;
     bool startcounter=false;
     bool startAdscounter = false;
-    bool starportalsDestroyed = true;
+    public static bool starportalsDestroyed = true;
     float portalspawnCounter = 0;
     public static bool adsStarOn = false;
     public static bool adsStarClickWhileOpen = false;
     public static bool StarClickedWhileOpen = false;
+    public static bool starisClicked =false;
     float adsStarCounter=0;
+    public static bool died;
     private void Awake()
     {
-        
+        speed = 2.5f;
+        Spawner.thisWay = -speed;
+
+        starisClicked = false;
         Up = false;
         adsStarOn = false;
         changePortalCheck = false;
@@ -64,7 +69,7 @@ public class ChosePortal : MonoBehaviour
         
         portalAnim[0] = portalS[0].GetComponent(typeof(Animator)) as Animator;
         //portalCheck.position = portalI.transform.position;
-        Spawner.thisWay = -speed;
+        
     }
 
     // Update is called once per frame
@@ -72,6 +77,7 @@ public class ChosePortal : MonoBehaviour
     {
 
         //Debug.Log(adsStarCounter + "ads" + counter);
+        
 
         if (startAdscounter)
         {
@@ -119,13 +125,26 @@ public class ChosePortal : MonoBehaviour
        // Debug.Log(portalAnim.GetCurrentAnimatorStateInfo(0).IsName("portal"));
         if (Spawner.score > 9)
         {
-            if (Spawner.score > 50)
+            if (Spawner.score > 50 && Spawner.score<=100)
             {
-                speed = 2.5f + (Mathf.Log(Spawner.score - 8)) / 2;
+                speed = 2.7f   + (Mathf.Log(Spawner.score - 8)) / 2;
+                //Debug.Log(speed + "speed");
+            }
+            else if (Spawner.score>100&&Spawner.score<=150)
+            {
+                speed = 2.7f + (Mathf.Log(Spawner.score - 8)) / 1.5f;
+            }
+            else if (Spawner.score > 150)
+            {
+                {
+                    speed = 2.7f + Mathf.Log(Spawner.score - 8);
+                }
             }
             else
             {
-                speed = 2.5f + (Mathf.Log(Spawner.score - 8)) / 3;
+                
+                    speed = 2.7f + (Mathf.Log(Spawner.score - 8)) / 3;
+                
             }
             
             portalSpawnSpeed = 1 - ((Mathf.Log(Spawner.score - 7)) /50);
@@ -139,7 +158,7 @@ public class ChosePortal : MonoBehaviour
             //}
         }
         portalspawnCounter += Time.deltaTime;
-        if (changePortalCheck && !animationplaying && !animatiyonplayingReverse &&!startcounter &&starportalsDestroyed &&portalspawnCounter>1.2f)
+        if (changePortalCheck&&!animationplaying && !animatiyonplayingReverse &&!startcounter &&starportalsDestroyed &&portalspawnCounter>1.2f&&!starisClicked&&!died)
         {
             random = Random.Range(Spawner.score, 200);
             if (random > 125)
@@ -151,6 +170,7 @@ public class ChosePortal : MonoBehaviour
                     portalAnim[0].enabled = true;
                     portalAnim[0].SetFloat("Direction 1", 1);
                     portalAnim[0].Play("Reverse 1");
+                    Destroy(portalS[0], portalSpawnSpeed);
                 }
                 if (portalS[1] != null)
                 {
@@ -158,9 +178,10 @@ public class ChosePortal : MonoBehaviour
                     portalAnim[1].enabled = true;
                     portalAnim[1].SetFloat("Direction 1", 1);
                     portalAnim[1].Play("Reverse 1");
+                    Destroy(portalS[1], portalSpawnSpeed);
                 }
 
-               // Debug.Log("HERE");
+                // Debug.Log("HERE");
 
                 animatiyonplayingReverse = true;
                 Invoke("AnimationReverse", portalSpawnSpeed);
@@ -170,14 +191,54 @@ public class ChosePortal : MonoBehaviour
                 
                 
                 //portalspawner();
-                changePortalCheck = false;
+                
                 
             }
 
             
             changePortalCheck = false;
         }
-       // Debug.Log(speed+"speed"+Mathf.Log(100));
+        if ( starportalsDestroyed &&(starisClicked || died))
+        {
+            random = Random.Range(Spawner.score, 200);
+            
+
+                if (portalS[0] != null)
+                {
+                    portalAnim[0] = portalS[0].GetComponent(typeof(Animator)) as Animator;
+                    portalAnim[0].enabled = true;
+                    portalAnim[0].SetFloat("Direction 1", 1);
+                    portalAnim[0].Play("Reverse 1");
+                    Destroy(portalS[0], portalSpawnSpeed/2);
+                }
+                if (portalS[1] != null)
+                {
+                    portalAnim[1] = portalS[1].GetComponent(typeof(Animator)) as Animator;
+                    portalAnim[1].enabled = true;
+                    portalAnim[1].SetFloat("Direction 1", 1);
+                    portalAnim[1].Play("Reverse 1");
+                Destroy(portalS[1], portalSpawnSpeed/2);
+            }
+
+                // Debug.Log("HERE");
+
+                animatiyonplayingReverse = true;
+                Invoke("AnimationReverse", portalSpawnSpeed);
+                //Invoke("portalspawner", portalSpawnSpeed);
+                Portalspawner();
+                
+
+
+                //portalspawner();
+                
+               changePortalCheck = false;
+
+            
+
+
+           
+        }
+        // Debug.Log(speed+"speed"+Mathf.Log(100));
     }
     void AnimationReverse()
     {
@@ -199,7 +260,7 @@ public class ChosePortal : MonoBehaviour
         portalspawnCounter = 0;
         if (portalS[0] == null)
         {
-            Destroy(portalS[1], portalSpawnSpeed);
+            
 
             //choseportal = Random.Range(0, portalWaypoints.Length);
             int portalRandom = Random.Range(0, portalSpawnCount.Count);
@@ -210,18 +271,39 @@ public class ChosePortal : MonoBehaviour
             savePortalNumber = choseportal;
             //chosenNumber = portalSpawnCount[portalRandom];
 
-
-            if (choseportal >= 3)
+            if (starisClicked||died)
             {
-                Spawner.portalIsDown = false;
-                Spawner.thisWay = speed;
-                Up = true;
+                starisClicked=false;
+                died = false;
+                if (Up)
+                {
+                    choseportal = Random.Range(0, 3);
+                    Spawner.thisWay = -speed;
+
+                    Up = false;
+                }
+                else
+                {
+                    Up = true;
+                    Spawner.thisWay = speed;
+                    choseportal = Random.Range(3, 6);
+                }
             }
             else
             {
-                Spawner.portalIsDown = true;
-                Spawner.thisWay = -speed;
-                Up = false;
+                if (choseportal >= 3)
+                {
+                    Spawner.portalIsDown = false;
+                    Spawner.thisWay = speed;
+                    Up = true;
+                }
+                else
+                {
+                    Spawner.portalIsDown = true;
+                    Spawner.thisWay = -speed;
+                    Up = false;
+                }
+                
             }
 
             portalS[0] = Instantiate(portal,portalWaypoints[choseportal]);
@@ -245,7 +327,7 @@ public class ChosePortal : MonoBehaviour
         }
 
         else if (portalS[1] == null)
-        { Destroy(portalS[0], portalSpawnSpeed);
+        { 
 
 
             //choseportal = Random.Range(0, portalWaypoints.Length);
@@ -258,18 +340,39 @@ public class ChosePortal : MonoBehaviour
             //chosenNumber = portalSpawnCount[portalRandom];
 
 
-            if (choseportal >= 3)
+            if (starisClicked || died)
             {
-                Spawner.portalIsDown = false;
-                Spawner.thisWay = speed;
-                Up = true;
+                starisClicked = false;
+                died = false;
+                if (Up)
+                {
+                    choseportal = Random.Range(0, 3);
+                    Spawner.thisWay = -speed;
+
+                    Up = false;
+                }
+                else
+                {
+                    Up = true;
+                    Spawner.thisWay = speed;
+                    choseportal = Random.Range(3, 6);
+                }
             }
             else
             {
-                //Debug.Log(choseportal+"choseportals");
-                Spawner.portalIsDown = true;
-                Spawner.thisWay = -speed;
-                Up = false;
+                if (choseportal >= 3)
+                {
+                    Spawner.portalIsDown = false;
+                    Spawner.thisWay = speed;
+                    Up = true;
+                }
+                else
+                {
+                    Spawner.portalIsDown = true;
+                    Spawner.thisWay = -speed;
+                    Up = false;
+                }
+
             }
 
             GameObject gameObject1 = Instantiate(portal,portalWaypoints[choseportal]);
@@ -298,7 +401,7 @@ public class ChosePortal : MonoBehaviour
     }
     void StarPortals()
     {
-        
+       // changePortalCheck = false;
         starportalsDestroyed = false;
         if (Up)
         {
@@ -405,7 +508,7 @@ public class ChosePortal : MonoBehaviour
 
     void SpawnFirstOne()
     {
-        
+       // changePortalCheck = false;
         if (portalS[0] == null)
         {
             portalS[0] = Instantiate(portal,portalWaypoints[choseportal]);

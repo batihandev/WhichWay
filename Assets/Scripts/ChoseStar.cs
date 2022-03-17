@@ -383,6 +383,11 @@ public class ChoseStar : MonoBehaviour
         deadCount = 0;
         Destroy(starSpawn, 1f);
         thereIsAStar = false;
+        Invoke("StarClickedOnce", 1);
+    }
+    void StarClickedOnce()
+    {
+        OnClick.StarClicked = false;
     }
     public void StarEffect()
     {

@@ -42,6 +42,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 1244980481
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PostProcLayer
+    uniqueID: 2240061145
     locked: 0

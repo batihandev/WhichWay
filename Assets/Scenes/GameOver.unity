@@ -677,7 +677,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1426,8 +1426,8 @@ RectTransform:
   m_GameObject: {fileID: 1763559491}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.6, y: 2.6, z: 2.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1638972879}
   - {fileID: 912407387}
@@ -1492,7 +1492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff0dd8313ca7d349b8ac4f5d6295280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whicheverObjectThisIsAttachedTo: {fileID: 1638972884}
 --- !u!1001 &6420726527044495816
 PrefabInstance:
   m_ObjectHideFlags: 0

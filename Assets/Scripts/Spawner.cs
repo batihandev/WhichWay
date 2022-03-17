@@ -57,14 +57,16 @@ public class Spawner : MonoBehaviour
     public static bool clickedWhileAdsson=false;
     public static bool clickedWhileSpawnsOn = false;
 
+   
+
 
 
     void Awake()
     {
         starSameCubeSpawn = false;
         addsWatchedForCube = false;
-        if (PlayerPrefs.GetInt("highScores") >= 50){
-            lives = 5;
+        if (PlayerPrefs.GetInt("highScore") >= 50){
+            lives = 5000;
         }
         else
         {
@@ -96,6 +98,7 @@ public class Spawner : MonoBehaviour
     {
 
        
+      
         if(starSpawnBegin && addsWatchedForCube && clickedWhileAdsson)
         {
             AdssameCubeCounter += 5;
@@ -217,16 +220,22 @@ public class Spawner : MonoBehaviour
         minValyI = Mathf.Abs(cubeT[index].transform.position.y - 7);
         minValyIDown = Mathf.Abs(cubeT[index].transform.position.y - (-7));
 
-        if (ScoreCatcher.scoreCatch == true || ((ChosePortal.starClickedPortal||ChosePortal.adsStarOn) && (minValyI < 0.35f || minValyIDown < 0.35f)))
+        if (ScoreCatcher.scoreCatch == true || (ChosePortal.starClickedPortal||ChosePortal.adsStarOn))
         //burayý deðiþtir portalýn þekli deðiþirse
         {
+            if(minValyI < 0.35f || minValyIDown < 0.35f) { 
             ScoreCatcher.scoreCatch = false;
 
             //Debug.Log((ChosePortal.portalS[0] == null) + "0" + (ChosePortal.portalS[1] == null) + "1" + minValyI2 + "yý2" + minValyI + "yý");
-            ColorOf.isCubeGone = true;
-            ColorOfGround.ýsCubeGoneGround = true;
+            //ColorOf.isCubeGone = true;
+            
             ChosePortal.changePortalCheck = true;
             score++;
+            if(score> PlayerPrefs.GetInt("highScore"))
+            {
+
+                PlayerPrefs.SetInt("highScore", score);
+            }
             if (PlayerPrefs.GetInt("highScore") >= 50)
             {
                 if (score > 50)
@@ -266,12 +275,12 @@ public class Spawner : MonoBehaviour
 
             Destroy(cubeT[index]);
             cubeT.RemoveAt(index);
-            
-
-            //Debug.Log(index + "index" + destroyIndex + "destroyindex"+"score");
 
 
+                //Debug.Log(index + "index" + destroyIndex + "destroyindex"+"score");
 
+
+            }
         }
     }
     public void ScoreKeeper()
@@ -338,10 +347,11 @@ public class Spawner : MonoBehaviour
                 {
 
 
-                    ColorOf.isCubeGone = true;
-                    ColorOfGround.ýsCubeGoneGround = true;
+                    //ColorOf.isCubeGone = true;
+                    
                     ChosePortal.changePortalCheck = true;
                     lives--;
+                     ChosePortal.died = true;
                     healthS = "Lives " + "  " + lives;
                     health.text = healthS;
 
@@ -413,7 +423,7 @@ public class Spawner : MonoBehaviour
         Debug.Log(sameCubeCounter + "same" + AdssameCubeCounter + "adssame");
         rondomSpawn = Random.Range(0, spawnPoints.Length);
         
-        whichCube = rondomCube;
+        whichCube = samecube;
         cube = Instantiate(cubes[samecube], spawnPoints[rondomSpawn]);
 
 

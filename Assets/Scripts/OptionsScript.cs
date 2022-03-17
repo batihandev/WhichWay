@@ -14,8 +14,8 @@ public class OptionsScript : MonoBehaviour
     private void Start()
     {
         
-        volume = PlayerPrefs.GetFloat("Volume");
-        indexQ = PlayerPrefs.GetInt("indexQ");
+        volume = PlayerPrefs.GetFloat("Volume",0.5f);
+        indexQ = PlayerPrefs.GetInt("indexQ",2);
         qualityD.value = indexQ;
         //Debug.Log(indexQ+"indexq");
         volSlider.value = volume;

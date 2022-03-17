@@ -7,7 +7,7 @@ public class Score : MonoBehaviour
 {
     public TextMeshProUGUI score;
     public TextMeshProUGUI highScore;
-    int _highScore;
+     int _highScore;
     //int firstScore = 0;
     // Start is called before the first frame update
    

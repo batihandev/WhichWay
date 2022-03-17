@@ -13,9 +13,46 @@ public class PauseMenu : MonoBehaviour
     float dista;
     private Touch touch;
     private Vector2 firstTouch, endTouch;
-   
+    public GameObject ForwardL;
+    public GameObject ReverseL;
+    public GameObject RightL;
+    public GameObject LeftL;
+    int changed;
+
     private void Update()
     {
+        if (changed != Spawner.whichCube)
+        {
+            changed = Spawner.whichCube;
+            switch (Spawner.whichCube)
+            {
+                case 0:
+                    ForwardL.SetActive(true);
+                    ReverseL.SetActive(false);
+                    RightL.SetActive(false);
+                    LeftL.SetActive(false);
+                    break;
+                case 1:
+                    ForwardL.SetActive(false);
+                    ReverseL.SetActive(true);
+                    RightL.SetActive(false);
+                    LeftL.SetActive(false);
+                    break;
+                case 2:
+                    ForwardL.SetActive(false);
+                    ReverseL.SetActive(false);
+                    RightL.SetActive(false);
+                    LeftL.SetActive(true);
+                    break;
+                case 3:
+                    ForwardL.SetActive(false);
+                    ReverseL.SetActive(false);
+                    RightL.SetActive(true);
+                    LeftL.SetActive(false);
+                    break;
+            }
+        }
+       
         if (Input.touchCount > 0 && !gameIsPaused)
         {
             
@@ -84,6 +121,11 @@ public class PauseMenu : MonoBehaviour
     
     public void Resume()
     {
+        changed = 5;
+        ForwardL.SetActive(false);
+        ReverseL.SetActive(false);
+        RightL.SetActive(false);
+        LeftL.SetActive(false);
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1;
@@ -103,11 +145,29 @@ public class PauseMenu : MonoBehaviour
 
     public void MenuButton()
     {
+        changed = 5;
+        ForwardL.SetActive(false);
+        ReverseL.SetActive(false);
+        RightL.SetActive(false);
+        LeftL.SetActive(false);
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         pauseMenuUI.SetActive(false);
         
         SceneManager.LoadScene("StartScreen");
     }
     
-
+    public void Retry()
+    {
+        changed = 5;
+        ForwardL.SetActive(false);
+        ReverseL.SetActive(false);
+        RightL.SetActive(false);
+        LeftL.SetActive(false);
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1;
+        swiped = false;
+        gameIsPaused = false;
+        SceneManager.LoadScene("GamePlay");
+    }
 }

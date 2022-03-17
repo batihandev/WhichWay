@@ -376,12 +376,18 @@ public class AdsStarScript : MonoBehaviour
     }
     void DeadManWalking()
     {
+        
         starAnim.SetBool("AdsDying", true);
         deadManWalk = true;
         bouncedOnce = false;
         deadCount = 0;
         Destroy(starSpawn, 1f);
         thereIsAStar = false;
+        Invoke("StarClickedOnce", 1);
+    }
+    void StarClickedOnce()
+    {
+        OnClickAdd.adstarClicked = false;
     }
     public void AdsStarEffect()
     {
