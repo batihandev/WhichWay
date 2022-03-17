@@ -1,13 +1,12 @@
 
 using UnityEngine;
 
-public class OnClick : MonoBehaviour
+public class OnClickAdd : MonoBehaviour
 {
-    
     void OnMouseDown()
     {
-        
-        GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<ChoseStar>().StarEffect();
+
+        GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<AdsStarScript>().AdsStarEffect();
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
     }
 }

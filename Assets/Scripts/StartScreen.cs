@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+
 using UnityEngine.SceneManagement;
 
 public class StartScreen : MonoBehaviour
 {
-    
+    int firstTime;
+    public GameObject howtoplay;
+    public GameObject menu;
     // Start is called before the first frame update
     void Awake()
     {
@@ -14,13 +16,27 @@ public class StartScreen : MonoBehaviour
     public void playgame()
     {
 
-        //testgl
-        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+        //testgl 
+        firstTime=PlayerPrefs.GetInt("firstTime");
+        if (firstTime == 0)
+        {
+            menu.SetActive(false);
+            howtoplay.SetActive(true);
+            PlayerPrefs.SetInt("firstTime", 1);
+                
+
+        }
+        else {
+
+
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+
+            Time.timeScale = 1;
+            PauseMenu.swiped = false;
+            PauseMenu.gameIsPaused = false;
+            SceneManager.LoadScene("GamePlay");
+        }
         
-        Time.timeScale = 1;
-        PauseMenu.swiped = false;
-        PauseMenu.gameIsPaused = false;
-        SceneManager.LoadScene("GamePlay");
        
     }
     public void Exit()

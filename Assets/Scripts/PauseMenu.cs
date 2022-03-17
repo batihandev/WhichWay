@@ -38,7 +38,7 @@ public class PauseMenu : MonoBehaviour
                             
                             if (dista > 20000 )
                             {
-                                Debug.Log(dista);
+                                //Debug.Log(dista);
                                 if (Input.touchCount > 1)
                                 {
                                     swiped = false;

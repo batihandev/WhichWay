@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,9 +34,7 @@ public class Spawner : MonoBehaviour
     public Transform spawnDist;
     bool canspawn = true;
     List<float> destroyDisty = new List<float>();
-    List<float> destroyDisty2 = new List<float>();
-    List<float> destroyDistx = new List<float>();
-    List<float> destroyDistx2 = new List<float>();
+  
     List<float> distForSpawn = new List<float>();
     string healthS;
     string scoresS;
@@ -44,25 +42,35 @@ public class Spawner : MonoBehaviour
     float minValy;
     float minValyI;
         float minValyIDown;
-    float minValx;
-    float minValy2;
-    float minValyI2;
-    float minValx2;
-    int index2;
-    int destroyIndex;
+   
     public AudioSource forwardCube;
     public AudioSource reverseCube;
     public AudioSource leftCube;
     public AudioSource rightCube;
     public static bool starSameCubeSpawn= false;
+    bool starSpawnBegin = false;
     int sameCubeCounter = 5;
+    int AdssameCubeCounter = 10;
+    
     public static bool addsWatchedForCube = false;
     int samecube;
+    public static bool clickedWhileAdsson=false;
+    public static bool clickedWhileSpawnsOn = false;
+
 
 
     void Awake()
     {
-        lives = 50;
+        starSameCubeSpawn = false;
+        addsWatchedForCube = false;
+        if (PlayerPrefs.GetInt("highScores") >= 50){
+            lives = 5;
+        }
+        else
+        {
+            lives = 3;
+        }
+        
         score = 0;
         cube = Instantiate(cubes[0], spawnPoints[0]);
         cubeT.Add(cube);
@@ -81,16 +89,22 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         //lives = 3;
-
+        
     }
 
     void Update()
     {
 
-        if (addsWatchedForCube)
+       
+        if(starSpawnBegin && addsWatchedForCube && clickedWhileAdsson)
         {
-            sameCubeCounter = 10;
-            addsWatchedForCube = false;
+            AdssameCubeCounter += 5;
+            clickedWhileAdsson = false;
+        }
+        if(starSpawnBegin && starSameCubeSpawn && clickedWhileSpawnsOn)
+        {
+            sameCubeCounter += 10;
+            clickedWhileSpawnsOn = false;
         }
 
         ScoreCounter();
@@ -119,20 +133,37 @@ public class Spawner : MonoBehaviour
 
         if (cubeT.Count < 6 && canspawn)
         {
-            if (!starSameCubeSpawn && !cubeIsSpawned)
+            if (!starSameCubeSpawn && !addsWatchedForCube && !cubeIsSpawned)
             {
                 Spawn();
             }
-            if (starSameCubeSpawn && !cubeIsSpawned)
+            if ((starSameCubeSpawn||addsWatchedForCube) && !cubeIsSpawned)
             {
 
                
                 SameCubeSpawn();
-                if (sameCubeCounter == 0)
+                if (sameCubeCounter == 0 )
                 {
                     starSameCubeSpawn = false;
                     sameCubeCounter = 5;
+                    if (!addsWatchedForCube)
+                    {
+                        starSpawnBegin = false;
+                    }
+                    //starSpawnBegin = false;
                     
+
+                }
+                if (AdssameCubeCounter == 0)
+                {
+                    AdssameCubeCounter = 10;
+                    
+                    addsWatchedForCube = false;
+                    if (!starSameCubeSpawn)
+                    {
+                        starSpawnBegin = false;
+                    }
+                    //starSpawnBegin = false;
                 }
             }
             
@@ -186,7 +217,7 @@ public class Spawner : MonoBehaviour
         minValyI = Mathf.Abs(cubeT[index].transform.position.y - 7);
         minValyIDown = Mathf.Abs(cubeT[index].transform.position.y - (-7));
 
-        if (ScoreCatcher.scoreCatch == true || (ChosePortal.starClickedPortal && (minValyI < 0.3f || minValyIDown < 0.3f)))
+        if (ScoreCatcher.scoreCatch == true || ((ChosePortal.starClickedPortal||ChosePortal.adsStarOn) && (minValyI < 0.35f || minValyIDown < 0.35f)))
         //burayý deðiþtir portalýn þekli deðiþirse
         {
             ScoreCatcher.scoreCatch = false;
@@ -196,6 +227,17 @@ public class Spawner : MonoBehaviour
             ColorOfGround.ýsCubeGoneGround = true;
             ChosePortal.changePortalCheck = true;
             score++;
+            if (PlayerPrefs.GetInt("highScore") >= 50)
+            {
+                if (score > 50)
+                {
+                    if (score % 50 == 0)
+                    {
+                        lives++;
+                    }
+                }
+            }
+           
             scoresS = "Score " + score;
             scoret.text = scoresS;
 
@@ -347,17 +389,28 @@ public class Spawner : MonoBehaviour
     }
     public void SameCubeSpawn()
     {
-        if(sameCubeCounter==5 && !addsWatchedForCube)
+        if(sameCubeCounter == 5 && !addsWatchedForCube && !starSpawnBegin)
         {
-            samecube= Random.Range(0, cubes.Length);
-
-        }
-        if (sameCubeCounter == 10 && addsWatchedForCube)
-        {
+            starSpawnBegin = true;
             samecube = Random.Range(0, cubes.Length);
 
         }
-        sameCubeCounter--;
+        if (AdssameCubeCounter == 10 && addsWatchedForCube && !starSpawnBegin)
+        {
+            starSpawnBegin = true;
+            samecube = Random.Range(0, cubes.Length);
+
+        }
+        if (starSameCubeSpawn)
+        {
+            sameCubeCounter--;
+        }
+        if (addsWatchedForCube)
+        {
+            AdssameCubeCounter--;
+        }
+
+        Debug.Log(sameCubeCounter + "same" + AdssameCubeCounter + "adssame");
         rondomSpawn = Random.Range(0, spawnPoints.Length);
         
         whichCube = rondomCube;

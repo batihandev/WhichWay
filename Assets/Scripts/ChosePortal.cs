@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+
 using System.Collections.Generic;
 
 public class ChosePortal : MonoBehaviour
@@ -30,10 +30,19 @@ public class ChosePortal : MonoBehaviour
     public static bool starClickedPortal=false;
     float counter;
     bool startcounter=false;
+    bool startAdscounter = false;
     bool starportalsDestroyed = true;
     float portalspawnCounter = 0;
+    public static bool adsStarOn = false;
+    public static bool adsStarClickWhileOpen = false;
+    public static bool StarClickedWhileOpen = false;
+    float adsStarCounter=0;
     private void Awake()
     {
+        
+        Up = false;
+        adsStarOn = false;
+        changePortalCheck = false;
         starClickedPortal = false;
         portalSpawnSpeed = 1;
         portalWaypoints = new Transform[transform.childCount];
@@ -61,15 +70,46 @@ public class ChosePortal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (startcounter) { counter += Time.deltaTime; }
-        
-        if (counter > 3 &&startcounter) 
+
+        //Debug.Log(adsStarCounter + "ads" + counter);
+
+        if (startAdscounter)
+        {
+            adsStarCounter += Time.deltaTime;
+        }
+        if (adsStarCounter > 8)
         {
             StarPortalsDestroy();
+            
+            startAdscounter = false;
+            adsStarCounter = 0;
+            startcounter = false;
+            counter = 0;
+        }      
+        if (startcounter) { counter += Time.deltaTime; }
+        if (counter > 4 && startcounter && !adsStarOn)
+        {
+            StarPortalsDestroy();
+            startAdscounter = false;
+            adsStarCounter = 0;
             startcounter = false;
             counter = 0;
         }
-        if (starClickedPortal&& starportalsDestroyed)
+        if (adsStarOn && starClickedPortal && adsStarClickWhileOpen)
+        {
+            adsStarClickWhileOpen = false;
+            adsStarCounter -= 8;
+            counter -= 8;
+        }
+        else if (adsStarOn && starClickedPortal&& StarClickedWhileOpen)
+        {
+            StarClickedWhileOpen = false;
+            adsStarCounter -= 4;
+            counter -= 4;
+        }
+
+       
+        if ((starClickedPortal|| adsStarOn)&& starportalsDestroyed )
         {
             StarPortals();
 
@@ -120,7 +160,7 @@ public class ChosePortal : MonoBehaviour
                     portalAnim[1].Play("Reverse 1");
                 }
 
-
+               // Debug.Log("HERE");
 
                 animatiyonplayingReverse = true;
                 Invoke("AnimationReverse", portalSpawnSpeed);
@@ -155,7 +195,7 @@ public class ChosePortal : MonoBehaviour
     
     void Portalspawner()
     {
-
+        
         portalspawnCounter = 0;
         if (portalS[0] == null)
         {
@@ -226,7 +266,7 @@ public class ChosePortal : MonoBehaviour
             }
             else
             {
-                Debug.Log(choseportal+"choseportals");
+                //Debug.Log(choseportal+"choseportals");
                 Spawner.portalIsDown = true;
                 Spawner.thisWay = -speed;
                 Up = false;
@@ -258,6 +298,8 @@ public class ChosePortal : MonoBehaviour
     }
     void StarPortals()
     {
+        
+        starportalsDestroyed = false;
         if (Up)
         {
             Spawner.thisWay = -speed;
@@ -295,11 +337,13 @@ public class ChosePortal : MonoBehaviour
         //ScoreCatcher.scoreCatch = false;
         
         startcounter = true;
-        starportalsDestroyed = false;
+        startAdscounter = true;
+        
         Invoke("StarPortalWait", portalSpawnSpeed);
-     
-         
-     
+        
+
+
+
 
     }
     void StarPortalWait()
@@ -331,7 +375,7 @@ public class ChosePortal : MonoBehaviour
             portalStarAnim[i].Play("Reverse");
            
         }
-        starClickedPortal = false;
+        // starClickedPortal = false;
         //chosenNumber = portalSpawnCount[portalRandom];
 
 
@@ -381,7 +425,10 @@ public class ChosePortal : MonoBehaviour
 
             animationplaying = true;
             Invoke("Animationz", portalSpawnSpeed);
+            starClickedPortal = false;
             starportalsDestroyed = true;
+            adsStarOn = false;
+            portalspawnCounter = 0;
         }
         else if (portalS[1] == null)
         {
@@ -402,8 +449,9 @@ public class ChosePortal : MonoBehaviour
 
             animationplaying = true;
             Invoke("Animationz", portalSpawnSpeed);
-            starportalsDestroyed = true;
             starClickedPortal = false;
+            starportalsDestroyed = true;            
+            adsStarOn = false;
             portalspawnCounter = 0;
         }
 
