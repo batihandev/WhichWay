@@ -219,7 +219,7 @@ public class Spawner : MonoBehaviour
         index = destroyDisty.IndexOf(minValy);
         minValyI = 7 - cubeT[index].transform.position.y;
         minValyIDown = cubeT[index].transform.position.y - 7;
-        Debug.Log(minValyI + "yIup" + minValyIDown + "yIdown"+("score"));
+        //Debug.Log(minValyI + "yIup" + minValyIDown + "yIdown"+("score"));
 
         if (ScoreCatcher.scoreCatch == true || (ChosePortal.starClickedPortal||ChosePortal.adsStarOn))
         //burayý deðiþtir portalýn þekli deðiþirse
@@ -322,7 +322,7 @@ public class Spawner : MonoBehaviour
         index = destroyDisty.IndexOf(minValy);
         minValyI = 7- cubeT[index].transform.position.y;
         minValyIDown = cubeT[index].transform.position.y -7;
-        Debug.Log(minValyI + "yIup" + minValyIDown + "yIdown" + ("ded"));
+       // Debug.Log(minValyI + "yIup" + minValyIDown + "yIdown" + ("ded"));
 
         // minValx = Mathf.Abs(cubeT[index].transform.position.x - portal.position.x);
 
