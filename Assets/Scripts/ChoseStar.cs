@@ -391,7 +391,7 @@ public class ChoseStar : MonoBehaviour
     }
     public void StarEffect()
     {
-        Debug.Log("button works");
+       // Debug.Log("button works");
              
         if (PlayerPrefs.GetInt("highScore") >= 100)
         {
@@ -409,7 +409,7 @@ public class ChoseStar : MonoBehaviour
                 {
                     ChosePortal.starClickedPortal = true;
                     ChosePortal.StarClickedWhileOpen = true;
-                    Debug.Log("starportalnorm");
+                   // Debug.Log("starportalnorm");
                     
                 }
                 else { 

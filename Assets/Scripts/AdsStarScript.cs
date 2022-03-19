@@ -391,7 +391,7 @@ public class AdsStarScript : MonoBehaviour
     }
     public void AdsStarEffect()
     {
-        Debug.Log("button works");
+        //Debug.Log("button works");
 
         
             

@@ -66,7 +66,7 @@ public class Spawner : MonoBehaviour
         starSameCubeSpawn = false;
         addsWatchedForCube = false;
         if (PlayerPrefs.GetInt("highScore") >= 50){
-            lives = 5000;
+            lives = 5;
         }
         else
         {
@@ -217,13 +217,14 @@ public class Spawner : MonoBehaviour
         }
         minValy = destroyDisty.Min();
         index = destroyDisty.IndexOf(minValy);
-        minValyI = Mathf.Abs(cubeT[index].transform.position.y - 7);
-        minValyIDown = Mathf.Abs(cubeT[index].transform.position.y - (-7));
+        minValyI = 7 - cubeT[index].transform.position.y;
+        minValyIDown = cubeT[index].transform.position.y - 7;
+        Debug.Log(minValyI + "yIup" + minValyIDown + "yIdown"+("score"));
 
         if (ScoreCatcher.scoreCatch == true || (ChosePortal.starClickedPortal||ChosePortal.adsStarOn))
         //burayý deðiþtir portalýn þekli deðiþirse
         {
-            if(minValyI < 0.35f || minValyIDown < 0.35f) { 
+            if(minValyI <0.5f || minValyIDown < -13.5f) { 
             ScoreCatcher.scoreCatch = false;
 
             //Debug.Log((ChosePortal.portalS[0] == null) + "0" + (ChosePortal.portalS[1] == null) + "1" + minValyI2 + "yý2" + minValyI + "yý");
@@ -319,14 +320,15 @@ public class Spawner : MonoBehaviour
         }
         minValy = destroyDisty.Min();
         index = destroyDisty.IndexOf(minValy);
-        minValyI = Mathf.Abs(cubeT[index].transform.position.y - 7);
-        minValyIDown = Mathf.Abs(cubeT[index].transform.position.y - (-7));
+        minValyI = 7- cubeT[index].transform.position.y;
+        minValyIDown = cubeT[index].transform.position.y -7;
+        Debug.Log(minValyI + "yIup" + minValyIDown + "yIdown" + ("ded"));
 
         // minValx = Mathf.Abs(cubeT[index].transform.position.x - portal.position.x);
 
         //Debug.Log(minValyIDown + "minvalyýdown");
-       
-        if (minValyI < 0.1f ||minValyIDown<0.1f)
+
+        if (minValyI < -0.5f ||minValyIDown<-14.5f)
             {
                 if (lives == 0)
                 {
@@ -420,7 +422,7 @@ public class Spawner : MonoBehaviour
             AdssameCubeCounter--;
         }
 
-        Debug.Log(sameCubeCounter + "same" + AdssameCubeCounter + "adssame");
+        //Debug.Log(sameCubeCounter + "same" + AdssameCubeCounter + "adssame");
         rondomSpawn = Random.Range(0, spawnPoints.Length);
         
         whichCube = samecube;

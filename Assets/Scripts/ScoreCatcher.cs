@@ -22,7 +22,7 @@ public class ScoreCatcher : MonoBehaviour
     {
         if (!ChosePortal.starClickedPortal)
         {
-            Debug.Log("collide");
+           // Debug.Log("collide");
             scoreCatch = true;
         }
         
