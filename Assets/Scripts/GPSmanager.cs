@@ -16,6 +16,8 @@ public class GPSmanager : MonoBehaviour
     public GameObject gugulPlayPanel;
     int highScore = 0;
     int starClickCount = 0;
+    int steps = 0;
+    
     int gameOverScore = 0;
     
 
@@ -41,8 +43,10 @@ public class GPSmanager : MonoBehaviour
     private void Update()
     {
         highScore = PlayerPrefs.GetInt("highScore", 0);
-        
-            if (highScore == 229 && PlayerPrefs.GetInt("achievements1", 0)==0)
+        starClickCount = PlayerPrefs.GetInt("starClickCount",0);
+        steps = PlayerPrefs.GetInt("steps", 0);
+
+        if (highScore == 229 && PlayerPrefs.GetInt("achievements1", 0)==0)
             {
                 Social.ReportProgress(GPGSIds.achievement_skykinghardworking, 100.00f, (bool success) =>
                 {
@@ -171,20 +175,27 @@ public class GPSmanager : MonoBehaviour
             });
 
         }
-        if (starClickCount < PlayerPrefs.GetInt("starClickCount", 0) && starClickCount<202)
+        if (starClickCount == 25)
         {
-            if (starClickCount == 25)
+            Social.ReportProgress(GPGSIds.achievement_sidereal, 0.00f, (bool success) =>
             {
-                Social.ReportProgress(GPGSIds.achievement_sidereal, 0.00f, (bool success) =>
-                {
-                   
 
-                });
-            }
-            starClickCount = PlayerPrefs.GetInt("starClickCount", 0);
-            DoIncrementalAchievement(starClickCount);
+
+            });
         }
+        
+            
+            
+         
 
+    }
+    public void RevealAchievement()
+    {
+        Social.ReportProgress(GPGSIds.achievement_sidereal, 0.00f, (bool success) =>
+        {
+
+
+        });
     }
     public void DoIncrementalAchievement(int starcount)
     {
@@ -386,6 +397,6 @@ public class GPSmanager : MonoBehaviour
 
             });
         }
-        DoIncrementalAchievement(starClickCount);
+       // DoIncrementalAchievement(starClickCount);
     }
 }

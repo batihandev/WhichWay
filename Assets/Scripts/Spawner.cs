@@ -331,7 +331,7 @@ public class Spawner : MonoBehaviour
 
         if (minValyI < -0.5f ||minValyIDown<-14.5f)
             {
-                if (lives == 0)
+                if (lives == 1)
                 {
 
 
@@ -346,7 +346,7 @@ public class Spawner : MonoBehaviour
                     rightCube.Play();
 
                 }
-                else if (lives > 0)
+                else if (lives > 1)
                 {
 
 

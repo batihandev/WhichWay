@@ -18,9 +18,25 @@ public class PauseMenu : MonoBehaviour
     public GameObject RightL;
     public GameObject LeftL;
     int changed;
+    bool startGame;
+    float counter = 0;
 
     private void Update()
     {
+        if (startGame)
+        {
+            counter ++;
+            Debug.Log(counter);
+            if (counter > 30)
+            {
+                Time.timeScale = 1;
+                gameIsPaused = false;
+                swiped = false;
+                startGame = false;
+                
+            }
+            
+        }
         if (changed != Spawner.whichCube)
         {
             changed = Spawner.whichCube;
@@ -128,11 +144,12 @@ public class PauseMenu : MonoBehaviour
         LeftL.SetActive(false);
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         pauseMenuUI.SetActive(false);
-        Time.timeScale = 1;
-        gameIsPaused = false;
-        swiped = false;
-        
-        
+        startGame = true;
+        counter = 0;
+
+
+
+
     }
     
     public void Pause()
