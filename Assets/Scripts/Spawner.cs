@@ -232,7 +232,8 @@ public class Spawner : MonoBehaviour
             
             ChosePortal.changePortalCheck = true;
             score++;
-            if(score> PlayerPrefs.GetInt("highScore"))
+                int _highScore = PlayerPrefs.GetInt("highScore");
+            if(score> _highScore)
             {
 
                 PlayerPrefs.SetInt("highScore", score);

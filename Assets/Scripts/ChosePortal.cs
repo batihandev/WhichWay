@@ -125,27 +125,42 @@ public class ChosePortal : MonoBehaviour
        // Debug.Log(portalAnim.GetCurrentAnimatorStateInfo(0).IsName("portal"));
         if (Spawner.score > 9)
         {
-            if (Spawner.score > 50 && Spawner.score<=100)
+            if (Spawner.score > 9 && Spawner.score<=25)
             {
-                speed = 2.7f   + (Mathf.Log(Spawner.score - 8)) / 2;
+                speed = 2.7f   + (Mathf.Log(Spawner.score - 8)) / 3;
                 //Debug.Log(speed + "speed");
             }
-            else if (Spawner.score>100&&Spawner.score<=150)
+            else if (Spawner.score > 25 && Spawner.score <= 50)
+            {
+                speed = 2.7f + (Mathf.Log(Spawner.score - 8)) / 2.5f;
+            }
+            else if (Spawner.score > 50 && Spawner.score <= 75)
+            {
+                speed = 2.7f + (Mathf.Log(Spawner.score - 8)) / 2.25f;
+            }
+            else if (Spawner.score > 75 && Spawner.score <= 100)
+            {
+                speed = 2.7f + (Mathf.Log(Spawner.score - 8)) / 2f;
+            }
+            else if (Spawner.score>100&&Spawner.score<=125)
+            {
+                speed = 2.7f + (Mathf.Log(Spawner.score - 8)) / 1.75f;
+            }
+            else if (Spawner.score > 125 && Spawner.score <= 150)
             {
                 speed = 2.7f + (Mathf.Log(Spawner.score - 8)) / 1.5f;
             }
-            else if (Spawner.score > 150)
+            else if (Spawner.score > 150 && Spawner.score <= 175)
             {
-                {
+                speed = 2.7f + (Mathf.Log(Spawner.score - 8)) / 1.25f;
+            }
+            else if (Spawner.score > 175)
+            {
+                
                     speed = 2.7f + Mathf.Log(Spawner.score - 8);
-                }
-            }
-            else
-            {
-                
-                    speed = 2.7f + (Mathf.Log(Spawner.score - 8)) / 3;
                 
             }
+            
             
             portalSpawnSpeed = 1 - ((Mathf.Log(Spawner.score - 7)) /50);
             //if (Up)

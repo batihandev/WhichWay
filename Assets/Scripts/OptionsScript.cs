@@ -10,6 +10,7 @@ public class OptionsScript : MonoBehaviour
     public TMPro.TMP_Dropdown qualityD;
     float volume;
     int indexQ;
+    public GameObject optionsMenu;
     
     private void Start()
     {
@@ -45,4 +46,29 @@ public class OptionsScript : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
     }
+    public void SignIn()
+    {
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GPSmanager>().BasicSignInBtn();
+    }
+    public void SignOut()
+    {
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GPSmanager>().SignOutBtn();
+    }
+    public void ActivatePanel()
+    {
+        
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GPSmanager>().panelActive();
+        
+
+    }
+    public void DeactivatePanel()
+    {
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GPSmanager>().panelDeactive();
+        optionsMenu.SetActive(true);
+    }
+    public void ShowAchievements()
+    {
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GPSmanager>().ShowAchievementsUI();
+    }
+
 }

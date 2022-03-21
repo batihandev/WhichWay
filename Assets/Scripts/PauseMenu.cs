@@ -132,7 +132,9 @@ public class PauseMenu : MonoBehaviour
         gameIsPaused = false;
         swiped = false;
         
+        
     }
+    
     public void Pause()
     {
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();

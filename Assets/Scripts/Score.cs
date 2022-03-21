@@ -3,11 +3,13 @@ using TMPro;
 
 
 
+
 public class Score : MonoBehaviour
 {
     public TextMeshProUGUI score;
     public TextMeshProUGUI highScore;
      int _highScore;
+    int gameoverScore;
     //int firstScore = 0;
     // Start is called before the first frame update
    
@@ -16,14 +18,25 @@ public class Score : MonoBehaviour
 
         
         _highScore = PlayerPrefs.GetInt("highScore");
-        //firstScore = _highScore;
-        if (_highScore < Spawner.score)
-        {
-            PlayerPrefs.SetInt("highScore", Spawner.score);
-        }
+        //gameOverHighScore = PlayerPrefs.GetInt("gameOverScore");
+
+        gameoverScore = Spawner.score;
+        PlayerPrefs.SetInt("gameOverScore", gameoverScore);
+            
+           
+
+        
+          
+            
+         
+
+         
+        
+       
         score.text = "Score : " + Spawner.score;
-        _highScore = PlayerPrefs.GetInt("highScore");
+        
         highScore.text = "High Score : " + _highScore;
+        
     }
 
     // Update is called once per frame

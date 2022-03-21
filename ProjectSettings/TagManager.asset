@@ -8,6 +8,12 @@ TagManager:
   - objectiveCheck
   - ButtonClick
   - Pwaypoint
+  - Status
+  - Description
+  - SignIn
+  - SignOut
+  - OptionsMenu
+  - Menu
   layers:
   - Default
   - TransparentFX
