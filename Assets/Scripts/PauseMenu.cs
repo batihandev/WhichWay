@@ -25,9 +25,9 @@ public class PauseMenu : MonoBehaviour
     {
         if (startGame)
         {
-            counter ++;
+            counter+=Time.fixedDeltaTime;
             Debug.Log(counter);
-            if (counter > 30)
+            if (counter > 0.1)
             {
                 Time.timeScale = 1;
                 gameIsPaused = false;
