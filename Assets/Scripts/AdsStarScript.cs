@@ -64,7 +64,7 @@ public class AdsStarScript : MonoBehaviour
                 //Debug.Log(count);
             }
 
-            if (count > 30 && firstTime)
+            if (count > 5 && firstTime)
             {
                 secondspassed = true;
             firstTime = false;
@@ -81,6 +81,7 @@ public class AdsStarScript : MonoBehaviour
                 randomDir = Random.Range(0, 2);
                 random = Random.Range(0, portalWaypoints.Length);
                 starSpawn = Instantiate(AdsStar, portalWaypoints[random]);
+                
                 starAnim = starSpawn.GetComponent<Animator>();
                 // starSpawn.GetComponent<Button>().onClick.AddListener(delegate { StarEffect(random); });
 

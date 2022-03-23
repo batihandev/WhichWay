@@ -13,17 +13,15 @@ public class OnClickAdd : MonoBehaviour
     {
         if (!adstarClicked)
         {
-            adstarClicked = true;
-            GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<AdsStarScript>().AdsStarEffect();
+            adstarClicked = true; 
+            
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
-            starclickCount = PlayerPrefs.GetInt("starClickCount", 0);
-            starclickCount++;
-            PlayerPrefs.SetInt("starClickCount", starclickCount);
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().ShowRewardedAd();
+           // starclickCount = PlayerPrefs.GetInt("starClickCount", 0);
+            //starclickCount++;
+          //  PlayerPrefs.SetInt("starClickCount", starclickCount);
                 
-            if (ChosePortal.starportalsDestroyed)
-            {
-                ChosePortal.starisClicked = true;
-            }
+            
         }
         
     }

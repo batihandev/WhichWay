@@ -74,6 +74,11 @@ public class Spawner : MonoBehaviour
         }
         
         score = 0;
+        if (EndGameMenu.adWatchedToContinue)
+        {
+            score = PlayerPrefs.GetInt("gameOverScore");
+            lives = 2;
+        }
         cube = Instantiate(cubes[0], spawnPoints[0]);
         cubeT.Add(cube);
         thisWay = 0;
@@ -91,7 +96,8 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         //lives = 3;
-        
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadRewardedAd();
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadRewardedAdEndGame();
     }
 
     void Update()
@@ -333,10 +339,10 @@ public class Spawner : MonoBehaviour
             {
                 if (lives == 1)
                 {
+                
 
 
-
-                    Time.timeScale = 0;
+                Time.timeScale = 0;
                     healthS = "Lives " + lives;
                     health.text = healthS;
                     SceneManager.LoadScene("GameOver");

@@ -18,8 +18,8 @@ public class Score : MonoBehaviour
    
     void Start()
     {
+       
 
-        
         _highScore = PlayerPrefs.GetInt("highScore");
         starClickCount = PlayerPrefs.GetInt("starClickCount", 0);
         endgameStarScore = PlayerPrefs.GetInt("endGameStarCount", 0);
@@ -42,9 +42,9 @@ public class Score : MonoBehaviour
          
         
        
-        score.text = "Score : " + Spawner.score;
+        score.text = "SCORE : " + Spawner.score;
         
-        highScore.text = "High Score : " + _highScore;
+        highScore.text = "HIGHSCORE : " + _highScore;
         
     }
 

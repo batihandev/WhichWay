@@ -143,6 +143,7 @@ public class PauseMenu : MonoBehaviour
         RightL.SetActive(false);
         LeftL.SetActive(false);
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().DestroyBannerAd();
         pauseMenuUI.SetActive(false);
         startGame = true;
         counter = 0;
@@ -155,6 +156,7 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestBannerAd();
         pauseMenuUI.SetActive(true);
         swiped = false;
         Time.timeScale = 0;
@@ -164,6 +166,7 @@ public class PauseMenu : MonoBehaviour
 
     public void MenuButton()
     {
+        EndGameMenu.thisIsTheSameGame = false;
         changed = 5;
         ForwardL.SetActive(false);
         ReverseL.SetActive(false);
@@ -177,12 +180,14 @@ public class PauseMenu : MonoBehaviour
     
     public void Retry()
     {
+        EndGameMenu.thisIsTheSameGame = false;
         changed = 5;
         ForwardL.SetActive(false);
         ReverseL.SetActive(false);
         RightL.SetActive(false);
         LeftL.SetActive(false);
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().DestroyBannerAd();
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1;
         swiped = false;
