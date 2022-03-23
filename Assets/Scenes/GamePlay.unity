@@ -1568,7 +1568,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9
+  orthographic size: 7.5328465
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4247,6 +4247,11 @@ PrefabInstance:
     - target: {fileID: 4493378457929381541, guid: 1bf63a9bdf2a8634ebb09d9e9296783e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: soundE
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493378457996018384, guid: 1bf63a9bdf2a8634ebb09d9e9296783e, type: 3}
+      propertyPath: m_Text
+      value: Removes ALL ads permanently.Get all the benefits without watching any
+        ads.
       objectReference: {fileID: 0}
     - target: {fileID: 4493378458424089677, guid: 1bf63a9bdf2a8634ebb09d9e9296783e, type: 3}
       propertyPath: m_Pivot.x
@@ -10457,7 +10462,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9
+  orthographic size: 7.5328465
   m_Depth: 20
   m_CullingMask:
     serializedVersion: 2

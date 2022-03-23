@@ -14,6 +14,7 @@ TagManager:
   - SignOut
   - OptionsMenu
   - Menu
+  - IconArrows
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - Water
   - UI
   - PostProcLayer
-  - 
-  - 
+  - UIarrows
+  - ImageUI
   - 
   - 
   - 

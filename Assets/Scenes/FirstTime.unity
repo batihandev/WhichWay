@@ -8684,6 +8684,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1231777346}
+    - target: {fileID: 4493378457996018384, guid: 1bf63a9bdf2a8634ebb09d9e9296783e, type: 3}
+      propertyPath: m_Text
+      value: Removes ALL ads permanently.Get all the benefits without watching any
+        ads.
+      objectReference: {fileID: 0}
     - target: {fileID: 4493378458424089677, guid: 1bf63a9bdf2a8634ebb09d9e9296783e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
