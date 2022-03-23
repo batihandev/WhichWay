@@ -51,7 +51,8 @@ public class GoogleADMOBmanager : MonoBehaviour
         MobileAds.SetRequestConfiguration(requestConfiguration);
 
         // Initialize the Google Mobile Ads SDK.
-        MobileAds.Initialize(HandleInitCompleteAction);
+        if (PlayerPrefs.GetInt("removeAds", 0) == 0) { MobileAds.Initialize(HandleInitCompleteAction);                                                         }
+        
         // RequestBannerAd();
     }
 
@@ -287,11 +288,12 @@ public class GoogleADMOBmanager : MonoBehaviour
     public void HandleRewardBasedVideoClosedEndGame(object sender, EventArgs args)
     {
         
-        RequestAndLoadRewardedAd();
+        RequestAndLoadRewardedAdEndGame();
         Debug.Log("closed");
     }
     public void HandleRewardBasedVideoRewardedEndGame(object sender, Reward args)
     {
+        
         EndGameMenu.thisIsTheSameGame = true;
         EndGameMenu.adWatchedToContinue = true;
         Time.timeScale = 1;
@@ -309,7 +311,7 @@ public class GoogleADMOBmanager : MonoBehaviour
     }
     public void HandleRewardBasedVideoRewarded(object sender, Reward args)
     {
-        
+        OnClickAdd.adstarClicked = true;
         GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<AdsStarScript>().AdsStarEffect();
         //EndGameMenu.adWatchedToContinue = true;
         if (ChosePortal.starportalsDestroyed)

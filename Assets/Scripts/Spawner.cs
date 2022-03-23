@@ -96,8 +96,10 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         //lives = 3;
+        if (PlayerPrefs.GetInt("removeAds", 0) == 0) { 
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadRewardedAd();
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadRewardedAdEndGame();
+        }
     }
 
     void Update()
@@ -243,7 +245,10 @@ public class Spawner : MonoBehaviour
             {
 
                 PlayerPrefs.SetInt("highScore", score);
-            }
+                    GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+                    GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
+
+                }
             if (PlayerPrefs.GetInt("highScore") >= 50)
             {
                 if (score > 50)
@@ -335,7 +340,7 @@ public class Spawner : MonoBehaviour
 
         //Debug.Log(minValyIDown + "minvalyýdown");
 
-        if (minValyI < -0.5f ||minValyIDown<-14.5f)
+        if (minValyI < -0.1f ||minValyIDown<-14.1f)
             {
                 if (lives == 1)
                 {

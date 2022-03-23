@@ -64,14 +64,14 @@ public class AdsStarScript : MonoBehaviour
                 //Debug.Log(count);
             }
 
-            if (count > 5 && firstTime)
+            if (count > 30 && firstTime&& !EndGameMenu.thisIsTheSameGame)
             {
                 secondspassed = true;
             firstTime = false;
 
             }
-           if (count > 60 && !firstTime)
-           {
+            else if (count > 60 && (!firstTime ||EndGameMenu.thisIsTheSameGame))
+            {
             secondspassed = true;
             
 

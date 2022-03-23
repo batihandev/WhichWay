@@ -12,10 +12,13 @@ public class EndGameMenu : MonoBehaviour
     public TextMeshProUGUI continueButton;
     private void Start()
     {
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
         ChosePortal.adsStarOn = false;
         ChosePortal.starportalsDestroyed = true;
         Time.timeScale = 1;
-        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadInterstitialAd();
+        if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadInterstitialAd(); }
+           
         if (thisIsTheSameGame)
         {
             continueButton.faceColor = new Color32(255, 255, 255, 10);
@@ -29,10 +32,10 @@ public class EndGameMenu : MonoBehaviour
         PauseMenu.swiped = false;
         PauseMenu.gameIsPaused = false;
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
-        StartCoroutine(toWait());
+        Invoke("ToWait", 0.2f);
         //SceneManager.LoadScene("GamePlay");
-       
-       
+
+
 
 
     }
@@ -41,7 +44,17 @@ public class EndGameMenu : MonoBehaviour
         
         if (!thisIsTheSameGame) {
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
-            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().ShowRewardedAdEnd();
+            if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().ShowRewardedAdEnd(); }
+            if (PlayerPrefs.GetInt("removeAds", 0) == 1)
+            {
+                EndGameMenu.thisIsTheSameGame = true;
+                EndGameMenu.adWatchedToContinue = true;
+                Time.timeScale = 1;
+                PauseMenu.swiped = false;
+                PauseMenu.gameIsPaused = false;
+                GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+                Invoke("ToWait", 0.2f);
+            }
         }
         
         
@@ -51,9 +64,9 @@ public class EndGameMenu : MonoBehaviour
 
 
     }
-    IEnumerator toWait()
+    void ToWait()
     {
-        yield return new WaitForSeconds(0.2f);
+        
         SceneManager.LoadScene("GamePlay");
 
 
@@ -74,7 +87,10 @@ public class EndGameMenu : MonoBehaviour
         PlayerPrefs.SetInt("GameEnds", gameends);
         if (PlayerPrefs.GetInt("GameEnds", 0) % 2 == 0)
         {
-            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().ShowInterstitialAd();
+            if (PlayerPrefs.GetInt("removeAds", 0) == 0)
+            {
+                GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().ShowInterstitialAd();
+            }
         }
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         

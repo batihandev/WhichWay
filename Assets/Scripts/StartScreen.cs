@@ -11,12 +11,14 @@ public class StartScreen : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestBannerAd();
+        if(PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestBannerAd(); }
+        
     }
     public void playgame()
     {
         EndGameMenu.thisIsTheSameGame = false;
-        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().DestroyBannerAd();
+        if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().DestroyBannerAd(); }
+           
         //testgl 
         firstTime =PlayerPrefs.GetInt("firstTime");
         if (firstTime == 0)

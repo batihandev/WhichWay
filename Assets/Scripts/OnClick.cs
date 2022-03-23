@@ -11,7 +11,7 @@ public class OnClick : MonoBehaviour
     }
     void OnMouseDown()
     {
-        if (!StarClicked)
+        if (!StarClicked && !PauseMenu.gameIsPaused)
         {
             StarClicked = true;
             GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<ChoseStar>().StarEffect();

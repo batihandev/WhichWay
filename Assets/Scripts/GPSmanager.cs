@@ -267,6 +267,7 @@ public class GPSmanager : MonoBehaviour
     }
     public void achievementCheck()
     {
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().LoadData();
         if (PlayerPrefs.GetInt("achievements1", 0) == 1)
         {
             Social.ReportProgress(GPGSIds.achievement_skykinghardworking, 100.00f, (bool success) =>
