@@ -12871,6 +12871,7 @@ GameObject:
   - component: {fileID: 7433078952930876499}
   - component: {fileID: 7433078952930876497}
   - component: {fileID: 7433078952930876498}
+  - component: {fileID: 7433078952930876501}
   m_Layer: 5
   m_Name: Head
   m_TagString: Untagged
@@ -12878,6 +12879,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7433078952930876501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7433078952930876500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: a7a67dc48d695ba4fb44ab94890432ee, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!222 &7433078952947971809
 CanvasRenderer:
   m_ObjectHideFlags: 0

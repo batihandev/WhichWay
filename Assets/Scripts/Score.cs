@@ -9,10 +9,10 @@ public class Score : MonoBehaviour
     public TextMeshProUGUI score;
     public TextMeshProUGUI highScore;
      int _highScore;
-    int gameoverScore;
-    int starClickCount;
-    int endgameStarScore;
-    int steps;
+    public static int gameoverScore;
+    
+    public static int endgameStarScore;
+    public static int steps;
     //int firstScore = 0;
     // Start is called before the first frame update
    
@@ -20,17 +20,17 @@ public class Score : MonoBehaviour
     {
        
 
-        _highScore = PlayerPrefs.GetInt("highScore");
-        starClickCount = PlayerPrefs.GetInt("starClickCount", 0);
-        endgameStarScore = PlayerPrefs.GetInt("endGameStarCount", 0);
-        steps = starClickCount - endgameStarScore;        
+        
+        
+       
+        steps = OnClick.starClickCount - endgameStarScore;        
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GPSmanager>().DoIncrementalAchievement(steps);
-        PlayerPrefs.SetInt("steps", steps);
-        PlayerPrefs.SetInt("endGameStarCount",starClickCount);
+        
+        endgameStarScore = OnClick.starClickCount;
         //gameOverHighScore = PlayerPrefs.GetInt("gameOverScore");
 
         gameoverScore = Spawner.score;
-        PlayerPrefs.SetInt("gameOverScore", gameoverScore);
+        
         
            
 
@@ -44,7 +44,7 @@ public class Score : MonoBehaviour
        
         score.text = "SCORE : " + Spawner.score;
         
-        highScore.text = "HIGHSCORE : " + _highScore;
+        highScore.text = "HIGHSCORE : " + Spawner.highScore;
         
     }
 

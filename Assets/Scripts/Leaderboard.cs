@@ -15,7 +15,8 @@ public class Leaderboard : MonoBehaviour
     }
     public void DoLeaderboardPost()
     {
-        score = PlayerPrefs.GetInt("highScore", 0);
+        
+        score = Spawner.highScore;
         Social.ReportScore(score,GPGSIds.leaderboard_leaderboard,(bool success) =>
         {
             if (success)

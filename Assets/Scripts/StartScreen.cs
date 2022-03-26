@@ -5,27 +5,46 @@ using UnityEngine.SceneManagement;
 
 public class StartScreen : MonoBehaviour
 {
-    int firstTime;
+    public static int firstTime;
     public GameObject howtoplay;
     public GameObject menu;
+    public static string ad="TestKey";
     // Start is called before the first frame update
     void Awake()
     {
-        if(PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestBannerAd(); }
+        try {
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SetPaths();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
+        }        
+        catch {
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SetPaths();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveFirstTime();
+        }
+        if (ad != "7TjqzjL(#>F^zqDrr-D>UFjq>")
+        {
+            PlayerPrefs.SetInt("removeAds", 0);
+        }
+
+        if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestBannerAd(); }
         
     }
+
     public void playgame()
     {
+        EndGameMenu.adWatchedToContinue = false;
         EndGameMenu.thisIsTheSameGame = false;
         if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().DestroyBannerAd(); }
            
         //testgl 
-        firstTime =PlayerPrefs.GetInt("firstTime");
+        
         if (firstTime == 0)
         {
             menu.SetActive(false);
             howtoplay.SetActive(true);
-            PlayerPrefs.SetInt("firstTime", 1);
+            
+            firstTime = 1;
                 
 
         }
@@ -44,6 +63,8 @@ public class StartScreen : MonoBehaviour
     }
     public void Exit()
     {
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         Application.Quit();
     }

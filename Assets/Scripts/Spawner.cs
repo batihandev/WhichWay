@@ -56,7 +56,7 @@ public class Spawner : MonoBehaviour
     int samecube;
     public static bool clickedWhileAdsson=false;
     public static bool clickedWhileSpawnsOn = false;
-
+    public static int highScore = 0;
    
 
 
@@ -65,7 +65,7 @@ public class Spawner : MonoBehaviour
     {
         starSameCubeSpawn = false;
         addsWatchedForCube = false;
-        if (PlayerPrefs.GetInt("highScore") >= 50){
+        if (highScore >= 50){
             lives = 5;
         }
         else
@@ -74,9 +74,9 @@ public class Spawner : MonoBehaviour
         }
         
         score = 0;
-        if (EndGameMenu.adWatchedToContinue)
+        if (EndGameMenu.adWatchedToContinue && EndGameMenu.thisIsTheSameGame)
         {
-            score = PlayerPrefs.GetInt("gameOverScore");
+            score = Score.gameoverScore;
             lives = 2;
         }
         cube = Instantiate(cubes[0], spawnPoints[0]);
@@ -240,16 +240,16 @@ public class Spawner : MonoBehaviour
             
             ChosePortal.changePortalCheck = true;
             score++;
-                int _highScore = PlayerPrefs.GetInt("highScore");
+                int _highScore = highScore;
             if(score> _highScore)
             {
 
-                PlayerPrefs.SetInt("highScore", score);
+                highScore=score;
                     GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
                     GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
 
                 }
-            if (PlayerPrefs.GetInt("highScore") >= 50)
+            if (highScore >= 50)
             {
                 if (score > 50)
                 {

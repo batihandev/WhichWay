@@ -44,7 +44,7 @@ public class ChoseStar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerPrefs.GetInt("highScore") >= 25)
+        if(Spawner.highScore >= 25)
         {
             
             if (deadManWalk && deadCount < 0.9f && starSpawn != null)
@@ -65,7 +65,7 @@ public class ChoseStar : MonoBehaviour
                 count += Time.deltaTime;
                 //Debug.Log(count);
             }
-            if (PlayerPrefs.GetInt("highScore") >= 200)
+            if (Spawner.highScore >= 200)
             {
                 if (count > 10)
                 {
@@ -393,7 +393,7 @@ public class ChoseStar : MonoBehaviour
     {
        // Debug.Log("button works");
              
-        if (PlayerPrefs.GetInt("highScore") >= 100)
+        if (Spawner.highScore >= 100)
         {
             if (starEffectCalc < 1)
             {

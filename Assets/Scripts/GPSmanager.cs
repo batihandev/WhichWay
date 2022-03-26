@@ -14,6 +14,14 @@ public class GPSmanager : MonoBehaviour
     public GameObject signinButton;
     public GameObject signoutButton;
     public GameObject gugulPlayPanel;
+    public static bool achievements1 = false;
+    public static bool achievements2 = false;
+    public static bool achievements3 = false;
+    public static bool achievements4 = false;
+    public static bool achievements5 = false;
+    public static bool achievements6 = false;
+    public static bool achievements7 = false;
+    public static bool achievements8 = false;
     int highScore = 0;
     int starClickCount = 0;
     int steps = 0;
@@ -33,26 +41,26 @@ public class GPSmanager : MonoBehaviour
     }
     private void Start()
     {
-        highScore = PlayerPrefs.GetInt("highScore", 0);
-        gameOverScore = PlayerPrefs.GetInt("gameOverScore", 0);
-        starClickCount = PlayerPrefs.GetInt("starClickCount", 0);
+        highScore = Spawner.highScore;
+        gameOverScore = Score.gameoverScore;
+        starClickCount = OnClick.starClickCount;
         ConfigureGPGS();
         SingIntoGPS(SignInInteractivity.CanPromptOnce, clientConfiguration);
       
     }
     private void Update()
     {
-        highScore = PlayerPrefs.GetInt("highScore", 0);
-        starClickCount = PlayerPrefs.GetInt("starClickCount",0);
-        steps = PlayerPrefs.GetInt("steps", 0);
+        highScore = Spawner.highScore;
+        starClickCount = OnClick.starClickCount;
+        steps = Score.steps;
 
-        if (highScore == 229 && PlayerPrefs.GetInt("achievements1", 0)==0)
+        if (highScore == 229 && !achievements1)
             {
                 Social.ReportProgress(GPGSIds.achievement_skykinghardworking, 100.00f, (bool success) =>
                 {
                     if (success)
                     {
-                        PlayerPrefs.SetInt("achievements1", 1);
+                        achievements1 = true; ;
 
                     }
                     else
@@ -62,13 +70,13 @@ public class GPSmanager : MonoBehaviour
 
                 });
             }
-            if (highScore == 200&&PlayerPrefs.GetInt("achievements2", 0) == 0)
+            if (highScore == 200&&!achievements2)
             {
                 Social.ReportProgress(GPGSIds.achievement_reach_200_score, 100.00f, (bool success) =>
                 {
                     if (success)
                     {
-                        PlayerPrefs.SetInt("achievements2", 1);
+                        achievements2 = true; ;
                     }
                     else
                     {
@@ -79,13 +87,13 @@ public class GPSmanager : MonoBehaviour
             }           
 
             
-                    if (highScore == 100&& PlayerPrefs.GetInt("achievements3", 0) == 0)
+                    if (highScore == 100&& !achievements3)
                     {
                     Social.ReportProgress(GPGSIds.achievement_reach_100_score, 100.00f, (bool success) =>
                     {
                         if (success)
                         {
-                            PlayerPrefs.SetInt("achievements3", 1);
+                            achievements3 = true;
                         }
                         else
                         {
@@ -94,13 +102,13 @@ public class GPSmanager : MonoBehaviour
 
                     });
                 }
-                    if (highScore == 50 && PlayerPrefs.GetInt("achievements4", 0) == 0)
+                    if (highScore == 50 && !achievements4)
                     {
                     Social.ReportProgress(GPGSIds.achievement_reach_50_score, 100.00f, (bool success) =>
                     {
                         if (success)
                         {
-                            PlayerPrefs.SetInt("achievements4", 1);
+                            achievements4 = true;
                         }
                         else
                         {
@@ -109,13 +117,13 @@ public class GPSmanager : MonoBehaviour
 
                     });
                 }
-                    if (highScore == 30 && PlayerPrefs.GetInt("achievements5", 0) == 0)
+                    if (highScore == 30 && !achievements5)
                     {
                     Social.ReportProgress(GPGSIds.achievement_come_on, 100.00f, (bool success) =>
                     {
                         if (success)
                         {
-                            PlayerPrefs.SetInt("achievements5", 1);
+                            achievements5=true;
                         }
                         else
                         {
@@ -124,13 +132,13 @@ public class GPSmanager : MonoBehaviour
 
                     });
                 }
-                    if (highScore == 25 && PlayerPrefs.GetInt("achievements6", 0) == 0)
+                    if (highScore == 25 && !achievements6)
                     {
                     Social.ReportProgress(GPGSIds.achievement_reach_25_score, 100.00f, (bool success) =>
                     {
                         if (success)
                         {
-                            PlayerPrefs.SetInt("achievements6", 1);
+                            achievements6 = true; ;
                         }
                         else
                         {
@@ -143,13 +151,13 @@ public class GPSmanager : MonoBehaviour
                 
             
         
-        if (starClickCount == 1 && PlayerPrefs.GetInt("achievements7", 0) == 0)
+        if (starClickCount == 1 && !achievements7)
         {
             Social.ReportProgress(GPGSIds.achievement_all_star, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    PlayerPrefs.SetInt("achievements7", 1);
+                    achievements7 = true;
                 }
                 else
                 {
@@ -159,13 +167,13 @@ public class GPSmanager : MonoBehaviour
             });
 
         }
-        if (gameOverScore == 199 && PlayerPrefs.GetInt("achievements8", 0) == 0)
+        if (gameOverScore == 199 && !achievements8)
         {
             Social.ReportProgress(GPGSIds.achievement_vexed, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    PlayerPrefs.SetInt("achievements8", 1);
+                    achievements8 = true;
                 }
                 else
                 {
@@ -268,13 +276,13 @@ public class GPSmanager : MonoBehaviour
     public void achievementCheck()
     {
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().LoadData();
-        if (PlayerPrefs.GetInt("achievements1", 0) == 1)
+        if (achievements1)
         {
             Social.ReportProgress(GPGSIds.achievement_skykinghardworking, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    PlayerPrefs.SetInt("achievements1", 1);
+                    achievements1 = true; ;
 
                 }
                 else
@@ -284,13 +292,13 @@ public class GPSmanager : MonoBehaviour
 
             });
         }
-        if (PlayerPrefs.GetInt("achievements2", 0) == 1)
+        if (achievements2)
         {
             Social.ReportProgress(GPGSIds.achievement_reach_200_score, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    PlayerPrefs.SetInt("achievements2", 1);
+                    achievements2 = true;
                 }
                 else
                 {
@@ -299,13 +307,13 @@ public class GPSmanager : MonoBehaviour
 
             });
         }
-        if (PlayerPrefs.GetInt("achievements3", 0) == 1)
+        if (achievements3)
         {
             Social.ReportProgress(GPGSIds.achievement_reach_100_score, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    PlayerPrefs.SetInt("achievements3", 1);
+                    achievements3 = true;
                 }
                 else
                 {
@@ -314,13 +322,13 @@ public class GPSmanager : MonoBehaviour
 
             });
         }
-        if (PlayerPrefs.GetInt("achievements4", 0) == 1)
+        if (achievements4)
         {
             Social.ReportProgress(GPGSIds.achievement_reach_50_score, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    PlayerPrefs.SetInt("achievements4", 1);
+                    achievements4 = true;
                 }
                 else
                 {
@@ -329,13 +337,13 @@ public class GPSmanager : MonoBehaviour
 
             });
         }
-        if (PlayerPrefs.GetInt("achievements5", 0) == 1)
+        if (achievements5)
         {
             Social.ReportProgress(GPGSIds.achievement_come_on, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    PlayerPrefs.SetInt("achievements5", 1);
+                    achievements5=true;
                 }
                 else
                 {
@@ -344,13 +352,13 @@ public class GPSmanager : MonoBehaviour
 
             });
         }
-        if (PlayerPrefs.GetInt("achievements6", 0) == 1)
+        if (achievements6)
         {
             Social.ReportProgress(GPGSIds.achievement_reach_25_score, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    PlayerPrefs.SetInt("achievements6", 1);
+                    achievements6=true;
                 }
                 else
                 {
@@ -359,13 +367,13 @@ public class GPSmanager : MonoBehaviour
 
             });
         }
-        if (PlayerPrefs.GetInt("achievements7", 0) == 1)
+        if (achievements7)
         {
             Social.ReportProgress(GPGSIds.achievement_all_star, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    PlayerPrefs.SetInt("achievements7", 1);
+                    achievements7=true;
                 }
                 else
                 {
@@ -374,13 +382,13 @@ public class GPSmanager : MonoBehaviour
 
             });
         }
-        if (PlayerPrefs.GetInt("achievements8", 0) == 1)
+        if (achievements8)
         {
             Social.ReportProgress(GPGSIds.achievement_vexed, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    PlayerPrefs.SetInt("achievements8", 1);
+                    achievements8=true;
                 }
                 else
                 {
@@ -389,7 +397,7 @@ public class GPSmanager : MonoBehaviour
 
             });
         }
-        starClickCount = PlayerPrefs.GetInt("starClickCount", 0);
+        starClickCount = OnClick.starClickCount;
         if (starClickCount >= 25)
         {
             Social.ReportProgress(GPGSIds.achievement_sidereal, 0.00f, (bool success) =>

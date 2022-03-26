@@ -114,13 +114,13 @@ public class ChosePortal : MonoBehaviour
             counter -= 4;
         }
 
-        if(PlayerPrefs.GetInt("removeAds", 0) == 0) {
+        
             if (EndGameMenu.adWatchedToContinue)
             {
                 adsStarOn = true;
                 EndGameMenu.adWatchedToContinue = false;
             }
-        }
+        
         
         if ((starClickedPortal|| adsStarOn)&& starportalsDestroyed )
         {

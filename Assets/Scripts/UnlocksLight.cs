@@ -18,7 +18,7 @@ public class UnlocksLight : MonoBehaviour
 
     { 
         
-        highScore = PlayerPrefs.GetInt("highScore");
+        highScore = Spawner.highScore;
         twentyFive.SetActive(false);
         fifty.SetActive(false);
         oneHundred.SetActive(false);

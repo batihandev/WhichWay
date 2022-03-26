@@ -10,6 +10,7 @@ public class EndGameMenu : MonoBehaviour
     public static bool adWatchedToContinue = false;
     public static bool thisIsTheSameGame = false;
     public TextMeshProUGUI continueButton;
+    public static int gameends;
     private void Start()
     {
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
@@ -26,6 +27,7 @@ public class EndGameMenu : MonoBehaviour
     }
     public void playgame()
     {
+        
         thisIsTheSameGame = false;
         //testgl
         Time.timeScale = 1;
@@ -82,10 +84,10 @@ public class EndGameMenu : MonoBehaviour
     {
         thisIsTheSameGame = false;
         Time.timeScale = 1;
-        int gameends = PlayerPrefs.GetInt("GameEnds", 0);
+        
         gameends++;
-        PlayerPrefs.SetInt("GameEnds", gameends);
-        if (PlayerPrefs.GetInt("GameEnds", 0) % 2 == 0)
+        
+        if (gameends % 2 == 0)
         {
             if (PlayerPrefs.GetInt("removeAds", 0) == 0)
             {

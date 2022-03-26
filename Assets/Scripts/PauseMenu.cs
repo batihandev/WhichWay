@@ -182,6 +182,7 @@ public class PauseMenu : MonoBehaviour
     
     public void Retry()
     {
+        EndGameMenu.adWatchedToContinue = false;
         EndGameMenu.thisIsTheSameGame = false;
         changed = 5;
         ForwardL.SetActive(false);

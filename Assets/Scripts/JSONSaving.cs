@@ -1,10 +1,12 @@
 
 using System.IO;
-
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class JSONSaving : MonoBehaviour
 {
+    public static int pleasedontmodfiy;
     private PlayerData playerData;
    // private string path = "";
     private string persistentPath = "";
@@ -12,14 +14,17 @@ public class JSONSaving : MonoBehaviour
     void Start()
     {
         SetPaths();
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
     }
     public void CreatePlayerData()
     {
-        playerData = new PlayerData (name,PlayerPrefs.GetInt("highScore"), PlayerPrefs.GetInt("gameOverScore"),/*PlayerPrefs.GetInt("removeAds"),*/PlayerPrefs.GetInt("GameEnds"), PlayerPrefs.GetInt("firstTime"),
-            PlayerPrefs.GetInt("starClickCount"), PlayerPrefs.GetInt("steps"), PlayerPrefs.GetInt("achievements1"), PlayerPrefs.GetInt("achievements2"), PlayerPrefs.GetInt("achievements3"), PlayerPrefs.GetInt("achievements4")
-            , PlayerPrefs.GetInt("achievements5"), PlayerPrefs.GetInt("achievements6"), PlayerPrefs.GetInt("achievements7"), PlayerPrefs.GetInt("achievements8"), PlayerPrefs.GetFloat("Volume"), PlayerPrefs.GetInt("indexQ"), PlayerPrefs.GetInt("endGameStarCount"));
+        pleasedontmodfiy = (((Spawner.highScore+1) * (OnClick.starClickCount+1) * 217197 - 987)/15743);
+        playerData = new PlayerData (name="Player",Spawner.highScore,/*PlayerPrefs.GetInt("removeAds"),*/ StartScreen.firstTime,
+            OnClick.starClickCount, Score.steps, GPSmanager.achievements1 , GPSmanager.achievements2, GPSmanager.achievements3, GPSmanager.achievements4
+            , GPSmanager.achievements5, GPSmanager.achievements6, GPSmanager.achievements7, GPSmanager.achievements8, PlayerPrefs.GetFloat("Volume"), PlayerPrefs.GetInt("indexQ"), Score.endgameStarScore,StartScreen.ad,pleasedontmodfiy);
     }
-    private void SetPaths()
+    public void SetPaths()
     {
        // path = Application.dataPath + Path.AltDirectorySeparatorChar + "SaveData.json";
         persistentPath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + "SaveData.json";
@@ -29,41 +34,81 @@ public class JSONSaving : MonoBehaviour
     {
         
     }
+    public void SaveFirstTime()
+    {
+        string savePath = persistentPath;
+
+        Debug.Log("saving data at " + savePath);
+        string json = JsonUtility.ToJson(playerData);
+        
+        //Rot39(json);
+        Debug.Log(json);
+        using StreamWriter writer = new StreamWriter(savePath);
+        writer.Write(json);
+        
+    }
     public void SaveData()
     {
+       
+            //using StreamReader reader = new StreamReader(persistentPath);
+            LoadData();
+        
+        
+        
+        
         string savePath = persistentPath;
         Debug.Log("saving data at " + savePath);
         string json = JsonUtility.ToJson(playerData);
+        //Rot39(json);
         Debug.Log(json);
         using StreamWriter writer = new StreamWriter(savePath);
         writer.Write(json);
     }
+    //public string Rot39(string input)
+    //{
+    //    // This string contains 78 different characters in random order.
+    //    var mix = "QDXkW<_(V?cqK.lJ>-*y&zv9prf8biYCFeMxBm6ZnG3H4OuS1UaI5TwtoA#Rs!,7d2@L^gNhj)EP$0";
+    //    var result = (input ?? "").ToCharArray();
+    //    for (int i = 0; i < result.Length; ++i)
+    //    {
+    //        int j = mix.IndexOf(result[i]);
+    //        result[i] = (j < 0) ? result[i] : mix[(j + 39) % 78];
+    //    }
+    //    return new string(result);
+    //}
     public void LoadData()
-    {
+    {   
         using StreamReader reader = new StreamReader(persistentPath);
         string json = reader.ReadToEnd();
-        PlayerData data = JsonUtility.FromJson<PlayerData>(json);
-        Debug.Log(data.ToString());
-        if(data.highScore>=PlayerPrefs.GetInt("highScore",0) && data.StarClickCount >= PlayerPrefs.GetInt("starClickCount", 0))
+    
+        PlayerData data = JsonUtility.FromJson<PlayerData>(json) ;
+        Debug.Log(data.ToString()+"loadeddata checking now ...");
+        if (data.pleasedontmodify != (((data.highScore+1) * (data.StarClickCount+1) * 217197 - 987)/ 15743))
         {
-            PlayerPrefs.SetInt("highScore", data.highScore);
-            PlayerPrefs.SetInt("gameOverScore", data.gameOverScore);
+
+            Debug.Log("cheating?");
+        }
+        else if(data.highScore>Spawner.highScore || data.StarClickCount > OnClick.starClickCount )
+        {
+            Spawner.highScore= data.highScore;
+            
             //PlayerPrefs.SetInt("removeAds", data.removeAds);
-            PlayerPrefs.SetInt("GameEnds", data.GameEnds);
-            PlayerPrefs.SetInt("firstTime", data.FirstTime);
-            PlayerPrefs.SetInt("starClickCount", data.StarClickCount);
-            PlayerPrefs.SetInt("steps", data.steps);
-            PlayerPrefs.SetInt("achievements1", data.achievements1);
-            PlayerPrefs.SetInt("achievements2", data.achievements2);
-            PlayerPrefs.SetInt("achievements3", data.achievements3);
-            PlayerPrefs.SetInt("achievements4", data.achievements4);
-            PlayerPrefs.SetInt("achievements5", data.achievements5);
-            PlayerPrefs.SetInt("achievements6", data.achievements6);
-            PlayerPrefs.SetInt("achievements7", data.achievements7);
-            PlayerPrefs.SetInt("achievements8", data.achievements8);
+            
+            StartScreen.firstTime= data.FirstTime;
+            OnClick.starClickCount= data.StarClickCount;
+            Score.steps= data.steps;
+            GPSmanager.achievements1= data.achievements1;
+            GPSmanager.achievements2 = data.achievements2;
+            GPSmanager.achievements3 = data.achievements3;
+            GPSmanager.achievements4 = data.achievements4;
+            GPSmanager.achievements5 = data.achievements5;
+            GPSmanager.achievements6 = data.achievements6;
+            GPSmanager.achievements7 = data.achievements7;
+            GPSmanager.achievements8 = data.achievements8;
             PlayerPrefs.SetFloat("Volume", data.volume);
             PlayerPrefs.SetInt("indexQ", data.indexQ);
-            PlayerPrefs.SetInt("endGameStarCount", data.endGameStarCount);
+            Score.endgameStarScore= data.endGameStarCount;
+            StartScreen.ad = data.Test;
         }
    
     }
