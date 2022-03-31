@@ -1568,7 +1568,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.5328465
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2734,6 +2734,8 @@ MonoBehaviour:
   volSlider: {fileID: 461777825158328374}
   qualityD: {fileID: 4515741772667442217}
   optionsMenu: {fileID: 461777824566349840}
+  panel: {fileID: 157583215}
+  panel2: {fileID: 7856342141716157762}
 --- !u!1 &859555303
 GameObject:
   m_ObjectHideFlags: 0
@@ -10462,7 +10464,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.5328465
+  orthographic size: 8
   m_Depth: 20
   m_CullingMask:
     serializedVersion: 2

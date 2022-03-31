@@ -11,7 +11,8 @@ public class OptionsScript : MonoBehaviour
     float volume;
     int indexQ;
     public GameObject optionsMenu;
-    
+    public GameObject panel;
+    public GameObject panel2;
     private void Start()
     {
         
@@ -68,7 +69,21 @@ public class OptionsScript : MonoBehaviour
     }
     public void ShowAchievements()
     {
-        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GPSmanager>().ShowAchievementsUI();
+        if (PlayerPrefs.GetInt("SignedOut", 0) == 1)
+        {
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GPSmanager>().panelActive();
+            panel.SetActive(false);
+            if (panel2 != null)
+            {
+                panel2.SetActive(false);
+            }
+
+        }
+        else
+        {
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GPSmanager>().ShowAchievementsUI();
+        }
+        
     }
 
 }

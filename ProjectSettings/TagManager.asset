@@ -15,6 +15,7 @@ TagManager:
   - OptionsMenu
   - Menu
   - IconArrows
+  - EndGMenu
   layers:
   - Default
   - TransparentFX

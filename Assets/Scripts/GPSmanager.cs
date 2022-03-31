@@ -22,6 +22,7 @@ public class GPSmanager : MonoBehaviour
     public static bool achievements6 = false;
     public static bool achievements7 = false;
     public static bool achievements8 = false;
+    
     int highScore = 0;
     int starClickCount = 0;
     int steps = 0;
@@ -54,7 +55,7 @@ public class GPSmanager : MonoBehaviour
         starClickCount = OnClick.starClickCount;
         steps = Score.steps;
 
-        if (highScore == 229 && !achievements1)
+        if (highScore >= 229 && !achievements1)
             {
                 Social.ReportProgress(GPGSIds.achievement_skykinghardworking, 100.00f, (bool success) =>
                 {
@@ -70,7 +71,7 @@ public class GPSmanager : MonoBehaviour
 
                 });
             }
-            if (highScore == 200&&!achievements2)
+            if (highScore >= 200&&!achievements2)
             {
                 Social.ReportProgress(GPGSIds.achievement_reach_200_score, 100.00f, (bool success) =>
                 {
@@ -87,7 +88,7 @@ public class GPSmanager : MonoBehaviour
             }           
 
             
-                    if (highScore == 100&& !achievements3)
+                    if (highScore >= 100&& !achievements3)
                     {
                     Social.ReportProgress(GPGSIds.achievement_reach_100_score, 100.00f, (bool success) =>
                     {
@@ -102,7 +103,7 @@ public class GPSmanager : MonoBehaviour
 
                     });
                 }
-                    if (highScore == 50 && !achievements4)
+                    if (highScore >= 50 && !achievements4)
                     {
                     Social.ReportProgress(GPGSIds.achievement_reach_50_score, 100.00f, (bool success) =>
                     {
@@ -117,7 +118,7 @@ public class GPSmanager : MonoBehaviour
 
                     });
                 }
-                    if (highScore == 30 && !achievements5)
+                    if (highScore >= 30 && !achievements5)
                     {
                     Social.ReportProgress(GPGSIds.achievement_come_on, 100.00f, (bool success) =>
                     {
@@ -132,7 +133,7 @@ public class GPSmanager : MonoBehaviour
 
                     });
                 }
-                    if (highScore == 25 && !achievements6)
+                    if (highScore >= 25 && !achievements6)
                     {
                     Social.ReportProgress(GPGSIds.achievement_reach_25_score, 100.00f, (bool success) =>
                     {
@@ -151,7 +152,7 @@ public class GPSmanager : MonoBehaviour
                 
             
         
-        if (starClickCount == 1 && !achievements7)
+        if (starClickCount >= 1 && !achievements7)
         {
             Social.ReportProgress(GPGSIds.achievement_all_star, 100.00f, (bool success) =>
             {
@@ -222,7 +223,7 @@ public class GPSmanager : MonoBehaviour
             statusTxt.text = "Authenticating...";
             if (code == SignInStatus.Success)
             {
-                
+                PlayerPrefs.SetInt("SignedOut", 0);
                 signinButton.SetActive(false);
                 signoutButton.SetActive(true);
                 statusTxt.text = "Connected Account";
@@ -230,17 +231,18 @@ public class GPSmanager : MonoBehaviour
             }
             else
             {
-                
+                PlayerPrefs.SetInt("SignedOut", 1);
                 signoutButton.SetActive(false);
                 signinButton.SetActive(true);
                 statusTxt.text = "Connection Failed";
-                descriptionTxt.text = "Check your connection or google play settings. " ;
+                descriptionTxt.text = "Check your connection or google play settings." +
+                "To see Leaderboard/Achievements you need to sign in. ";
             }
         });
     }
     public void BasicSignInBtn()
     {
-        
+        //PlayerPrefs.SetInt("SignedOut", 0);
         SingIntoGPS(SignInInteractivity.CanPromptAlways, clientConfiguration);
         GameObject.FindGameObjectWithTag("Menu").GetComponent<OptionsScript>().soundE();
         //signoutButton = GameObject.FindGameObjectWithTag("SignOut");
@@ -248,9 +250,9 @@ public class GPSmanager : MonoBehaviour
     }
     public void SignOutBtn()
     {
-        
+        PlayerPrefs.SetInt("SignedOut", 1);
         statusTxt.text = "Signed Out";
-        descriptionTxt.text = "";
+        descriptionTxt.text = "To see Leaderboard/Achievements you need to sign in.";
         signinButton.SetActive(true);
         PlayGamesPlatform.Instance.SignOut();
         GameObject.FindGameObjectWithTag("Menu").GetComponent<OptionsScript>().soundE();

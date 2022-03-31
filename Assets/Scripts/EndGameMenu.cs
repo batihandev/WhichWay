@@ -11,7 +11,12 @@ public class EndGameMenu : MonoBehaviour
     public static bool thisIsTheSameGame = false;
     public TextMeshProUGUI continueButton;
     public static int gameends;
-    private void Start()
+    public static bool endgameMenuisOn = true;
+    private void Awake()
+    {
+        endgameMenuisOn = true;
+    }
+     private void Start()
     {
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
@@ -22,17 +27,23 @@ public class EndGameMenu : MonoBehaviour
            
         if (thisIsTheSameGame)
         {
-            continueButton.faceColor = new Color32(255, 255, 255, 10);
+            ConButtonRemover();
         }
+    }
+    public void ConButtonRemover()
+    {
+        continueButton.faceColor = new Color32(255, 255, 255, 10);
     }
     public void playgame()
     {
         
         thisIsTheSameGame = false;
+        endgameMenuisOn = false;
         //testgl
         Time.timeScale = 1;
         PauseMenu.swiped = false;
         PauseMenu.gameIsPaused = false;
+        ChosePortal.starportalsDestroyed = true;
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         Invoke("ToWait", 0.2f);
         //SceneManager.LoadScene("GamePlay");
@@ -46,7 +57,7 @@ public class EndGameMenu : MonoBehaviour
         
         if (!thisIsTheSameGame) {
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
-            if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().ShowRewardedAdEnd(); }
+            if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().ShowRewardedAd(); }
             if (PlayerPrefs.GetInt("removeAds", 0) == 1)
             {
                 EndGameMenu.thisIsTheSameGame = true;
@@ -68,14 +79,16 @@ public class EndGameMenu : MonoBehaviour
     }
     void ToWait()
     {
-        
+        endgameMenuisOn = false;
         SceneManager.LoadScene("GamePlay");
 
 
     }
-    IEnumerator toWait2()
+    void toWait2()
     {
-        yield return new WaitForSeconds(0.2f);
+
+        
+        endgameMenuisOn = false;
         SceneManager.LoadScene("StartScreen");
 
     }
@@ -95,8 +108,8 @@ public class EndGameMenu : MonoBehaviour
             }
         }
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
-        
-        StartCoroutine(toWait2());
+
+        Invoke("toWait2", 0.2f);
         
         
     }

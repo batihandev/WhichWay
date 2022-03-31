@@ -13,7 +13,7 @@ public class GoogleADMOBmanager : MonoBehaviour
     private BannerView bannerView;
     private InterstitialAd interstitialAd;
     private RewardedAd rewardedAd;
-    private RewardedAd rewardedAdEnd;
+   // private RewardedAd rewardedAdEnd;
     private RewardedInterstitialAd rewardedInterstitialAd;
     private float deltaTime;
     private bool isShowingAppOpenAd;
@@ -92,7 +92,7 @@ public class GoogleADMOBmanager : MonoBehaviour
     private AdRequest CreateAdRequest()
     {
         return new AdRequest.Builder()
-            .AddKeyword("unity-admob-sample")
+            //.AddKeyword("unity-admob-sample")
             .Build();
     }
 
@@ -120,7 +120,7 @@ public class GoogleADMOBmanager : MonoBehaviour
 #elif UNITY_ANDROID
          string adUnitId = "ca-app-pub-5279556348564072/3267500437";
 #elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/2934735716";
+        string adUnitId = "ca-app-pub-5279556348564072/3267500437";
 #else
         string adUnitId = "unexpected_platform";
 #endif
@@ -165,9 +165,9 @@ public class GoogleADMOBmanager : MonoBehaviour
 #if UNITY_EDITOR
         string adUnitId = "ca-app-pub-5279556348564072/2462271958";
 #elif UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+        string adUnitId = "ca-app-pub-5279556348564072/2462271958";
 #elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/4411468910";
+        string adUnitId = "ca-app-pub-5279556348564072/2462271958";
 #else
         string adUnitId = "unexpected_platform";
 #endif
@@ -221,9 +221,9 @@ public class GoogleADMOBmanager : MonoBehaviour
 #if UNITY_EDITOR
         string adUnitId = "ca-app-pub-5279556348564072/4524193044";
 #elif UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/5224354917";
+        string adUnitId = "ca-app-pub-5279556348564072/4524193044";
 #elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/1712485313";
+        string adUnitId = "ca-app-pub-5279556348564072/4524193044";
 #else
         string adUnitId = "unexpected_platform";
 #endif
@@ -242,42 +242,13 @@ public class GoogleADMOBmanager : MonoBehaviour
         //rewardedAd.OnAdFailedToShow += (sender, args) => OnAdFailedToShowEvent.Invoke();
         rewardedAd.OnAdClosed += HandleRewardBasedVideoClosed;
         rewardedAd.OnUserEarnedReward += HandleRewardBasedVideoRewarded;
+        rewardedAd.OnAdFailedToLoad += FailedLoad;
+        rewardedAd.OnAdFailedToShow += FailedShow;
 
         // Create empty ad request
         rewardedAd.LoadAd(CreateAdRequest());
     }
-    public void RequestAndLoadRewardedAdEndGame()
-    {
-        // statusText.text = "Requesting Rewarded Ad.";
-        Debug.Log("Requesting Rewarded Ad.");
-#if UNITY_EDITOR
-        string adUnitId = "ca-app-pub-5279556348564072/4524193044";
-#elif UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/5224354917";
-#elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/1712485313";
-#else
-        string adUnitId = "unexpected_platform";
-#endif
 
-        //if (rewardedAd != null)
-        //{
-        //    rewardedAd.Destroy();
-        //}
-        // create new rewarded ad instance
-        rewardedAdEnd = new RewardedAd(adUnitId);
-
-        // Add Event Handlers
-        //rewardedAd.OnAdLoaded += (sender, args) => OnAdLoadedEvent.Invoke();
-        //rewardedAd.OnAdFailedToLoad += (sender, args) => OnAdFailedToLoadEvent.Invoke();
-        //rewardedAd.OnAdOpening += (sender, args) => OnAdOpeningEvent.Invoke();
-        //rewardedAd.OnAdFailedToShow += (sender, args) => OnAdFailedToShowEvent.Invoke();
-        rewardedAdEnd.OnAdClosed += HandleRewardBasedVideoClosedEndGame;
-        rewardedAdEnd.OnUserEarnedReward += HandleRewardBasedVideoRewardedEndGame;
-
-        // Create empty ad request
-        rewardedAdEnd.LoadAd(CreateAdRequest());
-    }
     public void ToWait()
     {
         
@@ -285,57 +256,86 @@ public class GoogleADMOBmanager : MonoBehaviour
 
 
     }
-    public void HandleRewardBasedVideoClosedEndGame(object sender, EventArgs args)
+ 
+    public void FailedShow(object sender, EventArgs args)
     {
+        if (EndGameMenu.endgameMenuisOn)
+        {
+            GameObject.FindGameObjectWithTag("EndGMenu").GetComponent<EndGameMenu>().ConButtonRemover();
+            Debug.Log("failed  show egmenu");
+        }
+        else {
+            GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<AdsStarScript>().DeadManWalking();
+            Debug.Log("failed  show");
+        }
         
-        RequestAndLoadRewardedAdEndGame();
-        Debug.Log("closed");
     }
-    public void HandleRewardBasedVideoRewardedEndGame(object sender, Reward args)
+    public void FailedLoad(object sender, EventArgs args)
     {
-        
-        EndGameMenu.thisIsTheSameGame = true;
-        EndGameMenu.adWatchedToContinue = true;
-        Time.timeScale = 1;
-        PauseMenu.swiped = false;
-        PauseMenu.gameIsPaused = false;
-        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
-        Invoke("ToWait", 0.2f);
-        Debug.Log("rewareded");
+        if (EndGameMenu.endgameMenuisOn)
+        {
+            GameObject.FindGameObjectWithTag("EndGMenu").GetComponent<EndGameMenu>().ConButtonRemover();
+            Debug.Log("failed load ");
+        }
+        else
+        {
+            GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<AdsStarScript>().DeadManWalking();
+            Debug.Log("failed load ");
+        }
+       
     }
+    
+   
     public void HandleRewardBasedVideoClosed (object sender, EventArgs args)
     {
-        OnClickAdd.adstarClicked = false;
-        RequestAndLoadRewardedAd();
-        Debug.Log("closed");
+        if (EndGameMenu.endgameMenuisOn)
+        {
+            RequestAndLoadRewardedAd();
+            Debug.Log("closed");
+        }
+        else
+        {
+            OnClickAdd.adstarClicked = false;
+            RequestAndLoadRewardedAd();
+            Debug.Log("closed");
+        }
+       
     }
     public void HandleRewardBasedVideoRewarded(object sender, Reward args)
     {
-        OnClickAdd.adstarClicked = true;
-        GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<AdsStarScript>().AdsStarEffect();
-        //EndGameMenu.adWatchedToContinue = true;
-        if (ChosePortal.starportalsDestroyed)
+        if (EndGameMenu.endgameMenuisOn)
         {
-            ChosePortal.starisClicked = true;
+            Debug.Log("endgamemenu");
+            EndGameMenu.thisIsTheSameGame = true;
+            EndGameMenu.adWatchedToContinue = true;
+            Time.timeScale = 1;
+            PauseMenu.swiped = false;
+            PauseMenu.gameIsPaused = false;
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+            Invoke("ToWait", 0.2f);
+            Debug.Log("rewareded");
         }
-        Debug.Log("rewareded");
+        else
+        {
+            OnClickAdd.adstarClicked = true;
+            GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<AdsStarScript>().AdsStarEffect();
+            //EndGameMenu.adWatchedToContinue = true;
+            if (ChosePortal.starportalsDestroyed)
+            {
+                ChosePortal.starisClicked = true;
+            }
+            Debug.Log("rewareded");
         }
+
+    }
+      
+    
+   
     //public void Reward()
     //{
     //    OnClickAdd.adstarClicked = true;
     //}
-    public void ShowRewardedAdEnd()
-    {
-        if (rewardedAdEnd != null)
-        {
-            rewardedAdEnd.Show();
-        }
-        else
-        {
-            // statusText.text = "Rewarded ad is not ready yet.";
-            Debug.Log("Rewarded ad is not ready yet.");
-        }
-    }
+ 
     public void ShowRewardedAd()
     {
         if (rewardedAd != null)

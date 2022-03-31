@@ -43,7 +43,10 @@ public class ChosePortal : MonoBehaviour
     {
         speed = 2.5f;
         Spawner.thisWay = -speed;
-
+        starportalsDestroyed = true;
+        adsStarClickWhileOpen = false;
+        StarClickedWhileOpen = false;
+        
         starisClicked = false;
         Up = false;
         adsStarOn = false;
@@ -164,12 +167,12 @@ public class ChosePortal : MonoBehaviour
             else if (Spawner.score > 175)
             {
                 
-                    speed = 2.7f + Mathf.Log(Spawner.score - 8);
+                    speed = 2.7f + (Mathf.Log(Spawner.score - 8)/1.2f);
                 
             }
             
             
-            portalSpawnSpeed = 1 - ((Mathf.Log(Spawner.score - 7)) /50);
+           // portalSpawnSpeed = 1 - ((Mathf.Log(Spawner.score - 7)) /50);
             //if (Up)
             //{
             //    Spawner.thisWay = speed;
@@ -180,7 +183,7 @@ public class ChosePortal : MonoBehaviour
             //}
         }
         portalspawnCounter += Time.deltaTime;
-        if (changePortalCheck&&!animationplaying && !animatiyonplayingReverse &&!startcounter &&starportalsDestroyed &&portalspawnCounter>1.2f&&!starisClicked&&!died)
+        if (changePortalCheck&&!animationplaying && !animatiyonplayingReverse &&!startcounter &&starportalsDestroyed &&portalspawnCounter>1.5f&&!starisClicked&&!died)
         {
             random = Random.Range(Spawner.score, 200);
             if (random > 125)
@@ -222,45 +225,49 @@ public class ChosePortal : MonoBehaviour
         }
         if ( starportalsDestroyed &&(starisClicked || died))
         {
-            random = Random.Range(Spawner.score, 200);
-            
 
-                if (portalS[0] != null)
-                {
-                    portalAnim[0] = portalS[0].GetComponent(typeof(Animator)) as Animator;
-                    portalAnim[0].enabled = true;
-                    portalAnim[0].SetFloat("Direction 1", 1);
-                    portalAnim[0].Play("Reverse 1");
-                    Destroy(portalS[0], portalSpawnSpeed/2);
-                }
-                if (portalS[1] != null)
-                {
-                    portalAnim[1] = portalS[1].GetComponent(typeof(Animator)) as Animator;
-                    portalAnim[1].enabled = true;
-                    portalAnim[1].SetFloat("Direction 1", 1);
-                    portalAnim[1].Play("Reverse 1");
-                Destroy(portalS[1], portalSpawnSpeed/2);
-            }
-
-                // Debug.Log("HERE");
-
-                animatiyonplayingReverse = true;
-                Invoke("AnimationReverse", portalSpawnSpeed);
-                //Invoke("portalspawner", portalSpawnSpeed);
-                Portalspawner();
-                
-
-
-                //portalspawner();
-                
-               changePortalCheck = false;
-
-            
+            DeadPortalChanger();
 
 
            
         }
         // Debug.Log(speed+"speed"+Mathf.Log(100));
+    }
+    void DeadPortalChanger()
+    {
+        Debug.Log("PortalShouldChange");
+        random = Random.Range(Spawner.score, 200);
+
+
+        if (portalS[0] != null)
+        {
+            portalAnim[0] = portalS[0].GetComponent(typeof(Animator)) as Animator;
+            portalAnim[0].enabled = true;
+            portalAnim[0].SetFloat("Direction 1", 1);
+            portalAnim[0].Play("Reverse 1");
+            Destroy(portalS[0], portalSpawnSpeed / 2);
+        }
+        if (portalS[1] != null)
+        {
+            portalAnim[1] = portalS[1].GetComponent(typeof(Animator)) as Animator;
+            portalAnim[1].enabled = true;
+            portalAnim[1].SetFloat("Direction 1", 1);
+            portalAnim[1].Play("Reverse 1");
+            Destroy(portalS[1], portalSpawnSpeed / 2);
+        }
+
+        // Debug.Log("HERE");
+
+        animatiyonplayingReverse = true;
+        Invoke("AnimationReverse", portalSpawnSpeed);
+        //Invoke("portalspawner", portalSpawnSpeed);
+        Portalspawner();
+
+
+
+        //portalspawner();
+
+        changePortalCheck = false;
     }
     void AnimationReverse()
     {

@@ -5791,6 +5791,7 @@ MonoBehaviour:
   volSlider: {fileID: 2848378558003207162}
   qualityD: {fileID: 2253148359446790117}
   optionsMenu: {fileID: 2848378559356353500}
+  panel: {fileID: 1957172308}
 --- !u!224 &2848378558291324062
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5912,6 +5913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3214078b08ab286488e83884aafbaccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panel: {fileID: 2848378557949531057}
 --- !u!1001 &2848378558305659621
 PrefabInstance:
   m_ObjectHideFlags: 0

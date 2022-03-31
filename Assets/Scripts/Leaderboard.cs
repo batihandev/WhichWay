@@ -6,12 +6,21 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 
+
 public class Leaderboard : MonoBehaviour
 {
     int score = 0;
+    public GameObject panel;
     public void ShowLeaderBoardUI()
     {
-        Social.ShowLeaderboardUI();
+        if (PlayerPrefs.GetInt("SignedOut", 0) == 1)
+        {
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GPSmanager>().panelActive();
+            panel.SetActive(false);
+            
+        }
+        else { Social.ShowLeaderboardUI(); }
+        
     }
     public void DoLeaderboardPost()
     {

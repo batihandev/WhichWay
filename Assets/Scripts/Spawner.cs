@@ -63,6 +63,7 @@ public class Spawner : MonoBehaviour
 
     void Awake()
     {
+        EndGameMenu.endgameMenuisOn = false;
         starSameCubeSpawn = false;
         addsWatchedForCube = false;
         if (highScore >= 50){
@@ -98,7 +99,7 @@ public class Spawner : MonoBehaviour
         //lives = 3;
         if (PlayerPrefs.GetInt("removeAds", 0) == 0) { 
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadRewardedAd();
-        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadRewardedAdEndGame();
+        //GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadRewardedAdEndGame();
         }
     }
 
@@ -256,7 +257,9 @@ public class Spawner : MonoBehaviour
                     if (score % 50 == 0)
                     {
                         lives++;
-                    }
+                            healthS = "Lives " + lives;
+                            health.text = healthS;
+                        }
                 }
             }
            

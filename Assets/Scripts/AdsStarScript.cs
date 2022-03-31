@@ -375,7 +375,7 @@ public class AdsStarScript : MonoBehaviour
         }
 
     }
-    void DeadManWalking()
+    public void DeadManWalking()
     {
         
         starAnim.SetBool("AdsDying", true);

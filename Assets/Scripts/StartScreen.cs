@@ -34,6 +34,7 @@ public class StartScreen : MonoBehaviour
     public void playgame()
     {
         EndGameMenu.adWatchedToContinue = false;
+        ChosePortal.starportalsDestroyed = true;
         EndGameMenu.thisIsTheSameGame = false;
         if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().DestroyBannerAd(); }
            
