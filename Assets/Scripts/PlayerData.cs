@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 public class PlayerData 
 {
     public string name;
     public int highScore;
     
-    //public int removeAds;
+   
     
     public int FirstTime;
     public int StarClickCount;
@@ -26,13 +24,13 @@ public class PlayerData
     public string Test;
     public int pleasedontmodify;
 
-    public PlayerData(string name, int highScore, /* int removeAds,*/  int FirstTime, int starClickCount, int steps, bool achievements1, bool achievements2,
+    public PlayerData(string name, int highScore,  int FirstTime, int starClickCount, int steps, bool achievements1, bool achievements2,
         bool achievements3, bool achievements4, bool achievements5, bool achievements6, bool achievements7, bool achievements8, float volume,int indexQ,int endGameStarCount,string Test,int pleasedontmodify)
     {
         this.name = name;
         this.highScore = highScore;
         
-       // this.removeAds = removeAds;
+      
         
         this.FirstTime = FirstTime;
         this.StarClickCount = starClickCount;

@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
+
 
 public class PauseMenu : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class PauseMenu : MonoBehaviour
         if (startGame)
         {
             counter+=Time.fixedDeltaTime;
-            Debug.Log(counter);
+            
             if (counter > 0.1)
             {
                 Time.timeScale = 1;

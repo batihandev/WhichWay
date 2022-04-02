@@ -1,7 +1,7 @@
 
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -23,7 +23,7 @@ public class EndGameMenu : MonoBehaviour
         ChosePortal.adsStarOn = false;
         ChosePortal.starportalsDestroyed = true;
         Time.timeScale = 1;
-        if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadInterstitialAd(); }
+       
            
         if (thisIsTheSameGame)
         {
@@ -33,6 +33,7 @@ public class EndGameMenu : MonoBehaviour
     public void ConButtonRemover()
     {
         continueButton.faceColor = new Color32(255, 255, 255, 10);
+        thisIsTheSameGame = true;
     }
     public void playgame()
     {
@@ -87,7 +88,7 @@ public class EndGameMenu : MonoBehaviour
     void toWait2()
     {
 
-        
+        Time.timeScale = 1;
         endgameMenuisOn = false;
         SceneManager.LoadScene("StartScreen");
 
@@ -96,20 +97,14 @@ public class EndGameMenu : MonoBehaviour
     public void startMenu()
     {
         thisIsTheSameGame = false;
-        Time.timeScale = 1;
+        
         
         gameends++;
         
-        if (gameends % 2 == 0)
-        {
-            if (PlayerPrefs.GetInt("removeAds", 0) == 0)
-            {
-                GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().ShowInterstitialAd();
-            }
-        }
+        
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
 
-        Invoke("toWait2", 0.2f);
+        Invoke("toWait2", 0.3f);
         
         
     }

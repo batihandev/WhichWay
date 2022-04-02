@@ -25,7 +25,7 @@ public class GPSmanager : MonoBehaviour
     
     int highScore = 0;
     int starClickCount = 0;
-    int steps = 0;
+    
     
     int gameOverScore = 0;
     
@@ -36,10 +36,7 @@ public class GPSmanager : MonoBehaviour
     {
         clientConfiguration = new PlayGamesClientConfiguration.Builder().Build();
     }
-    public void Awake()
-    {
-        
-    }
+    
     private void Start()
     {
         highScore = Spawner.highScore;
@@ -53,15 +50,21 @@ public class GPSmanager : MonoBehaviour
     {
         highScore = Spawner.highScore;
         starClickCount = OnClick.starClickCount;
-        steps = Score.steps;
+        
 
         if (highScore >= 229 && !achievements1)
             {
-                Social.ReportProgress(GPGSIds.achievement_skykinghardworking, 100.00f, (bool success) =>
-                {
-                    if (success)
+            
+            Social.ReportProgress(GPGSIds.achievement_skykinghardworking, 100.00f, (bool success) =>
+            {
+                achievements1 = true;
+                OnClick.starClickCount++;
+                GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+                GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
+                if (success)
                     {
-                        achievements1 = true; ;
+                       
+
 
                     }
                     else
@@ -73,11 +76,17 @@ public class GPSmanager : MonoBehaviour
             }
             if (highScore >= 200&&!achievements2)
             {
-                Social.ReportProgress(GPGSIds.achievement_reach_200_score, 100.00f, (bool success) =>
+            achievements2 = true;
+            OnClick.starClickCount++;
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
+
+            Social.ReportProgress(GPGSIds.achievement_reach_200_score, 100.00f, (bool success) =>
                 {
                     if (success)
                     {
-                        achievements2 = true; ;
+                        
+
                     }
                     else
                     {
@@ -90,11 +99,15 @@ public class GPSmanager : MonoBehaviour
             
                     if (highScore >= 100&& !achievements3)
                     {
-                    Social.ReportProgress(GPGSIds.achievement_reach_100_score, 100.00f, (bool success) =>
+            achievements3 = true;
+            OnClick.starClickCount++;
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
+            Social.ReportProgress(GPGSIds.achievement_reach_100_score, 100.00f, (bool success) =>
                     {
                         if (success)
                         {
-                            achievements3 = true;
+                            
                         }
                         else
                         {
@@ -105,11 +118,15 @@ public class GPSmanager : MonoBehaviour
                 }
                     if (highScore >= 50 && !achievements4)
                     {
-                    Social.ReportProgress(GPGSIds.achievement_reach_50_score, 100.00f, (bool success) =>
+            achievements4 = true;
+            OnClick.starClickCount++;
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
+            Social.ReportProgress(GPGSIds.achievement_reach_50_score, 100.00f, (bool success) =>
                     {
                         if (success)
                         {
-                            achievements4 = true;
+                            
                         }
                         else
                         {
@@ -120,11 +137,16 @@ public class GPSmanager : MonoBehaviour
                 }
                     if (highScore >= 30 && !achievements5)
                     {
-                    Social.ReportProgress(GPGSIds.achievement_come_on, 100.00f, (bool success) =>
+            achievements5 = true;
+            OnClick.starClickCount++;
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
+            Social.ReportProgress(GPGSIds.achievement_come_on, 100.00f, (bool success) =>
                     {
                         if (success)
                         {
-                            achievements5=true;
+                            
+
                         }
                         else
                         {
@@ -135,11 +157,17 @@ public class GPSmanager : MonoBehaviour
                 }
                     if (highScore >= 25 && !achievements6)
                     {
-                    Social.ReportProgress(GPGSIds.achievement_reach_25_score, 100.00f, (bool success) =>
+            achievements6 = true; ;
+            OnClick.starClickCount++;
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
+
+            Social.ReportProgress(GPGSIds.achievement_reach_25_score, 100.00f, (bool success) =>
                     {
                         if (success)
                         {
-                            achievements6 = true; ;
+                            
+
                         }
                         else
                         {
@@ -154,11 +182,16 @@ public class GPSmanager : MonoBehaviour
         
         if (starClickCount >= 1 && !achievements7)
         {
+            achievements7 = true;
+            OnClick.starClickCount++;
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
             Social.ReportProgress(GPGSIds.achievement_all_star, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    achievements7 = true;
+                    
+
                 }
                 else
                 {
@@ -170,11 +203,15 @@ public class GPSmanager : MonoBehaviour
         }
         if (gameOverScore == 199 && !achievements8)
         {
+            achievements8 = true;
+            OnClick.starClickCount++;
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
             Social.ReportProgress(GPGSIds.achievement_vexed, 100.00f, (bool success) =>
             {
                 if (success)
                 {
-                    achievements8 = true;
+                    
                 }
                 else
                 {

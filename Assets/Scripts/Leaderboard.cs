@@ -30,13 +30,13 @@ public class Leaderboard : MonoBehaviour
         {
             if (success)
             {
-                Debug.Log("score posted");
+                //Debug.Log("score posted");
                 ShowLeaderBoardUI();
 
             }
             else
             {
-                Debug.Log("score post failed");
+                //Debug.Log("score post failed");
                 ShowLeaderBoardUI();
             }
         });

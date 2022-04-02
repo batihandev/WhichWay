@@ -7,11 +7,7 @@ public class ReverseMovement : MonoBehaviour
     bool rightClick;
     bool touchedOnce;
     int xne;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+   
     public void checktouch()
     {
         if (Input.touchCount > 0 && Input.touchCount<2)
@@ -37,7 +33,7 @@ public class ReverseMovement : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         transform.position += new Vector3(0, Spawner.thisWay * Time.deltaTime, 0);

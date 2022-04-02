@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-//using UnityEngine.UI;
+
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -96,10 +96,10 @@ public class Spawner : MonoBehaviour
     }
     private void Start()
     {
-        //lives = 3;
+        
         if (PlayerPrefs.GetInt("removeAds", 0) == 0) { 
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadRewardedAd();
-        //GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestAndLoadRewardedAdEndGame();
+       
         }
     }
 
@@ -162,7 +162,7 @@ public class Spawner : MonoBehaviour
                     {
                         starSpawnBegin = false;
                     }
-                    //starSpawnBegin = false;
+                    
                     
 
                 }
@@ -175,7 +175,7 @@ public class Spawner : MonoBehaviour
                     {
                         starSpawnBegin = false;
                     }
-                    //starSpawnBegin = false;
+                   
                 }
             }
             
@@ -197,7 +197,7 @@ public class Spawner : MonoBehaviour
     {
         destroyDisty.Clear();
 
-        //destroyDistx.Clear();
+        
 
         if (ChosePortal.Up)
         {
@@ -228,7 +228,7 @@ public class Spawner : MonoBehaviour
         index = destroyDisty.IndexOf(minValy);
         minValyI = 7 - cubeT[index].transform.position.y;
         minValyIDown = cubeT[index].transform.position.y - 7;
-        //Debug.Log(minValyI + "yIup" + minValyIDown + "yIdown"+("score"));
+        
 
         if (ScoreCatcher.scoreCatch == true || (ChosePortal.starClickedPortal||ChosePortal.adsStarOn))
         //burayý deðiþtir portalýn þekli deðiþirse
@@ -236,8 +236,6 @@ public class Spawner : MonoBehaviour
             if(minValyI <0.5f || minValyIDown < -13.5f) { 
             ScoreCatcher.scoreCatch = false;
 
-            //Debug.Log((ChosePortal.portalS[0] == null) + "0" + (ChosePortal.portalS[1] == null) + "1" + minValyI2 + "yý2" + minValyI + "yý");
-            //ColorOf.isCubeGone = true;
             
             ChosePortal.changePortalCheck = true;
             score++;
@@ -246,8 +244,7 @@ public class Spawner : MonoBehaviour
             {
 
                 highScore=score;
-                    GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
-                    GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
+                    
 
                 }
             if (highScore >= 50)
@@ -269,31 +266,28 @@ public class Spawner : MonoBehaviour
 
             if (score % 2 == 0)
             {
-                //rightCube.Stop();
-                // forwardCube.Stop();
+              
                 reverseCube.Play();
-                // leftCube.Stop();
+               
             }
             else
             {
-                //leftCube.Stop();
-
+              
                 forwardCube.Play();
-                //reverseCube.Stop();
-                //rightCube.Stop();
+                
             }
 
 
 
 
 
-            //Debug.Log(whichCube + "hangiküb");
+            
 
             Destroy(cubeT[index]);
             cubeT.RemoveAt(index);
 
 
-                //Debug.Log(index + "index" + destroyIndex + "destroyindex"+"score");
+                
 
 
             }
@@ -306,7 +300,7 @@ public class Spawner : MonoBehaviour
 
         destroyDisty.Clear();
 
-        //destroyDistx.Clear();
+      
 
         if (ChosePortal.Up)
         {
@@ -337,11 +331,7 @@ public class Spawner : MonoBehaviour
         index = destroyDisty.IndexOf(minValy);
         minValyI = 7- cubeT[index].transform.position.y;
         minValyIDown = cubeT[index].transform.position.y -7;
-       // Debug.Log(minValyI + "yIup" + minValyIDown + "yIdown" + ("ded"));
-
-        // minValx = Mathf.Abs(cubeT[index].transform.position.x - portal.position.x);
-
-        //Debug.Log(minValyIDown + "minvalyýdown");
+       
 
         if (minValyI < -0.1f ||minValyIDown<-14.1f)
             {
@@ -350,7 +340,7 @@ public class Spawner : MonoBehaviour
                 
 
 
-                Time.timeScale = 0;
+                    Time.timeScale = 0;
                     healthS = "Lives " + lives;
                     health.text = healthS;
                     SceneManager.LoadScene("GameOver");
@@ -364,7 +354,6 @@ public class Spawner : MonoBehaviour
                 {
 
 
-                    //ColorOf.isCubeGone = true;
                     
                     ChosePortal.changePortalCheck = true;
                     lives--;
@@ -372,14 +361,12 @@ public class Spawner : MonoBehaviour
                     healthS = "Lives " + "  " + lives;
                     health.text = healthS;
 
-                    //rightCube.Stop();
-                    //forwardCube.Stop();
-                    //reverseCube.Stop();
+                  
                     leftCube.Play();
-                    // Debug.Log(whichCube + "hangiküb");
+                   
                     Destroy(cubeT[index]);
                     cubeT.RemoveAt(index);
-                    //Debug.Log(index + "index" + destroyIndex + "destroyindex"+"lives");
+                   
 
 
 
@@ -389,9 +376,7 @@ public class Spawner : MonoBehaviour
 
         
 
-        //destroyDisty2.Clear();
-       // destroyDistx2.Clear();
-       
+        
       
       
 
@@ -437,7 +422,7 @@ public class Spawner : MonoBehaviour
             AdssameCubeCounter--;
         }
 
-        //Debug.Log(sameCubeCounter + "same" + AdssameCubeCounter + "adssame");
+       
         rondomSpawn = Random.Range(0, spawnPoints.Length);
         
         whichCube = samecube;

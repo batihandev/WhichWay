@@ -13,7 +13,7 @@ public class UnlocksLight : MonoBehaviour
     public GameObject oneHundredX;
     public GameObject twoHundredX;
     int highScore;
-    // Start is called before the first frame update
+    
     void Start()
 
     { 
@@ -53,9 +53,5 @@ public class UnlocksLight : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

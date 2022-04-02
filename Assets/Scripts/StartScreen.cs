@@ -9,25 +9,21 @@ public class StartScreen : MonoBehaviour
     public GameObject howtoplay;
     public GameObject menu;
     public static string ad="TestKey";
-    // Start is called before the first frame update
+    public static bool dothisonce = false;
+   
     void Awake()
     {
-        try {
-            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SetPaths();
-            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
-            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
-        }        
-        catch {
-            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SetPaths();
-            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
-            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveFirstTime();
-        }
+        dothisonce = false;
         if (ad != "7TjqzjL(#>F^zqDrr-D>UFjq>")
         {
             PlayerPrefs.SetInt("removeAds", 0);
         }
 
         if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestBannerAd(); }
+        
+    }
+    private void Start()
+    {
         
     }
 
@@ -38,7 +34,7 @@ public class StartScreen : MonoBehaviour
         EndGameMenu.thisIsTheSameGame = false;
         if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().DestroyBannerAd(); }
            
-        //testgl 
+        
         
         if (firstTime == 0)
         {
@@ -69,9 +65,23 @@ public class StartScreen : MonoBehaviour
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         Application.Quit();
     }
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if (!dothisonce) { 
+        try
+        {
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SetPaths();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
+        }
+        catch
+        {
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SetPaths();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
+            GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveFirstTime();
+        }
+            dothisonce = true;
+        }
     }
 }

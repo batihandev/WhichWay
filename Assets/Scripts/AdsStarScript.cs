@@ -43,8 +43,15 @@ public class AdsStarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
+        if (starSpawn != null)
+        {
+            if (GoogleADMOBmanager.failedtoloadkilladstar)
+            {
+                DeadManWalking();
+            }
+        }
+        
             if (deadManWalk && deadCount < 0.9f && starSpawn != null)
             {
                 x = starSpawn.transform.position.x;
@@ -394,26 +401,31 @@ public class AdsStarScript : MonoBehaviour
     {
         //Debug.Log("button works");
 
-        
-            
-                
-                int randomEffect = Random.Range(0, 3);
-                if (randomEffect > 1)
-                {
-                    ChosePortal.adsStarOn = true;
-                    ChosePortal.adsStarClickWhileOpen = true;
-                }
-                else { Spawner.addsWatchedForCube = true;
-            Spawner.clickedWhileSpawnsOn = true;
+
+        if (!GoogleADMOBmanager.failedtoloadkilladstar) {
+
+            int randomEffect = Random.Range(0, 3);
+            if (randomEffect > 1)
+            {
+                ChosePortal.adsStarOn = true;
+                ChosePortal.adsStarClickWhileOpen = true;
+            }
+            else
+            {
+                Spawner.addsWatchedForCube = true;
+                Spawner.clickedWhileSpawnsOn = true;
+            }
+
+
+
+
+
+
+
+            DeadManWalking();
         }
-
-            
-
-
-        
-
-
-        DeadManWalking();
+                
+             
 
 
 

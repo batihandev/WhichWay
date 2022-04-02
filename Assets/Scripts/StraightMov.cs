@@ -8,10 +8,6 @@ public class StraightMov : MonoBehaviour
     bool touchedOnce;
     int xne;
     
-    void Start()
-    {
-        
-    }
     public void checktouch()
     {
         if (Input.touchCount > 0)

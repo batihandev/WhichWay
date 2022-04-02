@@ -39,6 +39,7 @@ public class ChosePortal : MonoBehaviour
     public static bool starisClicked =false;
     float adsStarCounter=0;
     public static bool died;
+    //bool DeadOnce = false;
     private void Awake()
     {
         speed = 2.5f;
@@ -227,7 +228,7 @@ public class ChosePortal : MonoBehaviour
         {
 
             DeadPortalChanger();
-
+            //DeadOnce = true;
 
            
         }
@@ -235,7 +236,7 @@ public class ChosePortal : MonoBehaviour
     }
     void DeadPortalChanger()
     {
-        Debug.Log("PortalShouldChange");
+        //Debug.Log("PortalShouldChange");
         random = Random.Range(Spawner.score, 200);
 
 
@@ -336,6 +337,7 @@ public class ChosePortal : MonoBehaviour
             }
 
             portalS[0] = Instantiate(portal,portalWaypoints[choseportal]);
+            //DeadOnce = false;
 
 
 
@@ -405,6 +407,7 @@ public class ChosePortal : MonoBehaviour
             }
 
             GameObject gameObject1 = Instantiate(portal,portalWaypoints[choseportal]);
+            //DeadOnce = false;
             portalS[1] = gameObject1;
             
 
