@@ -13,10 +13,11 @@ public class IAPmanager : MonoBehaviour
         {
             StartScreen.ad = "7TjqzjL(#>F^zqDrr-D>UFjq>";
             OnClick.starClickCount++;
+            PlayerPrefs.SetInt("removeAds", 1);
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().DestroyBannerAd();
-            PlayerPrefs.SetInt("removeAds", 1);
+            //PlayerPrefs.SetInt("removeAds", 1);
             Debug.Log("all ads removed");
         }
 
@@ -27,10 +28,11 @@ public class IAPmanager : MonoBehaviour
         {
             StartScreen.ad = "7TjqzjL(#>F^zqDrr-D>UFjq>";
             OnClick.starClickCount++;
+            PlayerPrefs.SetInt("removeAds", 1);
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().DestroyBannerAd();
-            PlayerPrefs.SetInt("removeAds", 1);
+            //PlayerPrefs.SetInt("removeAds", 1);
             Debug.Log("all ads removed");
         }
         else

@@ -7,7 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool gameIsPaused = false;
     public GameObject pauseMenuUI;
-   
+    public GameObject lifelostimg;
     public static bool swiped = false;
     float dista;
     private Touch touch;
@@ -136,6 +136,7 @@ public class PauseMenu : MonoBehaviour
     
     public void Resume()
     {
+        lifelostimg.SetActive(true);
         changed = 5;
         ForwardL.SetActive(false);
         ReverseL.SetActive(false);
@@ -154,6 +155,7 @@ public class PauseMenu : MonoBehaviour
     
     public void Pause()
     {
+        lifelostimg.SetActive(false);
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().CreatePlayerData();
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveData();

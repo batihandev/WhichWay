@@ -14,18 +14,10 @@ public class StartScreen : MonoBehaviour
     void Awake()
     {
         dothisonce = false;
-        if (ad != "7TjqzjL(#>F^zqDrr-D>UFjq>")
-        {
-            PlayerPrefs.SetInt("removeAds", 0);
-        }
-
-        if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestBannerAd(); }
+      
         
     }
-    private void Start()
-    {
-        
-    }
+   
 
     public void playgame()
     {
@@ -82,6 +74,12 @@ public class StartScreen : MonoBehaviour
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<JSONSaving>().SaveFirstTime();
         }
             dothisonce = true;
+            if (ad != "7TjqzjL(#>F^zqDrr-D>UFjq>")
+            {
+                PlayerPrefs.SetInt("removeAds", 0);
+            }
+
+            if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().RequestBannerAd(); }
         }
     }
 }

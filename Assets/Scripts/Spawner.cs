@@ -1,13 +1,27 @@
 
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
-
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
+    
+    public TextMeshProUGUI scoregaintext;
+    bool scoregained;
+    private Vector3 scoregainEndPos;
+    float scoreTextSpeed=2f;
+    float journeyLength;
+    float startTime;
+    int alphaofScoreGain = 0;
+    int scoreHold=0;
+    Vector3 startPos;
+    Vector3 endPos;
+    bool lifeLost = false;
+    public Image lifeLostPic;
     //Made By Batýhan Özdemir
     public GameObject[] cubes;
     public Transform[] spawnPoints;
@@ -106,7 +120,28 @@ public class Spawner : MonoBehaviour
     void Update()
     {
 
-       
+
+        if (scoregained)
+        {
+            int clrOf = 255 - alphaofScoreGain;
+            
+            if (alphaofScoreGain != 252)
+            {
+                alphaofScoreGain+=9;
+            }
+            scoregaintext.color = new Color32(255, 255, 255,(byte)clrOf);
+            float distCovered = (Time.time - startTime) * scoreTextSpeed;
+            float fractionOfJourney = distCovered / journeyLength;
+            scoregaintext.transform.position = Vector3.Lerp(startPos, endPos, fractionOfJourney);
+            float dist = Vector3.Distance(scoregaintext.transform.position, endPos);
+            if (fractionOfJourney<=1&&fractionOfJourney>=0.9)
+            {
+                alphaofScoreGain = 0;
+                scoregaintext.color = new Color32(255, 255, 255, 0);
+                scoregained = false;
+                Debug.Log(scoregained);
+            }
+        }
       
         if(starSpawnBegin && addsWatchedForCube && clickedWhileAdsson)
         {
@@ -278,9 +313,38 @@ public class Spawner : MonoBehaviour
             }
 
 
+                if (scoreHold != score)
+                {
+                    scoreHold = score;
+                    if (ChosePortal.Up)
+                    {
+                        scoregaintext.color = new Color32(255, 255, 255, 255);
+                        alphaofScoreGain = 0;
 
+                        startPos = new(cubeT[index].transform.position.x, cubeT[index].transform.position.y - 0.5f, cubeT[index].transform.position.z);
+                        scoregaintext.transform.position = startPos;
+                        endPos = new(cubeT[index].transform.position.x, cubeT[index].transform.position.y - 3, cubeT[index].transform.position.z);
+                        scoregainEndPos = endPos;
+                        startTime = Time.time;
+                        journeyLength = Vector3.Distance(startPos, endPos);
+                    }
+                    else
+                    {
+                        scoregaintext.color = new Color32(255, 255, 255, 255);
+                        alphaofScoreGain = 0;
+                        startPos = new(cubeT[index].transform.position.x, cubeT[index].transform.position.y + 0.5f, cubeT[index].transform.position.z);
+                        scoregaintext.transform.position = startPos;
+                        endPos = new(cubeT[index].transform.position.x, cubeT[index].transform.position.y + 3, cubeT[index].transform.position.z);
+                        scoregainEndPos = endPos;
+                        startTime = Time.time;
+                        journeyLength = Vector3.Distance(startPos, endPos);
+                    }
 
-
+                    scoregained = true;
+                }
+                
+                
+               
             
 
             Destroy(cubeT[index]);
@@ -361,7 +425,7 @@ public class Spawner : MonoBehaviour
                     healthS = "Lives " + "  " + lives;
                     health.text = healthS;
 
-                  
+                    StartCoroutine(LifeLostEffect());
                     leftCube.Play();
                    
                     Destroy(cubeT[index]);
@@ -382,6 +446,18 @@ public class Spawner : MonoBehaviour
 
 
 
+    }
+    IEnumerator LifeLostEffect()
+    {
+        Color alphaL = lifeLostPic.color;
+
+        alphaL.a = 1 - 0.5f;
+        lifeLostPic.color = alphaL;
+        yield return new WaitForSeconds(0.1f);
+        lifeLost = false;
+
+        alphaL.a = 1 - 1f;
+        lifeLostPic.color = alphaL;
     }
     public void Spawn()
     {
