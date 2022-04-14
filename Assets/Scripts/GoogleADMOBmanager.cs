@@ -36,26 +36,30 @@ public class GoogleADMOBmanager : MonoBehaviour
 
     public void Start()
     {
-        //MobileAds.SetiOSAppPauseOnBackground(true);
+//        MobileAds.SetiOSAppPauseOnBackground(true);
 
-        //List<String> deviceIds = new List<String>() { AdRequest.TestDeviceSimulator };
+//        List<String> deviceIds = new List<String>() { AdRequest.TestDeviceSimulator };
 
-        // Add some test device IDs (replace with your own device IDs).
-        //#if UNITY_IPHONE
-        //        deviceIds.Add("96e23e80653bb28980d3f40beb58915c");
-        //#elif UNITY_ANDROID
-        //        deviceIds.Add("756fa589ca59194f");
-        //#endif
+//      //  Add some test device IDs(replace with your own device IDs).
+//#if UNITY_IPHONE
+//                deviceIds.Add("96e23e80653bb28980d3f40beb58915c");
+//#elif UNITY_ANDROID
+//                deviceIds.Add("756fa589ca59194f");
+//#endif
 
-        // Configure TagForChildDirectedTreatment and test device IDs.
-        //RequestConfiguration requestConfiguration =
-        //    new RequestConfiguration.Builder()
-        //    .SetTagForChildDirectedTreatment(TagForChildDirectedTreatment.Unspecified)
-        //    .SetTestDeviceIds(deviceIds).build();
-        //MobileAds.SetRequestConfiguration(requestConfiguration);
+//      //  Configure TagForChildDirectedTreatment and test device IDs.
+//        RequestConfiguration requestConfiguration =
+//            new RequestConfiguration.Builder()
+//            .SetTagForChildDirectedTreatment(TagForChildDirectedTreatment.Unspecified)
+//            .SetTestDeviceIds(deviceIds).build();
+//        MobileAds.SetRequestConfiguration(requestConfiguration);
 
         // Initialize the Google Mobile Ads SDK.
-      MobileAds.Initialize(HandleInitCompleteAction); 
+        if (!initalized)
+        {
+            MobileAds.Initialize(HandleInitCompleteAction);
+        }
+     
         // RequestBannerAd();
     }
 
@@ -96,7 +100,7 @@ public class GoogleADMOBmanager : MonoBehaviour
     private AdRequest CreateAdRequest()
     {
         return new AdRequest.Builder()
-            //.AddKeyword("unity-admob-sample")
+            .AddKeyword("unity-admob-sample")
             .Build();
     }
 
@@ -264,7 +268,7 @@ public class GoogleADMOBmanager : MonoBehaviour
     {
         failedtoloadkilladstar = false;
         rewardedadLoaded = true;
-       // Debug.Log("loadedad");
+       Debug.Log("loadedad");
     }
     public void ToWait()
     {
@@ -286,10 +290,12 @@ public class GoogleADMOBmanager : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("Pwaypoint") != null)
             {
+                OnClickAdd.adstarClicked = true;
                 GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<AdsStarScript>().DeadManWalking();
             }
-
-           // Debug.Log("failed show ");
+            GameObject.FindGameObjectWithTag("Menu").GetComponent<PauseMenu>().Resume();
+            Debug.Log("failed show ");
+            Debug.Log(args);
         }
 
     }
@@ -299,17 +305,18 @@ public class GoogleADMOBmanager : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("EndGMenu") != null) { GameObject.FindGameObjectWithTag("EndGMenu").GetComponent<EndGameMenu>().ConButtonRemover(); }
 
-           // Debug.Log("failed load ");
+            Debug.Log("failed load ");
         }
         else
         {
+            OnClickAdd.adstarClicked = true;
             failedtoloadkilladstar = true;
             //if (GameObject.FindGameObjectWithTag("Pwaypoint") != null)
             //{
             //    GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<AdsStarScript>().DeadManWalking();
             //}
 
-            //Debug.Log("failed load ");
+            Debug.Log("failed load ");
         }
 
     }
@@ -328,6 +335,7 @@ public class GoogleADMOBmanager : MonoBehaviour
             }
             else
             {
+                GameObject.FindGameObjectWithTag("Menu").GetComponent<PauseMenu>().Resume();
                 rewardedadLoaded = false;
                 OnClickAdd.adstarClicked = false;
                 RequestAndLoadRewardedAd();
@@ -344,8 +352,10 @@ public class GoogleADMOBmanager : MonoBehaviour
             }
             else
             {
+                GameObject.FindGameObjectWithTag("Menu").GetComponent<PauseMenu>().Resume();
                 if (GameObject.FindGameObjectWithTag("Pwaypoint") != null)
                 {
+                    OnClickAdd.adstarClicked = true;
                     GameObject.FindGameObjectWithTag("Pwaypoint").GetComponent<AdsStarScript>().DeadManWalking();
                 }
 

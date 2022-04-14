@@ -19,6 +19,7 @@ public class PauseMenu : MonoBehaviour
     int changed;
     bool startGame;
     float counter = 0;
+    public GameObject adConfrimScreen;
 
     private void Update()
     {
@@ -133,7 +134,21 @@ public class PauseMenu : MonoBehaviour
 
         }
     }
-    
+    public void AdScreen()
+    {
+        swiped = false;
+        Time.timeScale = 0;
+
+        gameIsPaused = true;
+        adConfrimScreen.SetActive(true);
+    }
+    public void AdConfrim()
+    {
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+        GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().ShowRewardedAd();
+        
+        adConfrimScreen.SetActive(false);
+    }
     public void Resume()
     {
         lifelostimg.SetActive(true);
@@ -145,6 +160,7 @@ public class PauseMenu : MonoBehaviour
         GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
         if (PlayerPrefs.GetInt("removeAds", 0) == 0) { GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<GoogleADMOBmanager>().DestroyBannerAd(); }
         pauseMenuUI.SetActive(false);
+        adConfrimScreen.SetActive(false);
         startGame = true;
         counter = 0;
 

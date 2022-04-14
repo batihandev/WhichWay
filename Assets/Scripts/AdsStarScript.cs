@@ -46,7 +46,7 @@ public class AdsStarScript : MonoBehaviour
 
         if (starSpawn != null)
         {
-            if (GoogleADMOBmanager.failedtoloadkilladstar)
+            if (GoogleADMOBmanager.failedtoloadkilladstar && PlayerPrefs.GetInt("removeAds",0)!=1)
             {
                 DeadManWalking();
             }
@@ -402,7 +402,7 @@ public class AdsStarScript : MonoBehaviour
         //Debug.Log("button works");
 
 
-        if (!GoogleADMOBmanager.failedtoloadkilladstar) {
+        if (!GoogleADMOBmanager.failedtoloadkilladstar || PlayerPrefs.GetInt("removeAds",0)==1) {
 
             int randomEffect = Random.Range(0, 3);
             if (randomEffect > 1)
@@ -422,10 +422,11 @@ public class AdsStarScript : MonoBehaviour
 
 
 
-            DeadManWalking();
+           
         }
-                
-             
+        DeadManWalking();
+
+
 
 
 
