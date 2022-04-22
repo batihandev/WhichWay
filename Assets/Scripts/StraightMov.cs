@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using System.Collections;
 
 public class StraightMov : MonoBehaviour
 {
@@ -7,7 +8,18 @@ public class StraightMov : MonoBehaviour
     bool rightClick;
     bool touchedOnce;
     int xne;
+    bool lerping=false;
+     Vector3 startMarker;
+     Vector3 endMarker;
+    private float speed = 30f;
+    private float startTime;
+    private float journeyLength;
     
+   
+    float fractionOfJourney;
+
+
+
     public void checktouch()
     {
         if (Input.touchCount > 0)
@@ -32,11 +44,36 @@ public class StraightMov : MonoBehaviour
         }
 
     }
-
-    
-    void Update()
+    IEnumerator Lerp()
     {
-        transform.position += new Vector3(0, Spawner.thisWay * Time.deltaTime, 0);
+        while (fractionOfJourney < 0.98)
+        {
+            lerping = true;
+            float distCovered = (Time.time - startTime) * speed;
+            fractionOfJourney = distCovered / journeyLength;
+            Debug.Log(fractionOfJourney + "distancecovered");
+            float transformX = Mathf.Lerp(startMarker.x, endMarker.x, fractionOfJourney);
+            transform.position = new Vector3(transformX, transform.position.y, transform.position.z);
+            //transform.position += new Vector3(0, (Spawner.thisWay * Time.deltaTime), 0);
+            //Debug.Log(transform.position + "lerp position");
+            //timeElapsed += Time.deltaTime;
+            yield return null;
+
+
+        }
+        lerping = false;
+        transform.position = new Vector3(endMarker.x, transform.position.y, transform.position.z);
+        fractionOfJourney = 0;
+        //lerping = false;
+
+    }
+
+    void FixedUpdate()
+    {
+        
+            transform.position += new Vector3(0, (Spawner.thisWay * Time.deltaTime), 0);
+        
+        
         checktouch();
         if (Input.touchCount > 0 && !touchedOnce && !PauseMenu.gameIsPaused)
         {
@@ -63,13 +100,34 @@ public class StraightMov : MonoBehaviour
                 switch (xne)
                 {
                     case 1:
-                        transform.position = new Vector3(0, transform.position.y, transform.position.z);
+                        //transform.position = new Vector3(0, transform.position.y, transform.position.z);
+                        startTime = Time.time;
+                        startMarker = transform.position;                     
+                        endMarker = new Vector3(0, transform.position.y, transform.position.z);
+                        journeyLength = Vector3.Distance(startMarker, endMarker);
+                        StartCoroutine(Lerp());
+
+
                         break;
                     case 2:
-                        transform.position = new Vector3(-2.4f, transform.position.y, transform.position.z);
+                        //transform.position = new Vector3(-2.4f, transform.position.y, transform.position.z);
+                        startTime = Time.time;
+                        startMarker = transform.position;
+                        
+                        
+                        endMarker = new Vector3(-2.4f, transform.position.y, transform.position.z);
+                        journeyLength = Vector3.Distance(startMarker, endMarker);
+                        StartCoroutine(Lerp());
                         break;
                     case 3:
-                        transform.position = new Vector3(2.4f, transform.position.y, transform.position.z);
+                        //transform.position = new Vector3(2.4f, transform.position.y, transform.position.z);
+                        startTime = Time.time;
+                        startMarker = transform.position;
+                        
+                        
+                        endMarker = new Vector3(2.4f, transform.position.y, transform.position.z);
+                        journeyLength = Vector3.Distance(startMarker, endMarker);
+                        StartCoroutine(Lerp());
                         break;
 
                 }
@@ -95,13 +153,34 @@ public class StraightMov : MonoBehaviour
                 switch (xne)
                 {
                     case 1:
-                        transform.position = new Vector3(-2.4f, transform.position.y, transform.position.z);
+                        //transform.position = new Vector3(-2.4f, transform.position.y, transform.position.z);
+                        startTime = Time.time;
+                        startMarker = transform.position;
+                        
+                        
+                        endMarker = new Vector3(-2.4f, transform.position.y, transform.position.z);
+                        journeyLength = Vector3.Distance(startMarker, endMarker);
+                        StartCoroutine(Lerp());
                         break;
                     case 2:
-                        transform.position = new Vector3(2.4f, transform.position.y, transform.position.z);
+                        //transform.position = new Vector3(2.4f, transform.position.y, transform.position.z);
+                        startTime = Time.time;
+                        startMarker = transform.position;
+                        
+                        
+                        endMarker = new Vector3(2.4f, transform.position.y, transform.position.z);
+                        journeyLength = Vector3.Distance(startMarker, endMarker);
+                        StartCoroutine(Lerp());
                         break;
                     case 3:
-                        transform.position = new Vector3(0, transform.position.y, transform.position.z);
+                       // transform.position = new Vector3(0, transform.position.y, transform.position.z);
+                        startTime = Time.time;
+                        startMarker = transform.position;
+                       
+                        
+                        endMarker = new Vector3(0, transform.position.y, transform.position.z);
+                        journeyLength = Vector3.Distance(startMarker, endMarker);
+                        StartCoroutine(Lerp());
                         break;
 
                 }

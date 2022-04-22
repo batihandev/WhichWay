@@ -16,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject ReverseL;
     public GameObject RightL;
     public GameObject LeftL;
+    public GameObject pausebutton;
     int changed;
     bool startGame;
     float counter = 0;
@@ -128,7 +129,7 @@ public class PauseMenu : MonoBehaviour
         {
            
                 Pause();
-            
+            pausebutton.SetActive(false);
 
 
 
