@@ -8,7 +8,7 @@ using UnityEngine.SocialPlatforms;
 
 public class GPSmanager : MonoBehaviour
 {
-    private PlayGamesClientConfiguration clientConfiguration;
+    //private PlayGamesClientConfiguration clientConfiguration;
     public Text statusTxt;
     public Text descriptionTxt;
     public GameObject signinButton;
@@ -32,18 +32,15 @@ public class GPSmanager : MonoBehaviour
 
     public bool isLogedIn;
 
-    internal void ConfigureGPGS()
-    {
-        clientConfiguration = new PlayGamesClientConfiguration.Builder().Build();
-    }
+
     
     private void Start()
     {
         highScore = Spawner.highScore;
         gameOverScore = Score.gameoverScore;
         starClickCount = OnClick.starClickCount;
-        ConfigureGPGS();
-        SingIntoGPS(SignInInteractivity.CanPromptOnce, clientConfiguration);
+        //SingIntoGPS(SignInInteractivity.CanPromptOnce);
+        PlayGamesPlatform.Instance.Authenticate(SignIntoGPS);
       
     }
     private void Update()
@@ -245,42 +242,41 @@ public class GPSmanager : MonoBehaviour
     }
     public void DoIncrementalAchievement(int starcount)
     {
-        PlayGamesPlatform platform = (PlayGamesPlatform)Social.Active;
-        platform.IncrementAchievement(GPGSIds.achievement_sidereal, starcount,(bool success)=> { 
+        //PlayGamesPlatform platform = (PlayGamesPlatform)Social.Active;
+      
+        PlayGamesPlatform.Instance.IncrementAchievement(GPGSIds.achievement_sidereal, starcount, (bool success) =>
+        {
         });
     }
-    internal void SingIntoGPS(SignInInteractivity interactivity, PlayGamesClientConfiguration configuration)
+    internal void SignIntoGPS(SignInStatus status)
     {
-        configuration = clientConfiguration;
-        PlayGamesPlatform.InitializeInstance(configuration);
-        PlayGamesPlatform.Activate();
-        PlayGamesPlatform.Instance.Authenticate(interactivity, (code) =>
+        //configuration = clientconfiguration;
+        //playgamesplatform.initializeinstance(configuration);
+        //playgamesplatform.activate(); these are not needed anymore
+ 
+        statusTxt.text = "Authenticating...";
+        if (status == SignInStatus.Success)
         {
-            
-            statusTxt.text = "Authenticating...";
-            if (code == SignInStatus.Success)
-            {
-                PlayerPrefs.SetInt("SignedOut", 0);
-                signinButton.SetActive(false);
-                signoutButton.SetActive(true);
-                statusTxt.text = "Connected Account";
-                descriptionTxt.text = "Hello: " + Social.localUser.userName + "You have an ID of: " + Social.localUser.id;
-            }
-            else
-            {
-                PlayerPrefs.SetInt("SignedOut", 1);
-                signoutButton.SetActive(false);
-                signinButton.SetActive(true);
-                statusTxt.text = "Connection Failed";
-                descriptionTxt.text = "Check your connection or google play settings." +
-                "To see Leaderboard/Achievements you need to sign in. ";
-            }
-        });
+            PlayerPrefs.SetInt("SignedOut", 0);
+            signinButton.SetActive(false);
+            signoutButton.SetActive(true);
+            statusTxt.text = "Connected Account";
+            descriptionTxt.text = "Hello: " + Social.localUser.userName + "You have an ID of: " + Social.localUser.id;
+        }
+        else
+        {
+            PlayerPrefs.SetInt("SignedOut", 1);
+            signoutButton.SetActive(false);
+            signinButton.SetActive(true);
+            statusTxt.text = "Connection Failed";
+            descriptionTxt.text = "Check your connection or google play settings." +
+            "To see Leaderboard/Achievements you need to sign in. ";
+        }
     }
     public void BasicSignInBtn()
     {
         //PlayerPrefs.SetInt("SignedOut", 0);
-        SingIntoGPS(SignInInteractivity.CanPromptAlways, clientConfiguration);
+        PlayGamesPlatform.Instance.Authenticate(SignIntoGPS);
         GameObject.FindGameObjectWithTag("Menu").GetComponent<OptionsScript>().soundE();
         //signoutButton = GameObject.FindGameObjectWithTag("SignOut");
         //signoutButton.SetActive(true);
@@ -291,7 +287,8 @@ public class GPSmanager : MonoBehaviour
         statusTxt.text = "Signed Out";
         descriptionTxt.text = "To see Leaderboard/Achievements you need to sign in.";
         signinButton.SetActive(true);
-        PlayGamesPlatform.Instance.SignOut();
+        // fix this do not need to hande sign out anymore need to see why with a build
+        //PlayGamesPlatform.Instance.SignOut();
         GameObject.FindGameObjectWithTag("Menu").GetComponent<OptionsScript>().soundE();
     }
 
