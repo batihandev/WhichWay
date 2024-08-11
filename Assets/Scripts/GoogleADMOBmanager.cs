@@ -97,12 +97,12 @@ public class GoogleADMOBmanager : MonoBehaviour
 
     #region HELPER METHODS
 
-    private AdRequest CreateAdRequest()
-    {
-        return new AdRequest.Builder()
-            .AddKeyword("unity-admob-sample")
-            .Build();
-    }
+    //private AdRequest CreateAdRequest()
+    //{
+    //    return new AdRequest.Builder()
+    //        .AddKeyword("unity-admob-sample")
+    //        .Build();
+    //}
 
     //public void OnApplicationPause(bool paused)
     //{
@@ -143,13 +143,14 @@ public class GoogleADMOBmanager : MonoBehaviour
         bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Top);
 
         // Add Event Handlers
-        bannerView.OnAdLoaded += (sender, args) => OnAdLoadedEvent.Invoke();
-        bannerView.OnAdFailedToLoad += (sender, args) => OnAdFailedToLoadEvent.Invoke();
-        bannerView.OnAdOpening += (sender, args) => OnAdOpeningEvent.Invoke();
-        bannerView.OnAdClosed += (sender, args) => OnAdClosedEvent.Invoke();
+        //bannerView.OnBannerAdLoaded += (sender, args) => OnAdLoadedEvent.Invoke();
+        //bannerView.OnBannerAdLoadFailed += (sender, args) => OnAdFailedToLoadEvent.Invoke();
+        //bannerView.OnAdOpening += (sender, args) => OnAdOpeningEvent.Invoke();
+        //bannerView.OnAdClosed += (sender, args) => OnAdClosedEvent.Invoke();
 
         // Load a banner ad
-        bannerView.LoadAd(CreateAdRequest());
+        var adRequest = new AdRequest();
+        bannerView.LoadAd(adRequest);
     }
 
 
@@ -184,17 +185,32 @@ public class GoogleADMOBmanager : MonoBehaviour
             interstitialAd.Destroy();
         }
         // Clean up interstitial before using it
-
-        interstitialAd = new InterstitialAd(adUnitId);
+        var adRequest = new AdRequest();
+     
 
         // Add Event Handlers
-        interstitialAd.OnAdLoaded += (sender, args) => OnAdLoadedEvent.Invoke();
-        interstitialAd.OnAdFailedToLoad += (sender, args) => OnAdFailedToLoadEvent.Invoke();
-        interstitialAd.OnAdOpening += (sender, args) => OnAdOpeningEvent.Invoke();
-        interstitialAd.OnAdClosed += ClosedInterstitialAd;
+        //interstitialAd.OnAdLoaded += (sender, args) => OnAdLoadedEvent.Invoke();
+        //interstitialAd.OnAdFailedToLoad += (sender, args) => OnAdFailedToLoadEvent.Invoke();
+        //interstitialAd.OnAdOpening += (sender, args) => OnAdOpeningEvent.Invoke();
+        //interstitialAd.OnAdClosed += ClosedInterstitialAd;
 
         // Load an interstitial ad
-        interstitialAd.LoadAd(CreateAdRequest());
+        InterstitialAd.Load(adUnitId, adRequest,
+     (InterstitialAd ad, LoadAdError error) =>
+     {
+              // if error is not null, the load request failed.
+              if (error != null || ad == null)
+         {
+             Debug.LogError("interstitial ad failed to load an ad " +
+                            "with error : " + error);
+             return;
+         }
+
+         Debug.Log("Interstitial ad loaded with response : "
+                   + ad.GetResponseInfo());
+
+         interstitialAd = ad;
+     });
     }
     void ClosedInterstitialAd(object sender, EventArgs args)
     {
@@ -204,15 +220,14 @@ public class GoogleADMOBmanager : MonoBehaviour
     }
     public void ShowInterstitialAd()
     {
-        if (interstitialAd != null && interstitialAd.IsLoaded())
+        if (interstitialAd != null && interstitialAd.CanShowAd())
         {
+            Debug.Log("Showing interstitial ad.");
             interstitialAd.Show();
-            
         }
         else
         {
-            // statusText.text = "Interstitial ad is not ready yet";
-            Debug.Log("Interstitial ad is not ready yet");
+            Debug.LogError("Interstitial ad is not ready yet.");
         }
     }
 
@@ -248,21 +263,35 @@ public class GoogleADMOBmanager : MonoBehaviour
             rewardedAd = null;
         }
         // create new rewarded ad instance
-        rewardedadLoaded = false;
-        rewardedAd = new RewardedAd(adUnitId);
+        rewardedadLoaded = false;   
 
         // Add Event Handlers
-        rewardedAd.OnAdLoaded += Loaded;
+        //rewardedAd.OnAdLoaded += Loaded;
         //rewardedAd.OnAdFailedToLoad += (sender, args) => OnAdFailedToLoadEvent.Invoke();
         //rewardedAd.OnAdOpening += (sender, args) => OnAdOpeningEvent.Invoke();
         //rewardedAd.OnAdFailedToShow += (sender, args) => OnAdFailedToShowEvent.Invoke();
-        rewardedAd.OnAdClosed += HandleRewardBasedVideoClosed;
-        rewardedAd.OnUserEarnedReward += HandleRewardBasedVideoRewarded;
-        rewardedAd.OnAdFailedToLoad += FailedLoad;
-        rewardedAd.OnAdFailedToShow += FailedShow;
-       
+        //rewardedAd.OnAdClosed += HandleRewardBasedVideoClosed;
+        //rewardedAd.OnUserEarnedReward += HandleRewardBasedVideoRewarded;
+        //rewardedAd.OnAdFailedToLoad += FailedLoad;
+        //rewardedAd.OnAdFailedToShow += FailedShow;
+        var adRequest = new AdRequest();
         // Create empty ad request
-        rewardedAd.LoadAd(CreateAdRequest());
+        RewardedAd.Load(adUnitId, adRequest,
+     (RewardedAd ad, LoadAdError error) =>
+     {
+              // if error is not null, the load request failed.
+              if (error != null || ad == null)
+         {
+             Debug.LogError("Rewarded ad failed to load an ad " +
+                            "with error : " + error);
+             return;
+         }
+
+         Debug.Log("Rewarded ad loaded with response : "
+                   + ad.GetResponseInfo());
+
+         rewardedAd = ad;
+     });
     }
     public void Loaded(object sender, EventArgs args)
     {
@@ -366,7 +395,7 @@ public class GoogleADMOBmanager : MonoBehaviour
       
        
     }
-    public void HandleRewardBasedVideoRewarded(object sender, Reward args)
+    public void HandleRewardBasedVideoRewarded()
     {
         rewarded = true;
         if (EndGameMenu.endgameMenuisOn)
@@ -404,10 +433,17 @@ public class GoogleADMOBmanager : MonoBehaviour
  
     public void ShowRewardedAd()
     {
-        if (rewardedAd != null && rewardedadLoaded)
+        const string rewardMsg =
+        "Rewarded ad rewarded the user. Type: {0}, amount: {1}.";
+
+        if (rewardedAd != null && rewardedAd.CanShowAd())
         {
-            rewardedAd.Show();
-           // Debug.Log("showingrewarded");
+            rewardedAd.Show((Reward reward) =>
+            {
+                // TODO: Reward the user.
+                Debug.Log(String.Format(rewardMsg, reward.Type, reward.Amount));
+                HandleRewardBasedVideoRewarded();
+            });
         }
         else
         {
