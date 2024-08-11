@@ -22,3 +22,5 @@ making challenging and compelling full game.
 - To update api 35 needed to use unity 6
 - Optimized frame pacing disabled and worked.
 - Honestly tried to fix for 4-5 hours but those are the key steps.
+
+update git
