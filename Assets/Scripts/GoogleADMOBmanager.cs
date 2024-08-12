@@ -400,15 +400,14 @@ public class GoogleADMOBmanager : MonoBehaviour
         rewarded = true;
         if (EndGameMenu.endgameMenuisOn)
         {
-           // Debug.Log("endgamemenu");
+            Debug.Log("endgamemenu");
             EndGameMenu.thisIsTheSameGame = true;
             EndGameMenu.adWatchedToContinue = true;
-            Time.timeScale = 1;
-            PauseMenu.swiped = false;
-            PauseMenu.gameIsPaused = false;
             GameObject.FindGameObjectWithTag("ButtonClick").GetComponent<SaveMe>().PlaySound();
+            PauseMenu.swiped = false;
             Invoke("ToWait", 0.2f);
-           // Debug.Log("rewareded");
+  
+            Debug.Log("rewareded");
         }
         else
         {
@@ -419,8 +418,10 @@ public class GoogleADMOBmanager : MonoBehaviour
             {
                 ChosePortal.starisClicked = true;
             }
-          //  Debug.Log("rewareded");
+            Debug.Log("rewareded else");
         }
+            PauseMenu.gameIsPaused = false;
+            Time.timeScale = 1;
 
     }
       

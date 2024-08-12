@@ -277,10 +277,10 @@ public class GPSmanager : MonoBehaviour
     public void BasicSignInBtn()
     {
         //PlayerPrefs.SetInt("SignedOut", 0);
-        PlayGamesPlatform.Instance.Authenticate(SignIntoGPS);
+        PlayGamesPlatform.Instance.ManuallyAuthenticate(SignIntoGPS);
         GameObject.FindGameObjectWithTag("Menu").GetComponent<OptionsScript>().soundE();
         //signoutButton = GameObject.FindGameObjectWithTag("SignOut");
-        //signoutButton.SetActive(true);
+        signoutButton.SetActive(true);
     }
     public void SignOutBtn()
     {
@@ -288,6 +288,8 @@ public class GPSmanager : MonoBehaviour
         statusTxt.text = "Signed Out";
         descriptionTxt.text = "To see Leaderboard/Achievements you need to sign in.";
         signinButton.SetActive(true);
+        signoutButton = GameObject.FindGameObjectWithTag("SignOut");
+        signoutButton.SetActive(false);
         // fix this do not need to hande sign out anymore need to see why with a build
         //PlayGamesPlatform.Instance.SignOut();
         GameObject.FindGameObjectWithTag("Menu").GetComponent<OptionsScript>().soundE();

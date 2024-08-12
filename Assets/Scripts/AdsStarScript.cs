@@ -334,7 +334,7 @@ public class AdsStarScript : MonoBehaviour
                         DeadManWalking();
                     }
                 }
-                //üst sað
+                //üst sag
                 break;
             case 5:
                 if (randomDir == 0)
