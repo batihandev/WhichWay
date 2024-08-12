@@ -40,6 +40,7 @@ public class GPSmanager : MonoBehaviour
         gameOverScore = Score.gameoverScore;
         starClickCount = OnClick.starClickCount;
         //SingIntoGPS(SignInInteractivity.CanPromptOnce);
+        PlayGamesPlatform.Activate();
         PlayGamesPlatform.Instance.Authenticate(SignIntoGPS);
       
     }
