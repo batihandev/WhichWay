@@ -49,6 +49,7 @@ PlayerSettings:
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 1
   unsupportedMSAAFallback: 0
+  m_SpriteBatchMaxVertexCount: 65535
   m_SpriteBatchVertexThreshold: 300
   m_MTRendering: 1
   mipStripping: 0
@@ -82,7 +83,6 @@ PlayerSettings:
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
   runInBackground: 0
-  captureSingleScreen: 0
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
   Force IOS Speakers When Recording: 0
@@ -140,7 +140,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 1.18
+  bundleVersion: 1.19
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -171,7 +171,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 31
+  AndroidBundleVersionCode: 32
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 35
   AndroidPreferredInstallLocation: 1
@@ -265,7 +265,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/batih/OneDrive/Desktop/whichway/Key/whichwayvexedev.keystore
+  AndroidKeystoreName: D:/Unity/key/which/whichwayvexedev.keystore
   AndroidKeyaliasName: whichwaykey
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidEnableArm64MTE: 0
@@ -461,6 +461,7 @@ PlayerSettings:
   playModeTestRunnerEnabled: 0
   runPlayModeTestAsEditModeTest: 0
   actionOnDotNetUnhandledException: 1
+  editorGfxJobOverride: 1
   enableInternalProfiler: 0
   logObjCUncaughtExceptions: 1
   enableCrashReportAPI: 0
