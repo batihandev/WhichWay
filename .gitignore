@@ -63,4 +63,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Asset Store packs are licensed for use in builds, not redistribution; import them locally
+/[Aa]ssets/SkySeries Freebie/
+/[Aa]ssets/SkySeries Freebie.meta
+
 
